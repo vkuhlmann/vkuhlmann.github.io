@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vincent Kuhlmann - Home page</title>
+
+    <link rel="stylesheet/less" type="text/css" href="main-style.less" />
+    <!--<script src="//cdn.jsdelivr.net/npm/less"></script>-->
+    <script src="less.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="layout.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <!--<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            -->
+            </ul>
+            <!--<form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>-->
+        </div>
+    </nav>
+
+    <div class="container-fluid;" style="padding:20px 15px;">
+        <h1>Projects</h1>
+
+        <div>
+            <div class="card" style="width: 18rem;">
+                <img src="assets/thumbnail-lorentz-interactive.png" class="card-img-top" alt="Lorentz interactive showcase image">
+                <div class="card-body">
+                    <div style="font-variant:small-caps;color:#bbb;text-align:right;" class="collapse lorentzDetails" id="lorentzDate">september 2020</div>
+                    <h5 class="card-title">Lorentz interactive</h5>
+                    <p class="card-text">An interactive spacetime diagram for the 1D Lorentz transformations. Play around and gain insight!
+                    </p>
+
+                    <a class="btn btn-primary" data-toggle="collapse" data-target=".lorentzDetails" role="button" aria-expanded="false" aria-controls="lorentzFullDescription">
+                        Show more
+                    </a>
+
+                    <div class="collapse lorentzDetails" id="lorentzFullDescription">
+                        <p class="card-text">A project I made when I was teaching assistant for a course containing special relativity.
+                        </p>
+                        <a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
+                            target="_blank">Visit website</a>
+                        <a href="https://github.com/vkuhlmann/lorentz-interactive" class="btn btn-primary"
+                            target="_blank">Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
