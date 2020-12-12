@@ -22,7 +22,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/">Vincent Kuhlmann</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,8 +34,13 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="https://github.com/vkuhlmann/" target="_blank">GitHub</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/in/vincent-k-b15285123/"
+                        target="_blank">LinkedIn</a>
+                </li>
+
                 <!--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown
@@ -58,16 +63,37 @@
 
     <div class="container-fluid;" style="padding:20px 15px;display:flex;flex-flow:row nowrap;align-items:flex-start;">
         <div id="mainpage" style="flex:1 0 20ch;">
+            <div style="text-align:justify;">
+                <p>
+                    Hi there! My name is Vincent, and in my free time I like to code. Last September, I wanted to make
+                    an interactive lorentz diagram for my students, or rather because of the challenge haha. Turned out
+                    Javascript wasn't all that bad, and hence I started making little web pages. So thought I would
+                    make a webpage, to provide an overview. If in the future I decide to expand my open source
+                    portfolio,
+                    or I have something to talk about, then I've already got my place ready to go!
+                </p>
+                <p>
+                    I've started coding 10 years ago (that is, age 10 or 11), and enjoyed it ever since. Due to
+                    demanding
+                    education, currently a double bachelor Mathematics and Physics, I've not been able to undertake and
+                    finish
+                    many large scale projects, let alone have them publicly available at GitHub. Yet, I see myself
+                    getting
+                    better and better in the future at pushing those through. Favorite coding languages: C#, C++,
+                    Python, Java, Javascript.
+                </p>
+            </div>
+
             <h1>Projects</h1>
             <div style="display:flex;flex-flow:row nowrap;align-items:flex-start;width:100%;">
                 <div id="projectsOverview" style="display:flex;flex-flow:row wrap;">
                     <div class="card project-card" style="width: 19rem;" id="lorentz-interactive">
-                        <img src="assets/thumbnail-lorentz-interactive.png" class="card-img-top"
+                        <img src="assets/thumbnail-lorentz-interactive.png" class="card-img-top project-image"
                             alt="Lorentz interactive showcase image">
                         <div class="card-body" style="display:flex;flex-flow:column nowrap;">
                             <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="projectDate">September 2020</div>
-                            <h5 class="card-title">Lorentz interactive</h5>
+                                class="project-date">September 2020</div>
+                            <h5 class="card-title project-name">Lorentz interactive</h5>
                             <p class="card-text project-shortdescription">
                                 An interactive spacetime diagram for the 1D Lorentz transformations. Play around and
                                 gain insight!
@@ -77,9 +103,9 @@
                             Show more
                         </a> -->
                             <div>
-                                <a class="btn btn-primary showProjectDetails">
+                                <button class="btn btn-primary showProjectDetails">
                                     Show more
-                                </a>
+                                </button>
                             </div>
 
                             <div class="collapse lorentzDetails project-details" id="lorentzFullDescription">
@@ -94,20 +120,20 @@
                         </div>
                     </div>
                     <div class="card project-card" style="width: 19rem;" id="projector-clock">
-                        <img src="assets/thumbnail-projector-clock2Cropped.png" class="card-img-top"
+                        <img src="assets/thumbnail-projector-clock2Cropped.png" class="card-img-top project-image"
                             alt="Projector clock showcase image">
                         <div class="card-body" style="display:flex;flex-flow:column nowrap;">
                             <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="projectDate">October 2020</div>
-                            <h5 class="card-title">Projector clock</h5>
+                                class="project-date">October 2020</div>
+                            <h5 class="card-title project-name">Projector clock</h5>
                             <p style="flex:1 0 auto;" class="card-text project-shortdescription">
                                 A minimalistic, non-distracting digital clock ideal for projectors.
                             </p>
 
                             <div>
-                                <a class="btn btn-primary showProjectDetails">
+                                <button class="btn btn-primary showProjectDetails">
                                     Show more
-                                </a>
+                                </button>
                             </div>
 
                             <div class="collapse project-details">
@@ -131,20 +157,20 @@
                         </div>
                     </div>
                     <div class="card project-card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top project-image"
                             alt="Maths wireframe showcase image">
                         <div class="card-body" style="display:flex;flex-flow:column nowrap;">
                             <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="projectDate">November 2020</div>
-                            <h5 class="card-title">Maths wireframe</h5>
-                            <p style="flex:1 0 auto;" class="card-text" class="project-shortdescription">
+                                class="project-date">November 2020</div>
+                            <h5 class="card-title project-name">Maths wireframe</h5>
+                            <p style="flex:1 0 auto;" class="card-text project-shortdescription">
                                 [WIP] Generate images of 3D shapes as wireframe!
                             </p>
 
                             <div>
-                                <a class="btn btn-primary showProjectDetails">
+                                <button class="btn btn-primary showProjectDetails">
                                     Show more
-                                </a>
+                                </button>
                             </div>
 
                             <div class="collapse project-details">
@@ -152,6 +178,10 @@
                                     The goal of this project is to provide an image generator for 3D shapes as
                                     wireframe. Currently the set-up is still hard coded, and only the basic
                                     functionality has been implemented.
+                                </p>
+                                <p class="card-text">
+                                    Logic code has been ported over from one of my main projects. (Ported from C++ to
+                                    Javascript).
                                 </p>
                                 <a href="http://vkuhlmann.github.io/maths-wireframe" class="btn btn-primary"
                                     target="_blank">Visit website</a>
@@ -166,13 +196,65 @@
                             alt="Maths wireframe showcase image">
                         <div class="card-body" style="display:flex;flex-flow:column nowrap;">
                             <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="projectDate">(January 2021)</div>
+                                class="project-date">December 2020</div>
+                            <h5 class="card-title">This website</h5>
+                            <p style="flex:1 0 auto;" class="card-text">
+                                Hope you like it! (Even though it's still very basic)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 19rem;">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                            alt="Maths wireframe showcase image">
+                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
+                                class="project-date">September 2020</div>
+                            <h5 class="card-title">TeXniCie website</h5>
+                            <p style="flex:1 0 auto;" class="card-text">
+                                <a href="http://a-es2.nl/hektex?setlanguage=en" class="btn btn-primary"
+                                    target="_blank">Visit website</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 19rem;">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                            alt="Maths wireframe showcase image">
+                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
+                                class="project-date">(January 2021)</div>
                             <h5 class="card-title">(Idea: Flexible family tree maker)</h5>
                             <p style="flex:1 0 auto;" class="card-text">Just an idea for now
                             </p>
                         </div>
                     </div>
 
+                    <div class="card" style="width: 19rem;">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                            alt="Maths wireframe showcase image">
+                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
+                                class="project-date">(January 2021)</div>
+                            <h5 class="card-title">(Idea: Wicked chess)</h5>
+                            <p style="flex:1 0 auto;" class="card-text">
+                                Make a website version of a friend's Python based variation of chess.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 19rem;">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                            alt="Maths wireframe showcase image">
+                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
+                                class="project-date">2021</div>
+                            <h5 class="card-title">And let's not forget my main projects...</h5>
+                            <p style="flex:1 0 auto;" class="card-text">
+                                ... or my study for that sake, or tidying up old projects.
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <!-- <div id="projectsDetail"
                     style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:60ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;">
@@ -189,24 +271,29 @@
                         </p>
                     </div>
 
-                --><!--<a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
+                -->
+                <!--<a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
                     target="_blank">Visit website</a>
                 <a href="https://github.com/vkuhlmann/lorentz-interactive" class="btn btn-primary"
-                    target="_blank">Repository</a>--><!--
+                    target="_blank">Repository</a>-->
+                <!--
                 </div> -->
             </div>
         </div>
-        <div id="detailsPane" style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:60ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;">
-            <h2>Lorentz interactive</h2>
-            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                class="lorentzDetails" id="lorentzDate">september 2020</div>
-            <img src="assets/thumbnail-lorentz-interactive.png" class="card-img"
-                alt="Lorentz interactive showcase image">
+        <div id="detailsPane" style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:60ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;
+        margin-left:20px;">
+            <h2 id="view-projectname">Details pane</h2>
+            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="lorentzDetails"
+                id="view-projectdate"></div>
+            <img src="assets/thumbnail-lorentz-interactive.png" class="card-img" id="view-projectimage"
+                alt="Lorentz interactive showcase image" style="margin-bottom:10px;">
+
+            <p id="view-projectshortdescription">
+
+            </p>
 
             <div id="view-projectdetails">
-                <p>An interactive spacetime diagram for the 1D Lorentz transformations. Play around and gain
-                    insight!</p>
-                <p>A project I made when I was teaching assistant for a course containing special relativity.
+                <p>Select a project to view details
                 </p>
             </div>
         </div>
