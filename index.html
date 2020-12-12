@@ -54,30 +54,112 @@
     </nav>
 
     <div class="container-fluid;" style="padding:20px 15px;">
+
         <h1>Projects</h1>
 
-        <div>
-            <div class="card" style="width: 18rem;">
-                <img src="assets/thumbnail-lorentz-interactive.png" class="card-img-top" alt="Lorentz interactive showcase image">
-                <div class="card-body">
-                    <div style="font-variant:small-caps;color:#bbb;text-align:right;" class="collapse lorentzDetails" id="lorentzDate">september 2020</div>
-                    <h5 class="card-title">Lorentz interactive</h5>
-                    <p class="card-text">An interactive spacetime diagram for the 1D Lorentz transformations. Play around and gain insight!
-                    </p>
-
-                    <a class="btn btn-primary" data-toggle="collapse" data-target=".lorentzDetails" role="button" aria-expanded="false" aria-controls="lorentzFullDescription">
-                        Show more
-                    </a>
-
-                    <div class="collapse lorentzDetails" id="lorentzFullDescription">
-                        <p class="card-text">A project I made when I was teaching assistant for a course containing special relativity.
+        <div style="display:flex;flex-flow:row nowrap;align-items:flex-start;width:100%;">
+            <div id="projectsOverview" style="flex:1 0 20ch;display:flex;flex-flow:row wrap;">
+                <div class="card" style="width: 19rem;">
+                    <img src="assets/thumbnail-lorentz-interactive.png" class="card-img-top" alt="Lorentz interactive showcase image">
+                    <div class="card-body">
+                        <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="projectDate">September 2020</div>
+                        <h5 class="card-title">Lorentz interactive</h5>
+                        <p class="card-text">
+                            An interactive spacetime diagram for the 1D Lorentz transformations. Play around and gain insight!
                         </p>
-                        <a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
-                            target="_blank">Visit website</a>
-                        <a href="https://github.com/vkuhlmann/lorentz-interactive" class="btn btn-primary"
-                            target="_blank">Repository</a>
+
+                        <a class="btn btn-primary" data-toggle="collapse" data-target=".lorentzDetails" role="button" aria-expanded="false" aria-controls="lorentzFullDescription">
+                            Show more
+                        </a>
+
+                        <div class="collapse lorentzDetails" id="lorentzFullDescription">
+                            <p class="card-text">A project I made when I was teaching assistant for a course containing special relativity.
+                            </p>
+                            <a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
+                                target="_blank">Visit website</a>
+                            <a href="https://github.com/vkuhlmann/lorentz-interactive" class="btn btn-primary"
+                                target="_blank">Repository</a>
+                        </div>
                     </div>
                 </div>
+                <div class="card" style="width: 19rem;">
+                    <img src="assets/thumbnail-projector-clock2Cropped.png" class="card-img-top" alt="Projector clock showcase image">
+                    <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                        <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="projectDate">October 2020</div>
+                        <h5 class="card-title">Projector clock</h5>
+                        <p style="flex:1 0 auto;" class="card-text">A minimalistic, non-distracting digital clock ideal for projectors.
+                        </p>
+
+                        <div>
+                            <a class="btn btn-primary" data-toggle="collapse" data-target=".projectorClockDetails" role="button" aria-expanded="false" aria-controls="projectorClockFullDescription">
+                                Show more
+                            </a>
+                        </div>
+
+                        <div class="collapse projectorClockDetails" id="projectorClockFullDescription">
+                            <p class="card-text">
+                                A project I made for proctoring when I was a teaching assistant. The background is black, because projectors don't emit light there,
+                                minimising the distraction. Aside from the clock, also a notes section is featured, allowing you to write down instructions for the students taking the exam.
+                            </p>
+                            <p class="card-text">
+                                I've used it in a couple of proctoring sessions, and even in a room where the clock was visible enough, the students preferred this big digital clock. 
+                                I provided useful information using the notes, as demonstrated in the new session template. Click notes to edit them.
+                            </p>
+                            <a href="http://vkuhlmann.github.io/projector-clock" class="btn btn-primary"
+                                target="_blank">Visit website</a>
+                            <a href="https://github.com/vkuhlmann/projector-clock" class="btn btn-primary"
+                                target="_blank">Repository</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 19rem;">
+                    <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top" alt="Maths wireframe showcase image">
+                    <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                        <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="projectDate">November 2020</div>
+                        <h5 class="card-title">Maths wireframe</h5>
+                        <p style="flex:1 0 auto;" class="card-text">[WIP] Generate images of 3D shapes as wireframe! 
+                        </p>
+
+                        <div>
+                            <a class="btn btn-primary" data-toggle="collapse" data-target=".projectorClockDetails" role="button" aria-expanded="false" aria-controls="projectorClockFullDescription">
+                                Show more
+                            </a>
+                        </div>
+
+                        <div class="collapse projectorClockDetails" id="projectorClockFullDescription">
+                            <p class="card-text">
+                                The goal of this project is to provide an image generator for 3D shapes as wireframe. Currently the set-up is still hard coded, and only the basic functionality has been implemented.
+                            </p>
+                            <a href="http://vkuhlmann.github.io/maths-wireframe" class="btn btn-primary"
+                                target="_blank">Visit website</a>
+                            <a href="https://github.com/vkuhlmann/maths-wireframe" class="btn btn-primary"
+                                target="_blank">Repository</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 19rem;">
+                    <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top" alt="Maths wireframe showcase image">
+                    <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                        <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="projectDate">(January 2021)</div>
+                        <h5 class="card-title">(Idea: Flexible family tree maker)</h5>
+                        <p style="flex:1 0 auto;" class="card-text">Just an idea for now
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div id="projectsDetail" style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:50ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;">
+                <h2>Lorentz interactive</h2>
+                <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="lorentzDetails" id="lorentzDate">september 2020</div>
+                <img src="assets/thumbnail-lorentz-interactive.png" class="card-img" alt="Lorentz interactive showcase image">
+                <p>An interactive spacetime diagram for the 1D Lorentz transformations. Play around and gain insight!</p>
+                <p>A project I made when I was teaching assistant for a course containing special relativity.
+                </p>
+                <a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
+                    target="_blank">Visit website</a>
+                <a href="https://github.com/vkuhlmann/lorentz-interactive" class="btn btn-primary"
+                    target="_blank">Repository</a>
             </div>
         </div>
     </div>
