@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">Home <span class="non-visual-context">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/vkuhlmann/" target="_blank">GitHub</a>
@@ -75,14 +75,13 @@
             <h1>Projects</h1>
             <div style="display:flex;flex-flow:row nowrap;align-items:flex-start;width:100%;">
                 <div id="projectsOverview" style="display:flex;flex-flow:row wrap;">
-                    <div class="card project-card" style="width: 19rem;" id="lorentz-interactive">
-                        <img src="assets/thumbnail-lorentz-interactive.png" class="card-img-top project-image"
+                    <div class="project-card" id="lorentz-interactive">
+                        <img src="assets/thumbnail-lorentz-interactive.png" class="project-image"
                             alt="Lorentz interactive showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">September 2020</div>
-                            <h5 class="card-title project-name">Lorentz interactive</h5>
-                            <p class="card-text project-shortdescription">
+                        <div class="project-card-contents">
+                            <div class="project-date">September 2020</div>
+                            <h5 class="project-name">Lorentz interactive</h5>
+                            <p class="project-shortdescription">
                                 An interactive spacetime diagram for the 1D Lorentz transformations. Play around and
                                 gain insight!
                             </p>
@@ -107,14 +106,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card project-card" style="width: 19rem;" id="projector-clock">
-                        <img src="assets/thumbnail-projector-clock2Cropped.png" class="card-img-top project-image"
+                    <div class="project-card" id="projector-clock">
+                        <img src="assets/thumbnail-projector-clock2Cropped.png" class="project-image"
                             alt="Projector clock showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
+                        <div class="project-card-contents">
                             <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
                                 class="project-date">October 2020</div>
-                            <h5 class="card-title project-name">Projector clock</h5>
-                            <p style="flex:1 0 auto;" class="card-text project-shortdescription">
+                            <h5 class="project-name">Projector clock</h5>
+                            <p class="project-shortdescription">
                                 A minimalistic, non-distracting digital clock ideal for projectors.
                             </p>
 
@@ -144,14 +143,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card project-card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top project-image"
+                    <div class="project-card">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">November 2020</div>
-                            <h5 class="card-title project-name">Maths wireframe</h5>
-                            <p style="flex:1 0 auto;" class="card-text project-shortdescription">
+                        <div class="project-card-contents">
+                            <div class="project-date">November 2020</div>
+                            <h5 class="project-name">Maths wireframe</h5>
+                            <p class="project-shortdescription">
                                 [WIP] Generate images of 3D shapes as wireframe!
                             </p>
 
@@ -179,66 +177,61 @@
                         </div>
                     </div>
 
-                    <div class="card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                    <div class="project-card">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">December 2020</div>
-                            <h5 class="card-title">This website</h5>
-                            <p style="flex:1 0 auto;" class="card-text">
+                        <div class="project-card-contents">
+                            <div class="project-date">December 2020</div>
+                            <h5 class="project-name">This website</h5>
+                            <p class="project-shortdescription">
                                 Hope you like it! (Even though it's still very basic)
                             </p>
                         </div>
                     </div>
 
-                    <div class="card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                    <div class="project-card">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">September 2020</div>
-                            <h5 class="card-title">TeXniCie website</h5>
-                            <p style="flex:1 0 auto;" class="card-text">
+                        <div class="project-card-contents">
+                            <div class="project-date">September 2020</div>
+                            <h5 class="project-name">TeXniCie website</h5>
+                            <p class="project-shortdescription">
                                 <a href="http://a-es2.nl/hektex?setlanguage=en" class="btn btn-primary"
                                     target="_blank">Visit website</a>
                             </p>
                         </div>
                     </div>
 
-                    <div class="card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                    <div class="project-card">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">(January 2021)</div>
-                            <h5 class="card-title">(Idea: Flexible family tree maker)</h5>
-                            <p style="flex:1 0 auto;" class="card-text">Just an idea for now
+                        <div class="project-card-contents">
+                            <div class="project-date">(January 2021)</div>
+                            <h5 class="project-name">(Idea: Flexible family tree maker)</h5>
+                            <p class="project-shortdescription">Just an idea for now
                             </p>
                         </div>
                     </div>
 
-                    <div class="card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                    <div class="project-card">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">(January 2021)</div>
-                            <h5 class="card-title">(Idea: Wicked chess)</h5>
-                            <p style="flex:1 0 auto;" class="card-text">
+                        <div class="project-card-contents">
+                            <div class="project-date">(January 2021)</div>
+                            <h5 class="project-name">(Idea: Wicked chess)</h5>
+                            <p class="project-shortdescription">
                                 Make a website version of a friend's Python based variation of chess.
                             </p>
                         </div>
                     </div>
 
-                    <div class="card" style="width: 19rem;">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="card-img-top"
+                    <div class="project-card">
+                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
-                        <div class="card-body" style="display:flex;flex-flow:column nowrap;">
-                            <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;"
-                                class="project-date">2021</div>
-                            <h5 class="card-title">And let's not forget my main projects...</h5>
-                            <p style="flex:1 0 auto;" class="card-text">
+                        <div class="project-card-contents">
+                            <div class="project-date">2021</div>
+                            <h5 class="project-name">And let's not forget my main projects...</h5>
+                            <p class="project-shortdescription">
                                 ... or my study for that sake, or tidying up old projects.
                             </p>
                         </div>

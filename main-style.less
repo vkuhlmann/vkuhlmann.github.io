@@ -65,6 +65,10 @@
     display: none !important;
 }
 
+.nav-link:not(:focus) .non-visual-context {
+    .visually-hidden();
+}
+
 .toolbar {
     /*background-color: hsl(0, 0%, 98%);*/
     border-radius: .5rem;
@@ -80,5 +84,31 @@
 
 .project-card {
     .card();
+    width: 19rem;
 }
 
+.project-card-contents {
+    .card-body();
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.project-card .project-date {
+    font-variant: small-caps;
+    color: #bbb;
+    text-align: right;
+    margin-top: 0px;
+}
+
+.project-card .project-image {
+    .card-img-top();
+}
+
+.project-name {
+    .card-title();
+}
+
+.project-shortdescription {
+    flex: 1 0 auto;
+    //.card-text();
+}
