@@ -100,6 +100,40 @@
     margin-top: 0px;
 }
 
+.project-card-selectable {
+    transition: background-color 400ms ease, outline-width 100ms ease-in;
+    position: relative;
+    background-color: transparent;
+}
+
+.project-card-selectable:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.0;
+    z-index: -1;
+    transition: opacity 300ms ease;
+    //background: radial-gradient(#e66465, #9198e5);
+    //background: radial-gradient(hsl(360, 72%, 65%), hsl(235, 62%, 73%));
+
+    //background: radial-gradient(hsl(360, 72%, 65%), hsl(235, 62%, 73%));
+    background: radial-gradient(hsl(360, 42%, 75%), hsl(235, 42%, 83%));
+}
+
+.project-card-selectable:hover {
+    //background-color: hsl(22, 100%, 79%);
+    outline: 4px solid hsl(22, 100%, 79%);
+    //background: radial-gradient(#e66465, #9198e5);
+}
+
+.project-card-selectable:hover:before {
+    opacity: 0.3;
+}
+
 .project-card .project-image {
     .card-img-top();
 }
