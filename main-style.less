@@ -78,14 +78,35 @@
     margin: 10px 5px;
 }
 
+#projectsOverview {
+    display: flex;
+    flex-flow: row wrap;
+}
+
 #projectsOverview>div {
     margin: 5px;
 }
 
 .project-card {
     .card();
-    width: 19rem;
+    //width: 19rem;
+    flex: 1 1 19rem;
+
+    .showProjectDetails {
+        display: none;
+
+        @media only screen and (max-width: 992px) {
+            display: block;
+        }
+    }
 }
+
+@media only screen and (max-width: 992px) {
+    .details-pane {
+        display: none;
+    }
+}
+
 
 .project-card-contents {
     .card-body();
@@ -155,6 +176,10 @@
     .project-date {
         color: inherit;
     }
+}
+
+.project-details {
+    margin-bottom: 10px;
 }
 
 // .project-card-selectable:hover:before {

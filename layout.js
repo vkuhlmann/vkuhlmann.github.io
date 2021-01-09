@@ -24,6 +24,12 @@ function onDOMReady() {
     for (let projectCardEl of $(".project-card")) {
         for (let showButton of $(".showProjectDetails", projectCardEl)) {
             showButton.addEventListener("click", (e) => {
+                let el = $(".project-details", projectCardEl)[0];
+                if (el.classList.contains("collapse")) {
+                    el.classList.remove("collapse")
+                } else {
+                    el.classList.add("collapse")
+                }
                 focusProjectCard(projectCardEl);
 
                 e.preventDefault();
