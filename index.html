@@ -21,16 +21,12 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Vincent Kuhlmann</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="non-visual-context">(current)</span></a>
                     </li>
@@ -72,20 +68,29 @@
                 </p>
             </div>
 
-            <h1>Projects</h1>
+            <h1>Open source side projects</h1>
             <div style="display:flex;flex-flow:row nowrap;align-items:flex-start;width:100%;">
-                <div id="projectsOverview" style="display:flex;flex-flow:row wrap;">
+                <div id="projectsOverview">
                     <div class="project-card project-card-selectable" id="lorentz-interactive">
-                        <img src="assets/thumbnail-lorentz-interactive.png" class="project-image"
-                            alt="Lorentz interactive showcase image">
                         <div class="project-card-contents">
-                            <div class="project-date">September 2020</div>
-                            <h5 class="project-name">Lorentz interactive</h5>
-                            <p class="project-shortdescription">
-                                An interactive spacetime diagram for the 1D Lorentz transformations. Play around and
-                                gain insight!
-                            </p>
+                            <div class="compact-info">
+                                <img src="assets/thumbnail-lorentz-interactive.png" class="project-image"
+                                    alt="Lorentz interactive showcase image">
 
+                                <div class="compact-info-body">
+                                    <div class="project-date">September 2020</div>
+                                    <h5 class="project-name">Lorentz interactive</h5>
+                                    <p class="project-shortdescription">
+                                        An interactive spacetime diagram for the 1D Lorentz transformations. Play around
+                                        and
+                                        gain insight!
+                                    </p>
+
+                                    <button class="btn btn-primary showProjectDetails">
+                                        Show more
+                                    </button>
+                                </div>
+                            </div>
                             <!-- <a class="btn btn-primary" data-toggle="collapse" data-target=".lorentzDetails" role="button" aria-expanded="false" aria-controls="lorentzFullDescription">
                             Show more
                         </a> -->
@@ -94,143 +99,202 @@
                                     Show more
                                 </button>
                             </div> -->
-
-                            <div class="collapse lorentzDetails project-details" id="lorentzFullDescription">
-                                <p class="card-text">A project I made when I was teaching assistant for a course
-                                    containing special relativity.
-                                </p>
-                                <a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
-                                    target="_blank">Visit website</a>
-                                <a href="https://github.com/vkuhlmann/lorentz-interactive" class="btn btn-primary"
-                                    target="_blank">Repository</a>
+                            <div class="expanded-info">
+                                <div class="expanded-info-body">
+                                    <div class="lorentzDetails project-details" id="lorentzFullDescription">
+                                        <p class="card-text">A project I made when I was teaching assistant for a course
+                                            containing special relativity.
+                                        </p>
+                                        <a href="http://vkuhlmann.github.io/lorentz-interactive" class="btn btn-primary"
+                                            target="_blank">Visit website</a>
+                                        <a href="https://github.com/vkuhlmann/lorentz-interactive"
+                                            class="btn btn-primary" target="_blank">Repository</a>
+                                    </div>
+                                    <button class="btn btn-primary hideProjectDetails">
+                                        Hide
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="project-card project-card-selectable" id="projector-clock">
-                        <img src="assets/thumbnail-projector-clock2Cropped.png" class="project-image"
-                            alt="Projector clock showcase image">
                         <div class="project-card-contents">
-                            <div 
-                                class="project-date">October 2020</div>
-                            <h5 class="project-name">Projector clock</h5>
-                            <p class="project-shortdescription">
-                                A minimalistic, non-distracting digital clock ideal for projectors.
-                            </p>
+                            <div class="compact-info">
+                                <img src="assets/thumbnail-projector-clock2Cropped.png" class="project-image"
+                                    alt="Projector clock showcase image">
 
-                            <!-- <div>
-                                <button class="btn btn-primary showProjectDetails">
-                                    Show more
-                                </button>
-                            </div> -->
+                                <div class="compact-info-body">
+                                    <div class="project-date">October 2020</div>
+                                    <h5 class="project-name">Projector clock</h5>
+                                    <p class="project-shortdescription">
+                                        A minimalistic, non-distracting digital clock ideal for projectors.
+                                    </p>
 
-                            <div class="collapse project-details">
-                                <p class="card-text">
-                                    A project I made for proctoring when I was a teaching assistant. The background is
-                                    black, because projectors don't emit light there,
-                                    minimising the distraction. Aside from the clock, also a notes section is featured,
-                                    allowing you to write down instructions for the students taking the exam.
-                                </p>
-                                <p class="card-text">
-                                    I've used it in a couple of proctoring sessions, and even in a room where the clock
-                                    was visible enough, the students preferred this big digital clock.
-                                    I provided useful information using the notes, as demonstrated in the new session
-                                    template. Click notes to edit them.
-                                </p>
-                                <a href="http://vkuhlmann.github.io/projector-clock" class="btn btn-primary"
-                                    target="_blank">Visit website</a>
-                                <a href="https://github.com/vkuhlmann/projector-clock" class="btn btn-primary"
-                                    target="_blank">Repository</a>
+                                    <button class="btn btn-primary showProjectDetails">
+                                        Show more
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="expanded-info">
+                                <div class="expanded-info-body">
+                                    <div class="project-details">
+                                        <p class="card-text">
+                                            A project I made for proctoring when I was a teaching assistant. The
+                                            background
+                                            is
+                                            black, because projectors don't emit light there,
+                                            minimising the distraction. Aside from the clock, also a notes section is
+                                            featured,
+                                            allowing you to write down instructions for the students taking the exam.
+                                        </p>
+                                        <p class="card-text">
+                                            I've used it in a couple of proctoring sessions, and even in a room where
+                                            the
+                                            clock
+                                            was visible enough, the students preferred this big digital clock.
+                                            I provided useful information using the notes, as demonstrated in the new
+                                            session
+                                            template. Click notes to edit them.
+                                        </p>
+                                        <a href="http://vkuhlmann.github.io/projector-clock" class="btn btn-primary"
+                                            target="_blank">Visit website</a>
+                                        <a href="https://github.com/vkuhlmann/projector-clock" class="btn btn-primary"
+                                            target="_blank">Repository</a>
+                                    </div>
+                                    <button class="btn btn-primary hideProjectDetails">
+                                        Hide
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="project-card project-card-selectable">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
-                            alt="Maths wireframe showcase image">
                         <div class="project-card-contents">
-                            <div class="project-date">November 2020</div>
-                            <h5 class="project-name">Maths wireframe</h5>
-                            <p class="project-shortdescription">
-                                [WIP] Generate images of 3D shapes as wireframe!
-                            </p>
+                            <div class="compact-info">
+                                <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
+                                    alt="Maths wireframe showcase image">
+                                <div class="compact-info-body">
+                                    <div class="project-date">November 2020</div>
+                                    <h5 class="project-name">Maths wireframe</h5>
+                                    <p class="project-shortdescription">
+                                        [WIP] Generate images of 3D shapes as wireframe!
+                                    </p>
+                                    <button class="btn btn-primary showProjectDetails">
+                                        Show more
+                                    </button>
+                                </div>
+                            </div>
 
                             <!-- <div>
                                 <button class="btn btn-primary showProjectDetails">
                                     Show more
                                 </button>
                             </div> -->
-
-                            <div class="collapse project-details">
-                                <p class="card-text">
-                                    The goal of this project is to provide an image generator for 3D shapes as
-                                    wireframe. Currently the set-up is still hard coded, and only the basic
-                                    functionality has been implemented.
-                                </p>
-                                <p class="card-text">
-                                    Logic code has been ported over from one of my main projects. (Ported from C++ to
-                                    Javascript).
-                                </p>
-                                <a href="http://vkuhlmann.github.io/maths-wireframe" class="btn btn-primary"
-                                    target="_blank">Visit website</a>
-                                <a href="https://github.com/vkuhlmann/maths-wireframe" class="btn btn-primary"
-                                    target="_blank">Repository</a>
+                            <div class="expanded-info">
+                                <div class="expanded-info-body">
+                                    <div class="project-details">
+                                        <p class="card-text">
+                                            The goal of this project is to provide an image generator for 3D shapes as
+                                            wireframe. Currently the set-up is still hard coded, and only the basic
+                                            functionality has been implemented.
+                                        </p>
+                                        <p class="card-text">
+                                            Logic code has been ported over from one of my main projects. (Ported from
+                                            C++
+                                            to
+                                            Javascript).
+                                        </p>
+                                        <a href="http://vkuhlmann.github.io/maths-wireframe" class="btn btn-primary"
+                                            target="_blank">Visit website</a>
+                                        <a href="https://github.com/vkuhlmann/maths-wireframe" class="btn btn-primary"
+                                            target="_blank">Repository</a>
+                                    </div>
+                                    <button class="btn btn-primary hideProjectDetails">
+                                        Hide
+                                    </button>
+                                </div>
                             </div>
+
+                            <!-- <button class="btn btn-primary showProjectDetails">
+                            Show more
+                        </button> -->
                         </div>
                     </div>
 
                     <div class="project-card">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
-                            alt="Maths wireframe showcase image">
                         <div class="project-card-contents">
-                            <div class="project-date">December 2020</div>
-                            <h5 class="project-name">This website</h5>
-                            <p class="project-shortdescription">
-                                Hope you like it!
-                            </p>
+                            <div class="compact-info">
+                                <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
+                                    alt="Maths wireframe showcase image">
+                                <div class="compact-info-body">
+                                    <div class="project-date">December 2020</div>
+                                    <h5 class="project-name">This website</h5>
+                                    <p class="project-shortdescription">
+                                        Hope you like it!
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="project-card project-card-selectable">
-                        <img src="assets/thumbnail-emoji-pixelartCropped.png" class="project-image"
-                            alt="Maths wireframe showcase image">
                         <div class="project-card-contents">
-                            <div class="project-date">January 2021</div>
-                            <h5 class="project-name">Emoji pixelart</h5>
-                            <p class="project-shortdescription">
-                                Pixelart to send to your friends!
-                            </p>
+                            <div class="compact-info">
+                                <img src="assets/thumbnail-emoji-pixelartCropped.png" class="project-image"
+                                    alt="Maths wireframe showcase image">
+                                <div class="compact-info-body">
+                                    <div class="project-date">January 2021</div>
+                                    <h5 class="project-name">Emoji pixelart</h5>
+                                    <p class="project-shortdescription">
+                                        Pixelart to send to your friends!
+                                    </p>
+                                    <button class="btn btn-primary showProjectDetails">
+                                        Show more
+                                    </button>
+                                </div>
+                            </div>
 
                             <!-- <div>
                                 <button class="btn btn-primary showProjectDetails">
                                     Show more
                                 </button>
                             </div> -->
-
-                            <div class="collapse project-details">
-                                <p class="card-text">
-                                    <!--Pixelart to send to your friends!-->
-                                </p>
-                                <a href="http://vkuhlmann.github.io/emoji-pixelart" class="btn btn-primary"
-                                    target="_blank">Visit website</a>
-                                <a href="https://github.com/vkuhlmann/emoji-pixelart" class="btn btn-primary"
-                                    target="_blank">Repository</a>
+                            <div class="expanded-info">
+                                <div class="expanded-info-body">
+                                    <div class="project-details">
+                                        <p class="card-text">
+                                            <!--Pixelart to send to your friends!-->
+                                        </p>
+                                        <a href="http://vkuhlmann.github.io/emoji-pixelart" class="btn btn-primary"
+                                            target="_blank">Visit website</a>
+                                        <a href="https://github.com/vkuhlmann/emoji-pixelart" class="btn btn-primary"
+                                            target="_blank">Repository</a>
+                                    </div>
+                                    <button class="btn btn-primary hideProjectDetails">
+                                        Hide
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="project-card">
-                        <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
-                            alt="Maths wireframe showcase image">
                         <div class="project-card-contents">
-                            <div class="project-date">September 2020</div>
-                            <h5 class="project-name">TeXniCie website</h5>
-                            <p class="project-shortdescription">
-                                <a href="http://a-es2.nl/hektex?setlanguage=en" class="btn btn-primary"
-                                    target="_blank">Visit website</a>
-                            </p>
+                            <div class="compact-info">
+                                <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
+                                    alt="Maths wireframe showcase image">
+                                <div class="compact-info-body">
+                                    <div class="project-date">September 2020</div>
+                                    <h5 class="project-name">TeXniCie website</h5>
+                                    <p class="project-shortdescription">
+                                    </p>
+                                    <a href="http://a-es2.nl/hektex?setlanguage=en" class="btn btn-primary"
+                                            target="_blank">Visit website</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card">
+                    <!--<div class="project-card">
                         <img src="assets/thumbnail-maths-wireframeCropped.png" class="project-image"
                             alt="Maths wireframe showcase image">
                         <div class="project-card-contents">
@@ -239,7 +303,9 @@
                             <p class="project-shortdescription">Just an idea for now
                             </p>
                         </div>
-                    </div>
+                    </div>-->
+
+                    <!-- C++, C#, Python, Javascript, C++/CLI, PHP, Java, Visual Basic, VBA, MATLAB, Mathematica, Arduino, TI Basic -->
                 </div>
                 <!-- <div id="projectsDetail"
                     style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:60ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;">
@@ -265,7 +331,7 @@
                 </div> -->
             </div>
         </div>
-        <div id="detailsPane" style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:60ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;
+        <div id="detailsPane" class="details-pane" style="flex:1 1 40ch;min-width:min(80vw, 40ch);max-width:60ch;background-color:hsl(0, 0%, 95%);border-left:solid 3px black; padding: 10px;
         margin-left:20px;">
             <h2 id="view-projectname">Details pane</h2>
             <div style="font-variant:small-caps;color:#bbb;text-align:right;margin-top:0px;" class="lorentzDetails"
