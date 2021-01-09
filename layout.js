@@ -56,10 +56,14 @@ function onDOMReady() {
 
     for (let projectCardEl of $(".project-card-selectable")) {
         projectCardEl.addEventListener("click", (e) => {
+            // if(e.target.tagName == "a" || e.target.tagName == "button"
+            // || e.target.style.cursor == "pointer")
+            //     return;
+
             focusProjectCard(projectCardEl);
 
-            e.preventDefault();
-            e.stopPropagation();
+            // e.preventDefault();
+            // e.stopPropagation();
         });
     }
 
