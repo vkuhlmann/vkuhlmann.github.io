@@ -24,13 +24,29 @@ function onDOMReady() {
     for (let projectCardEl of $(".project-card")) {
         for (let showButton of $(".showProjectDetails", projectCardEl)) {
             showButton.addEventListener("click", (e) => {
-                let el = $(".project-details", projectCardEl)[0];
-                if (el.classList.contains("collapse")) {
-                    el.classList.remove("collapse")
-                } else {
-                    el.classList.add("collapse")
-                }
+                // let el = $(".project-details", projectCardEl)[0];
+                // if (el.classList.contains("collapse")) {
+                //     el.classList.remove("collapse")
+                // } else {
+                //     el.classList.add("collapse")
+                // }
+                projectCardEl.classList.add("project-card-expanded");
                 focusProjectCard(projectCardEl);
+
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        }
+
+        for (let hideButton of $(".hideProjectDetails", projectCardEl)) {
+            hideButton.addEventListener("click", (e) => {
+                // let el = $(".project-details", projectCardEl)[0];
+                // if (el.classList.contains("collapse")) {
+                //     el.classList.remove("collapse")
+                // } else {
+                //     el.classList.add("collapse")
+                // }
+                projectCardEl.classList.remove("project-card-expanded");
 
                 e.preventDefault();
                 e.stopPropagation();
