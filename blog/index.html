@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <!--
-    Copyright (c) 2020 Vincent Kuhlmann
+    Copyright (c) 2021 Vincent Kuhlmann
 -->
 
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Vincent Kuhlmann - Home page</title>
+    <title>Vincent's blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet/less" type="text/css" href="../main-style.less" />
+    <!-- <link rel="stylesheet/less" type="text/css" href="../main-style.less" /> -->
+    <link rel="stylesheet/less" type="text/css" href="blog-style.less" />
     <!--<script src="//cdn.jsdelivr.net/npm/less"></script>-->
     <script src="../lib/less.js"></script>
 
@@ -24,20 +25,21 @@
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Vincent Kuhlmann</a>
+            <a class="navbar-brand" href="/">Vincent's blog</a>
 
             <div class="navbar-nav" style="flex:1 1 auto;">
                 <ul class="navbar-content">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="non-visual-context">(current)</span></a>
-                    </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="../">Home</a>
+                        <!--<a class="nav-link" href="#">Home <span class="non-visual-context">(current)</span></a>-->
+                    </li>
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="https://github.com/vkuhlmann/" target="_blank">GitHub</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://www.linkedin.com/in/vincent-k-b15285123/"
                             target="_blank">LinkedIn</a>
-                    </li>
+                    </li> -->
 
                     <!--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,14 +62,34 @@
         </div>
     </nav>
 
-    <div class="container-fluid;" style="padding:20px 15px;display:flex;flex-flow:row nowrap;align-items:flex-start;">
-        <div id="mainpage" style="flex:1 0 20ch;">
+    <div class="container-fluid page-container"
+        style="min-height:calc(100vh - 60px);">
+        <div style="flex:0 0 10ch;" id="siderbarLeft" class="siderbar-left">
+            <ul class="sidebar-menu">
+                <li>
+                    <a class="active" href="#">Active</a>
+                </li>
+                <li>
+                    <a href="#">Link</a>
+                </li>
+                <li>
+                    <a href="#">Link</a>
+                </li>
+                <li>
+                    <a class="disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
             <div style="text-align:justify;">
                 <p>
                     Some text
                 </p>
             </div>
-        </div> 
+        </div>
+        <div id="siderbarRight" class="siderbar-right right-filler" style="flex:0 0 10ch;">
+
+        </div>
     </div>
 </body>
 

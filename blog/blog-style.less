@@ -1,0 +1,53 @@
+@import (less) "../main-style.less";
+
+.sidebar-menu {
+    .nav();
+    .flex-column();
+
+    &>li {
+
+        //.nav-item();
+        &>a {
+            .nav-link();
+        }
+
+        border-radius: .25rem;
+        overflow: hidden;
+    }
+
+    .active {
+        //background-color:hsl(110, 60%, 50%);
+        background-color: hsl(110, 60%, 40%);
+        color: #fff;
+    }
+}
+
+.mainpage {
+    background-color: #f9f9f9;
+
+}
+
+.page-container {
+    padding: 20px 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    gap: 10px;
+    align-items: stretch;
+
+    // 768px
+    @media only screen and (max-width: 576px) {
+        flex-flow: column nowrap;
+
+        .main-page {
+            flex: 0 0 auto;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .right-filler {
+            display: none;
+        }
+    }
+}
