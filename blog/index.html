@@ -62,37 +62,54 @@
         </div>
     </nav>
 
-    <div class="container-fluid page-container" style="min-height:calc(100vh - 60px);">
-        <div style="flex:0 0 10ch;" id="siderbarLeft" class="siderbar-left">
-            <ul class="sidebar-menu">
-                <li>
-                    <a class="active" href="#">Active</a>
-                </li>
-                <li>
-                    <a href="#">Link</a>
-                </li>
-                <li>
-                    <a href="#">Link</a>
-                </li>
-                <li>
-                    <a class="disabled" href="#">Disabled</a>
-                </li>
-            </ul>
+    <div class="container-fluid page-container">
+        <div id="leftside" class="panel-left">
+            <div id="sidebarLeft" class="sidebar-left">
+                <ul class="sidebar-menu">
+                    <li>
+                        <a class="active" href="#">Active</a>
+                    </li>
+                    <li>
+                        <a href="#">Link</a>
+                    </li>
+                    <li>
+                        <a href="#">Link</a>
+                    </li>
+                    <li>
+                        <a class="disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div style="display:flex;flex:1 0 auto;">
-            <div style="flex:1 0 0px;"></div>
-            <div style="flex:1 1 60em;display:flex;">
-                <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
-                    <div style="text-align:justify;">
-                        <p>
-                            Some text
-                        </p>
-                    </div>
-                </div>
-                <div id="siderbarRight" class="siderbar-right right-filler" style="flex:1 0 0px;max-width:10ch;">
-
+        <div class="panel-center" style="display:block;">
+            <div style="display:flex;width:100%;height:100%;">
+            <div id="leftFiller" class="left-filler">
+            </div>
+            <div id="mainpage" class="mainpage">
+                <div style="text-align:justify;">
+                    <p>
+                        Some text
+                    </p>
                 </div>
             </div>
+            <div id="rightFiller" class="right-filler">
+            </div>
+            </div>
+        </div>
+        <!-- <div style="flex:1 1 60em;display:flex;">
+            <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
+                <div style="text-align:justify;">
+                    <p>
+                        Some text
+                    </p>
+                </div>
+            </div>
+            <div id="siderbarRight" class="siderbar-right right-filler"
+                style="flex:1 0 0px;max-width:10ch;max-width:calc(10ch + 10px);">
+
+            </div>
+        </div> -->
+        <div id="rightside" class="panel-right">
         </div>
     </div>
 </body>
