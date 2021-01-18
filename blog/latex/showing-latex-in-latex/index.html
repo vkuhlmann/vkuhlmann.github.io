@@ -12,14 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="stylesheet/less" type="text/css" href="../main-style.less" /> -->
-    <link rel="stylesheet/less" type="text/css" href="blog-style.less" />
+    <link rel="stylesheet/less" type="text/css" href="../../blog-style.less" />
     <!--<script src="//cdn.jsdelivr.net/npm/less"></script>-->
-    <script src="../lib/less.js"></script>
+    <script src="../../../lib/less.js"></script>
 
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
-    <script src="../lib/jquery.min.js"></script>
-    <script src="../lib/popper.min.js"></script>
-    <script src="../lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
+    <script src="../../../lib/jquery.min.js"></script>
+    <script src="../../../lib/popper.min.js"></script>
+    <script src="../../../lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -62,7 +62,8 @@
         </div>
     </nav>
 
-    <div class="container-fluid page-container" style="min-height:calc(100vh - 60px);">
+    <div class="container-fluid page-container"
+        style="min-height:calc(100vh - 60px);">
         <div style="flex:0 0 10ch;" id="siderbarLeft" class="siderbar-left">
             <ul class="sidebar-menu">
                 <li>
@@ -79,20 +80,15 @@
                 </li>
             </ul>
         </div>
-        <div style="display:flex;flex:1 0 auto;">
-            <div style="flex:1 0 0px;"></div>
-            <div style="flex:1 1 60em;display:flex;">
-                <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
-                    <div style="text-align:justify;">
-                        <p>
-                            Some text
-                        </p>
-                    </div>
-                </div>
-                <div id="siderbarRight" class="siderbar-right right-filler" style="flex:1 0 0px;max-width:10ch;">
-
-                </div>
+        <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
+            <div style="text-align:justify;">
+                <p>
+                    Some text
+                </p>
             </div>
+        </div>
+        <div id="siderbarRight" class="siderbar-right right-filler" style="flex:0 0 10ch;">
+
         </div>
     </div>
 </body>
