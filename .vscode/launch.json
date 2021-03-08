@@ -12,6 +12,13 @@
             "file": "${workspaceFolder}/index.html"
         },
         {
+            "name": "Launch current file",
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "file": "${file}"
+        },
+        {
             "name": "Launch localhost",
             "type": "firefox",
             "request": "launch",
