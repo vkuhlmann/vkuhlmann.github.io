@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2021 Vincent Kuhlmann
+-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Showing LaTeX in LaTeX - Vincent's blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="stylesheet/less" type="text/css" href="../main-style.less" /> -->
+    <link rel="stylesheet/less" type="text/css" href="../../blog-style.less" />
+    <!--<script src="//cdn.jsdelivr.net/npm/less"></script>-->
+    <script src="../../../lib/less.js"></script>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+    <script src="../../../lib/jquery.min.js"></script>
+    <script src="../../../lib/popper.min.js"></script>
+    <script src="../../../lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../">Vincent's blog</a>
+
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">LaTeX</a>
+                        <!--<a class="nav-link" href="#">Home <span class="non-visual-context">(current)</span></a>-->
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/vkuhlmann/" target="_blank">GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.linkedin.com/in/vincent-k-b15285123/"
+                            target="_blank">LinkedIn</a>
+                    </li> -->
+
+                    <!--<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            -->
+                </ul>
+                <!--<form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>-->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid page-container">
+        <div id="leftside" class="panel-left">
+            <div id="sidebarLeft" class="sidebar-left">
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="#monospace">1. Very rudimentary: just monospace</a>
+                    </li>
+                    <li>
+                        <a href="#verbatim">2. Rudimentary: verbatim</a>
+                    </li>
+                    <li>
+                        <a href="#colors">3. Proper: automatic colors</a>
+                    </li>
+                    <li>
+                        <a href="#catcodes">4. About LaTeX and catcodes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-center" style="display:block;" id="mainpage" class="mainpage">
+            <div style="display:flex;width:100%;height:100%;">
+                <div id="leftFiller" class="left-filler">
+                </div>
+                <div id="mainpage" class="mainpage">
+                    <div style="text-align:left;">
+                        <strong>Warning: This page is under construction.</strong>
+
+                        <p>
+                            LaTeX is a code-based word processing tool most known for typesetting mathematics and its
+                            further use in exact sciences, most notably publications. Hence many people in the industry
+                            will pick up the basics, often using material provided by the organization. Convenient for
+                            demonstration, the slides or reader is written in LaTeX. However, when trying to display
+                            literal LaTeX code, people tend to fall back to very rudimentary solutions. This article
+                            explains
+                            how to
+                            typeset LaTeX code in LaTeX properly.
+                        </p>
+
+                        <strong>Note: If you are here because code formatting doesn't work in some places, read section
+                            4.</strong>
+
+                        <h2 id="monospace">1.&nbsp;&nbsp;Very rudimentary: just monospace</h2>
+                        <p>
+                            In constrast to normal text, code if often typed <code>in monospace</code>, i.e. each
+                            character has
+                            equal width,
+                            as it was in the early days of technology. Not just that, it is also convenient when raw
+                            text is the
+                            only formatting
+                            you work with; a title underlined with dashes on the next line properly line up in width.
+                            This is
+                            done using the
+                            <code>\texttt{some text}</code> command, or when used between braces,
+                            <code>{\ttfamily some text}</code> formats every
+                            in monospace till the closing brace.
+                        </p>
+
+                        <p>
+                            However, this is very merely a font switch, and <code>\texttt{\maketitle}</code> will
+                            generate the
+                            title heading in monospace.
+                            To prevent command interpretation of a backslash, one could resort to
+                            <code>\texttt{\textbackslash maketitle}</code>, which
+                            uses a command to display a literal backslash.
+                        </p>
+
+                        <h2 id="verbatim">2.&nbsp;&nbsp;Rudimentary: verbatim</h2>
+                        <p>
+                            There is also a way to temporarily disable the command interpreting property of a backslash,
+                            as well
+                            as other special characters (like&nbsp;%). In LaTeX code, one can do
+                            <code>\verb|\maketitle|</code>.
+                            This prints
+                            <code>\maketitle</code> literally, and also in monospace already. If you need to display the
+                            '|'-character,
+                            you can use <code>\verb!Exlamation points \verb|instead|.!</code>. Or really any non-space
+                            character
+                            you like,
+                            the character which delimits the begin, is the one which delimits the end.
+                        </p>
+
+                        <p>
+                            The <code>\verb</code> command is for in-line usage. To show multiple lines of code, or to
+                            give
+                            it its own line, use is its block equivalent, the <code>verbatim</code>-environment:
+                        </p>
+                        <code>
+                    <pre>
+And for this see the following code:
+\begin{verbatim}
+    \begin{document}
+        \maketitle
+    \end{document}
+\end{verbatim}
+                    </pre>
+                </code>
+                        </p>
+
+                        However, the code is actually formatted as
+                        <code>
+<pre>
+\begin{document}
+\maketitle
+\end{document}
+</pre>
+</code>
+                        <p>
+                            that is, indentation is lost. To fix this, use the <code>Verbatim</code>-environment
+                            from the package <code>fancyvrb</code>. Add <code>\usepackage{fancyvrb}</code> anywhere
+                            before your <code>\begin{document}</code>, and then use
+                        </p>
+                        <code>
+                    <pre>
+And for this see the following code:
+\begin{Verbatim}[tabsize=4]
+    \begin{document}
+        \maketitle
+    \end{document}
+\end{Verbatim}
+                    </pre>
+                </code>
+                        <p>
+                            This preserves the indentation from the code. However, you might also experience everything
+                            being
+                            indented too much.
+                            That is because you naturally indent your LaTeX code, but those indentations are now picked
+                            up by
+                            Verbatim! Select the
+                            lines and Shift+Tab one or multiple times to unindent them. This might look a bit ugly in
+                            your LaTeX
+                            code, but hey,
+                            we've not yet arrived at the proper way either...
+                        </p>
+
+                        <h2 id="colors">3.&nbsp;&nbsp;Proper: Automatic colors</h2>
+
+
+                        <h2 id="catcodes">4.&nbsp;&nbsp;About LaTeX and catcodes: at some places, things break</h2>
+                        <p>
+                            Some text
+                        </p>
+                    </div>
+                </div>
+                <div id="rightFiller" class="right-filler">
+                </div>
+            </div>
+        </div>
+        <div id="siderbarRight" class="siderbar-right right-filler" style="flex:0 0 10ch;">
+
+        </div>
+    </div>
+</body>
+
+</html>
