@@ -3,7 +3,7 @@ name: Vincent Kuhlmann
 description: A little website where I put things
 
 minima:
-  skin: dark
+  skin: classic
 
 theme: minima
 url: "http://vkuhlmann.github.io"
@@ -12,3 +12,7 @@ author: Vincent Kuhlmann
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+
+header_pages:
+  - index.html
+  - testpage.md
