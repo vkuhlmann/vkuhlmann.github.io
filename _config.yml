@@ -13,6 +13,10 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-header_pages:
-  - index.html
-  - testpage.md
+pages:
+  - title: Home
+    path: index.html
+
+#header_pages:
+#  - index.html
+#  - testpage.md
