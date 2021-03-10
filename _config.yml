@@ -1,0 +1,14 @@
+title: Vincent Kuhlmann
+name: Vincent Kuhlmann
+description: A little website where I put things
+
+minima:
+  skin: dark
+
+theme: minima
+url: "http://vkuhlmann.github.io"
+
+author: Vincent Kuhlmann
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
