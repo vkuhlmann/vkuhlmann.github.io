@@ -1,9 +1,16 @@
 title: Vincent Kuhlmann
 name: Vincent Kuhlmann
-description: A little website where I put things
+description: >
+  My own little place, inching forward each time I put a bit of time in it.
+  Some day it will become something.
+
+show_excerpts: false
 
 minima:
   skin: classic
+  social_links:
+    github: vkuhlmann
+    linkedin: vincentkuhlmann
 
 theme: minima
 url: "http://vkuhlmann.github.io"
@@ -13,10 +20,8 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-pages:
-  - title: Home
-    path: index.html
+header_pages:
+  - index.md
+  - projects.html
 
-#header_pages:
-#  - index.html
-#  - testpage.md
+
