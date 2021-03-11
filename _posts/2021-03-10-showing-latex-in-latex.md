@@ -4,6 +4,8 @@ title: "Showing LaTeX in LaTeX"
 author:
   - Vincent
 
+text_align: justify
+
 ---
 
 <script>
@@ -34,10 +36,11 @@ article explains how to typeset LaTeX code in LaTeX properly (Level 3).
 In constrast to normal text, code if often shown <span
 style="font-family:monospace;"> in monospace</span>, i.e. each character has
 equal width, as it was in the early days of technology. Not just that, it is
-also convenient when raw text is the only formatting you work with; a title
-underlined with dashes on the next line properly line up in width. This is done
-using the `\texttt{some text}` command, or when used between braces, `{\ttfamily
-some text}` formats every in monospace till the closing brace.
+also convenient when raw text is the only formatting you work with; just put
+dashes on the next line, and you've got yourself some 'underlined' text.
+In LaTeX, this font type can be selected using the `\texttt{some text}` command,
+or when used between braces, `{\ttfamily some text}` formats everything in
+monospace upto the the closing brace.
 
 However, this is very merely a font switch, and `\texttt{\maketitle}` will
 generate the title heading in monospace. To prevent command interpretation of a

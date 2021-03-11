@@ -22,8 +22,6 @@ author: Vincent Kuhlmann
 
 show_excerpts: false
 
-highlighter: none
-
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

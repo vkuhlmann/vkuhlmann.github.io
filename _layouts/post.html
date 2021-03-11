@@ -26,7 +26,9 @@ layout: default
       {%- endif -%}</p>
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
+  {%- assign align_class = page.text_align | default: "left" | prepend: "align-" -%}
+
+  <div class="post-content e-content {{ align_class }}" itemprop="articleBody">
     {{ content }}
   </div>
 
