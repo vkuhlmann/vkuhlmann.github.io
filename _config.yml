@@ -4,9 +4,10 @@ description: >
   My own little place, inching forward each time I put a bit of time in it.
   Some day it will become something.
 
-show_excerpts: false
-
-highlighter: none
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable: true
 
 minima:
   skin: classic
@@ -18,6 +19,11 @@ theme: minima
 url: "http://vkuhlmann.github.io"
 
 author: Vincent Kuhlmann
+
+show_excerpts: false
+
+highlighter: none
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

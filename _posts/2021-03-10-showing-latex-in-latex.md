@@ -31,13 +31,13 @@ article explains how to typeset LaTeX code in LaTeX properly (Level 3).
 
 ## Level 1: Just monospace
 
-In constrast to normal text, code if often shown <samp>in monospace</samp>, i.e.
-each character has equal width, as it was in the early days of technology. Not
-just that, it is also convenient when raw text is the only formatting you work
-with; a title underlined with dashes on the next line properly line up in width.
-This is done using the `\texttt{some text}` command, or when used between
-braces, `{\ttfamily some text}` formats every in monospace till the closing
-brace.
+In constrast to normal text, code if often shown <span
+style="font-family:monospace;"> in monospace</span>, i.e. each character has
+equal width, as it was in the early days of technology. Not just that, it is
+also convenient when raw text is the only formatting you work with; a title
+underlined with dashes on the next line properly line up in width. This is done
+using the `\texttt{some text}` command, or when used between braces, `{\ttfamily
+some text}` formats every in monospace till the closing brace.
 
 However, this is very merely a font switch, and `\texttt{\maketitle}` will
 generate the title heading in monospace. To prevent command interpretation of a
@@ -66,7 +66,7 @@ And for this see the following code:
 ```
 
 However, the code is actually formatted as
-```plain
+```plaintext
 \begin{document}
 \maketitle
 \end{document}
