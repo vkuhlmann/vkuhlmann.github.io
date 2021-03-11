@@ -14,5 +14,16 @@
 
     {%- include custom-head.html -%}
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (beforeHighlight != null) {
+                beforeHighlight();
+            }
+        });
+    </script>
+
     <script id="mathjax" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="{{ "/lib/prism/prism.js" | relative_url }}"></script>
+
+    <link href="{{ "/lib/prism/prism.css" | relative_url }}" rel="stylesheet" />
 </head>

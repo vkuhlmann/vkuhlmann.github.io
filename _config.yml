@@ -6,6 +6,8 @@ description: >
 
 show_excerpts: false
 
+highlighter: none
+
 minima:
   skin: classic
   social_links:

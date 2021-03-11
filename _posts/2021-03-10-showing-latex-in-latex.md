@@ -6,6 +6,19 @@ author:
 
 ---
 
+<script>
+let beforeHighlight = () => {
+    let a = document.querySelectorAll("code");
+    for (let b of a) {
+        if (b.className.includes("language-"))
+            continue;
+        if (b.classList.contains("verb"))
+            continue;
+        b.classList.add("language-latex");
+    }
+};
+</script>
+
 **_Warning: This page is under construction._**
 
 LaTeX is a code-based word processing tool most known for typesetting
@@ -18,31 +31,31 @@ article explains how to typeset LaTeX code in LaTeX properly (Level 3).
 
 ## Level 1: Just monospace
 
-In constrast to normal text, code if often typed `in monospace`, i.e. each
-character has equal width, as it was in the early days of technology. Not just
-that, it is also convenient when raw text is the only formatting you work with;
-a title underlined with dashes on the next line properly line up in width. This
-is done using the `\texttt{some text}` command, or when used between braces,
-`{\ttfamily some text}` formats every in monospace till the closing brace.
+In constrast to normal text, code if often shown <samp>in monospace</samp>, i.e.
+each character has equal width, as it was in the early days of technology. Not
+just that, it is also convenient when raw text is the only formatting you work
+with; a title underlined with dashes on the next line properly line up in width.
+This is done using the `\texttt{some text}` command, or when used between
+braces, `{\ttfamily some text}` formats every in monospace till the closing
+brace.
 
-However, this is very merely a font switch, and <code>\texttt{\maketitle}</code>
-will generate the title heading in monospace. To prevent command interpretation
-of a backslash, one could resort to <code>\texttt{\textbackslash
-maketitle}</code>, which uses a command to display a literal backslash.
+However, this is very merely a font switch, and `\texttt{\maketitle}` will
+generate the title heading in monospace. To prevent command interpretation of a
+backslash, one could resort to `\texttt{\textbackslash maketitle}`, which uses a
+command to display a literal backslash.
 
 ## Level 2: Verbatim
 
 There is also a way to temporarily disable the command interpreting property of
 a backslash, as well as other special characters (like&nbsp;%). In LaTeX code,
-one can do <code>\verb|\maketitle|</code>. This prints <code>\maketitle</code>
-literally, and also in monospace already. If you need to display the
-'|'-character, you can use <code>\verb!Exlamation points
-\verb|instead|.!</code>. Or really any non-space character you like, the
-character which delimits the begin, is the one which delimits the end.
+one can do `\verb|\maketitle|`. This prints `\maketitle` literally, and also in
+monospace already. If you need to display the '|'-character, you can use
+`\verb!Exlamation points \verb|instead|.!`. Or really any non-space character
+you like, the character which delimits the begin, is the one which delimits the
+end.
 
-The <code>\verb</code> command is for in-line usage. To show multiple lines of
-code, or to give it its own line, use is its block equivalent, the
-<code>verbatim</code>-environment:
+The `\verb` command is for in-line usage. To show multiple lines of code, or to
+give it its own line, use is its block equivalent, the `verbatim`-environment:
 ```latex
 And for this see the following code:
 \begin{verbatim}
@@ -53,15 +66,15 @@ And for this see the following code:
 ```
 
 However, the code is actually formatted as
-```
+```plain
 \begin{document}
 \maketitle
 \end{document}
 ```
 that is, indentation is lost. To fix this, use the
-<code>Verbatim</code>-environment from the package <code>fancyvrb</code>. Add
-<code>\usepackage{fancyvrb}</code> anywhere before your
-<code>\begin{document}</code>, and then use
+`Verbatim`-environment from the package `fancyvrb`. Add
+`\usepackage{fancyvrb}` anywhere before your
+`\begin{document}`, and then use
 ```
 And for this see the following code:
 \begin{Verbatim}[tabsize=4]
