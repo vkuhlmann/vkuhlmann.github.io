@@ -106,11 +106,12 @@ either...
 ## The good: Automatic colors <span id="colors"></span>
 
 You could actually add another level before this: using `\texttt`, but also
-`\textcolor` to color different parts of the command manually. But if you are
-up to that effort, why not just use the package I wrote.
+`\textcolor` to color different parts of the command manually. If you went down
+that alley already, just wait until you read the next paragraph. Actually, don't
+wait, go ahead!
 
 The `listings` package provides code syntax highlighting for various code
-languages. That includes LaTeX, however it's syntax highlighting is very minimal
+languages. That includes LaTeX. However, it's syntax highlighting is very minimal
 and doesn't do much coloring. Therefore, I wrote my own package, which you can
 find at [https://github.com/vkuhlmann/highlight-latex](https://github.com/vkuhlmann/highlight-latex).
 
@@ -135,10 +136,13 @@ This generates the right box of the demo:
 ![highlight-latex demo]({{ "/assets/highlight-latex-demo.png" | relative_url }}
 "Highlight LaTeX demo")
 
-Then inline code is done using `\hll|\documentclass[]{}|` command. There is of
-course a bit more to it, at least if you want to have some commands colored
-differently like in this demo. All this I've already explained on the
-project page, so refer to:
+(Don't mind the failed dollar signs, it's due to conversion from PDF to an
+image.)
+
+Then inline code is done using the `\hll|\documentclass[]{}|` command. There is
+of course a bit more to it, at least if you want to have some commands colored
+differently like in this demo. All this I've already explained on the project
+page, so I refer you to:
 
 [https://github.com/vkuhlmann/highlight-latex](https://github.com/vkuhlmann/highlight-latex)
 
