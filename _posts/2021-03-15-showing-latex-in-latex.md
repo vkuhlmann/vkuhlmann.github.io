@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Showing LaTeX in LaTeX"
+title: "Showing LaTeX in LaTeX: The good, the bad and the ugly"
 author:
-  - Vincent
+  - Vincent Kuhlmann
 
 text_align: justify
 
@@ -21,17 +21,25 @@ let beforeHighlight = () => {
 };
 </script>
 
-**_Warning: This page is under construction._**
-
 LaTeX is a code-based word processing tool most known for typesetting
 mathematics and its further use in exact sciences, most notably publications.
 Hence many people in the industry will pick up the basics, often using material
 provided by the organization. Convenient for demonstration, the slides or reader
 is written in LaTeX. However, when trying to display literal LaTeX code, people
-tend to fall back to very rudimentary solutions (Level 1 and Level 2). This
-article explains how to typeset LaTeX code in LaTeX properly (Level 3).
+tend to fall back to very rudimentary solutions. We can do better!
 
-## Level 1: Just monospace
+We'll explore the good, the bad and the ugly in typesetting LaTeX. Just in
+reverse order, to follow the thought process.
+
+ <!-- (Level 1 and Level 2). This
+article explains how to typeset LaTeX code in LaTeX properly (Level 3). -->
+
+In this post:
+1. [The ugly: Just monospace](#monospace)
+2. [The bad: Verbatim](#verbatim)
+3. [The good: Automatic colors](#colors)
+
+## The ugly: Just monospace <span id="monospace"></span>
 
 In constrast to normal text, code if often shown <span
 style="font-family:monospace;"> in monospace</span>, i.e. each character has
@@ -42,12 +50,13 @@ In LaTeX, this font type can be selected using the `\texttt{some text}` command,
 or when used between braces, `{\ttfamily some text}` formats everything in
 monospace upto the the closing brace.
 
-However, this is very merely a font switch, and `\texttt{\maketitle}` will
-generate the title heading in monospace. To prevent command interpretation of a
+However, this is very merely a font switch, and `\texttt{\maketitle}` will not
+print a literal <samp>\maketitle</samp>, but will perform `\maketitle`, creating
+a title heading in monospace! To prevent command interpretation of a
 backslash, one could resort to `\texttt{\textbackslash maketitle}`, which uses a
 command to display a literal backslash.
 
-## Level 2: Verbatim
+## The bad: Verbatim <span id="verbatim"></span>
 
 There is also a way to temporarily disable the command interpreting property of
 a backslash, as well as other special characters (like&nbsp;%). In LaTeX code,
@@ -94,7 +103,44 @@ lines and Shift+Tab one or multiple times to unindent them. This might look a
 bit ugly in your LaTeX code, but hey, we've not yet arrived at the proper way
 either...
 
-## Level 3: Automatic colors
+## The good: Automatic colors <span id="colors"></span>
 
-## About LaTeX and catcodes: at some places, things break
+You could actually add another level before this: using `\texttt`, but also
+`\textcolor` to color different parts of the command manually. But if you are
+up to that effort, why not just use the package I wrote.
+
+The `listings` package provides code syntax highlighting for various code
+languages. That includes LaTeX, however it's syntax highlighting is very minimal
+and doesn't do much coloring. Therefore, I wrote my own package, which you can
+find at [https://github.com/vkuhlmann/highlight-latex](https://github.com/vkuhlmann/highlight-latex).
+
+For example, if you want a block of highlighted code, it can be as easy as
+adding the package, and writing
+```
+\begin{highlightblock}
+    % File: document.tex
+    \documentclass[a4paper]{article}
+    \usepackage{amsmath}
+    
+    \begin{document}
+        Insert math like $\sqrt{2}$.
+        \inAccA\inAccB\inAccC
+        
+    \end{document}
+\end{highlightblock}
+```
+
+This generates the right box of the demo:
+
+![highlight-latex demo]({{ "/assets/highlight-latex-demo.png" | relative_url }}
+"Highlight LaTeX demo")
+
+Then inline code is done using `\hll|\documentclass[]{}|` command. There is of
+course a bit more to it, at least if you want to have some commands colored
+differently like in this demo. All this I've already explained on the
+project page, so refer to:
+
+[https://github.com/vkuhlmann/highlight-latex](https://github.com/vkuhlmann/highlight-latex)
+
+Happy LaTeXing!
 
