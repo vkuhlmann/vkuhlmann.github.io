@@ -9,7 +9,7 @@ text_align: justify
 ---
 
 <script>
-let beforeHighlight = () => {
+beforeHighlight = () => {
     let a = document.querySelectorAll("code");
     for (let b of a) {
         if (b.className.includes("language-"))

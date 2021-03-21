@@ -4,6 +4,8 @@ description: >
   My own little place, inching forward each time I put a bit of time in it.
   Some day it will become something.
 
+blogtitle: Vincent's blog
+
 markdown: kramdown
 kramdown:
   syntax_highlighter_opts:
