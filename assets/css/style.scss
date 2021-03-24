@@ -6,4 +6,7 @@
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
 
-  
+@import
+  "local/ticode.scss";
+
+

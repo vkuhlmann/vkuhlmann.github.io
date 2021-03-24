@@ -80,7 +80,7 @@ function yourself. From worst to best, what are the solutions?
 
 ## Solution 1: Your own state machine <span id="statemachine"></span>
 
-```
+<!-- ```
 ClrHome
 
 0→K
@@ -174,10 +174,10 @@ End
 
 End
 ClrHome
-```
+``` -->
 
 <script>
-code = `
+let code = `
 ClrHome
 
 0→K
@@ -193,7 +193,88 @@ For(I,1,N)
 C+⌊COUNT(I)→C
 If I=J and S=0
 Then
+Output(I,1,">")
+Else
+Output(I,1," ")
+End
+Output(I,2,"COUNT:")
+Output(I,9,"    ")
+Output(I,9,⌊COUNT(I))
+End
+Output(7,1,"AVG:")
+Output(7,9,"        ")
+Output(7,9,round(C/N,2))
+
+If S=1
+Then
+Output(8,1,"COUNTERS:")
+Output(8,11,N)
+Else
+Output(8,1,"           ")
+End
+
+0→K
+While K=0
+getKey→K
+End
+
+If S=1
+Then
+
+If K=95
+Then
+min(N+1,dim(⌊COUNT))→N
+0→⌊COUNT(N)
+0→K
+End
+
+If K=85
+Then
+max(1,N-1)→N
+min(N,J)→J
+ClrHome
+0→K
+End
+
+If K=21
+Then
+0→S
+0→K
+End
+
+End
+
+If K=21
+Then
+1→S
+End
+
+If K=102
+Then
+0→⌊COUNT(J)
+End
+
+If K=95 or K=85
+Then
+⌊COUNT(J)-1+2*(K=95)→⌊COUNT(J)
+End
+
+If K=34
+Then
+remainder(J,N)+1→J
+End
+
+If K=25
+Then
+remainder(J+N-2,N)+1→J
+End
+
+End
+ClrHome
 `;
+
+code = code.replace("\r\n", "\n").replace("\r", "");
+code = code.substring(1, code.length - 1);
 
 function formatTI() {
   let el = document.querySelector("#tiCode");
@@ -204,7 +285,7 @@ function formatTI() {
     let remainingLength = 15;
     while (l.length > 0 || builtup.length == 0) {
       let text = l.substring(0, remainingLength);
-      text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">").replace(">", "&gr;");
+      text = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
       builtup += text + "<br/>";
       l = l.substring(remainingLength);
       remainingLength = 16;
@@ -218,17 +299,85 @@ function formatTI() {
   }
 }
 
+function splitInTILines(code) {
+  let outp = [];
+  for (let l of code.split("\n")) {
+    let remainingLength = 15;
+    while (true) {
+      let text = l.substring(0, remainingLength);
+      text = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      if (remainingLength == 15)
+        text = `<span style="user-select:none;">:</span>${text}`;
+      let terminate = l.length < remainingLength;
+      if (terminate)
+        text = `${text}<br/>`;
+      outp.push(text);
+
+      if (terminate)
+        break;
+      l = l.substring(remainingLength);
+      remainingLength = 16;
+    }
+  }
+  return outp;
+}
+
+function createTIBlocks(code, el) {
+  el.innerHTML = "";
+  let lines = splitInTILines(code);
+
+  for (let i = 0; i < lines.length; i += 7) {
+    let sel = lines.slice(i, i + 7);
+    let lineDecl = ` Line ${i + 1} `; 
+    while (lineDecl.length < 16) {
+      if (lineDecl.length < 15)
+        lineDecl = "." + lineDecl;
+      lineDecl += ".";
+    }
+    lineDecl = `<span style="user-select:none;">${lineDecl}<br/></span>`;
+
+    sel.splice(0, 0, lineDecl);
+    while (sel.length < 8)
+      sel.push("<br/>");
+    
+    let divh = document.createElement("span");
+    let fr = document.createElement("div");
+    fr.classList = "fr";
+    divh.appendChild(fr);
+
+    let frHoriz = document.createElement("div");
+    frHoriz.classList = "fr-horiz";
+    divh.appendChild(frHoriz);
+
+
+    let div = document.createElement("span");
+    divh.appendChild(div);
+
+    for (let l of sel) {
+      let t = document.createElement("span");
+      t.innerHTML = l;
+      div.appendChild(t);
+    }
+
+    el.appendChild(divh);
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
-    formatTI();
+    //formatTI();
+    createTIBlocks(code, document.querySelector("#tiCode"));
 });
 
 </script>
 
-<div id="tiCode" style="font-family:'Consolas','Courier New',monospace;">
+<div style="position:relative;width:calc(max(100%, 70vw));margin-left:calc((100% - max(100%, 70vw))/2);">
+  <div id="tiCode" class="tiCode">
 
+  </div>
 </div>
 
-<div style="font-family:'Consolas','Courier New',monospace;border:1px solid;
+<!-- <div style="font-family:'Consolas','Courier New',monospace;border:1px solid;
 margin-bottom:5px;">
 :ClrHome<br/>
 :<br/>
@@ -267,7 +416,7 @@ For(I,1,N)
 C+⌊COUNT(I)→C
 </pre>
 </div>
-</div>
+</div> -->
 
 
 ## Solution 2: A redirection center <span id="redirectioncenter"></span>
