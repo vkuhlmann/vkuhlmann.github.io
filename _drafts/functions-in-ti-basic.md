@@ -273,6 +273,7 @@ function createTIBlocks(code, el) {
       // }
 
       // t.style["border-left"] = `4px solid ${col}`;
+      t.style["border-left"] = `4px solid transparent`;
 
       div.appendChild(t);
     }

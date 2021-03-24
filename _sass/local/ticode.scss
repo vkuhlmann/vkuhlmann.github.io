@@ -54,9 +54,14 @@
     // bottom: 1px;
     //box-shadow: 0 0 0px 2px black;
     padding: 15px;
+    padding-left: 8px;
     display: flex;
     flex-flow: column nowrap;
     margin: 0px;
+}
+
+.tiCode > span > span > span {
+    padding-left: 3px;
 }
 
 // .tiCode > span > .fr {
