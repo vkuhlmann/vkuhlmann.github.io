@@ -80,102 +80,6 @@ function yourself. From worst to best, what are the solutions?
 
 ## Solution 1: Your own state machine <span id="statemachine"></span>
 
-<!-- ```
-ClrHome
-
-0→K
-1→S
-1→N
-1→J
-{0,0,0,0,0,0}→⌊COUNT
-
-While K≠22 and K≠45
-
-0→C
-For(I,1,N)
-C+⌊COUNT(I)→C
-If I=J and S=0
-Then
-Output(I,1,">")
-Else
-Output(I,1," ")
-End
-Output(I,2,"COUNT:")
-Output(I,9,"    ")
-Output(I,9,⌊COUNT(I))
-End
-Output(7,1,"AVG:")
-Output(7,9,"        ")
-Output(7,9,round(C/N,2))
-
-If S=1
-Then
-Output(8,1,"COUNTERS:")
-Output(8,11,N)
-Else
-Output(8,1,"           ")
-End
-
-0→K
-While K=0
-getKey→K
-End
-
-If S=1
-Then
-
-If K=95
-Then
-min(N+1,dim(⌊COUNT))→N
-0→⌊COUNT(N)
-0→K
-End
-
-If K=85
-Then
-max(1,N-1)→N
-min(N,J)→J
-ClrHome
-0→K
-End
-
-If K=21
-Then
-0→S
-0→K
-End
-
-End
-
-If K=21
-Then
-1→S
-End
-
-If K=102
-Then
-0→⌊COUNT(J)
-End
-
-If K=95 or K=85
-Then
-⌊COUNT(J)-1+2*(K=95)→⌊COUNT(J)
-End
-
-If K=34
-Then
-remainder(J,N)+1→J
-End
-
-If K=25
-Then
-remainder(J+N-2,N)+1→J
-End
-
-End
-ClrHome
-``` -->
-
 <script>
 let code = `
 ClrHome
@@ -341,6 +245,7 @@ function createTIBlocks(code, el) {
       sel.push("<br/>");
     
     let divh = document.createElement("span");
+
     let fr = document.createElement("div");
     fr.classList = "fr";
     divh.appendChild(fr);
@@ -353,9 +258,22 @@ function createTIBlocks(code, el) {
     let div = document.createElement("span");
     divh.appendChild(div);
 
+    let lineno = i - 1;
     for (let l of sel) {
       let t = document.createElement("span");
       t.innerHTML = l;
+
+      lineno += 1;
+      //let col = "transparent";
+      if (lineno != i)
+        t.setAttribute("data-displayline", lineno);
+
+      //   if ((Math.floor(lineno / 5) % 2) == 0)
+      //     col = "red";
+      // }
+
+      // t.style["border-left"] = `4px solid ${col}`;
+
       div.appendChild(t);
     }
 
@@ -363,10 +281,174 @@ function createTIBlocks(code, el) {
   }
 }
 
+function updateColors(el, getLineColor) {
+  //debugger;
+  for (let t of el.querySelectorAll("[data-displayline]")) {
+    let lineNumber = t.getAttribute("data-displayline");
+    let col = getLineColor(lineNumber);
+    t.style["border-left"] = `4px solid ${col}`;
+  }
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     //formatTI();
-    createTIBlocks(code, document.querySelector("#tiCode"));
+    let el = document.querySelector("#tiCode");
+    createTIBlocks(code, el);
+
+    let colors = {
+      "setup": "hsl(54, 90%, 50%)",
+      "beginLoop": "hsla(189, 90%, 50%)"
+    }
+
+    let srcGroups = [
+      {
+        name: "setup",
+        begin: 1,
+        end: 9,
+        color: colors["setup"]
+      },
+      {
+        name: "beginLoop",
+        begin: 10,
+        end: 12,
+        color: colors["beginLoop"]
+      },
+      {
+        name: "drawCountLines",
+        begin: 13,
+        end: 31,
+        color: "hsla(90, 90%, 50%)"
+      },
+      {
+        name: "drawFurther",
+        begin: 31,
+        end: 47,
+        color: "hsla(122, 90%, 20%)"
+      },
+      {
+        name: "waitForKey",
+        begin: 48,
+        end: 52,
+        color: "hsla(31, 90%, 50%)"
+      },
+      {
+        name: "handleKey_Setup",
+        begin: 53,
+        end: 79,
+        color: "hsla(207, 90%, 50%)"
+      },
+      {
+        name: "handleKey_Normal",
+        begin: 80,
+        end: 108,
+        color: "hsla(207, 90%, 20%)"
+      },
+      {
+        name: "endLoop",
+        begin: 109,
+        end: 110,
+        color: "hsla(189, 90%, 50%)"
+      },
+    ];
+    let groups = srcGroups;
+
+    function getColor(name) {
+      if (name in colors)
+        return colors[name];
+
+      for (let g of srcGroups) {
+        if (g.name != name)
+          continue;
+        return g.color;
+      }
+      return "purple";
+    }
+
+    updateColors(el, l => {
+      for (let g of groups) {
+        if (l >= g.begin && l < g.end) {
+          return g.color;
+        }
+      }
+      return "hsla(0, 100%, 50%, 0%)";
+
+      //return (l % 2 == 0) ? "hsla(0, 100%, 50%, 100%)" : "hsla(0, 100%, 50%, 25%)";
+    });
+
+
+    let pseudoCode = `
+[Pseudocode]
+Setup
+BeginLoop
+  DrawCounts
+  DrawAvg
+  DrawSetupUI
+
+  AwaitKey
+  HandleKey_Setup
+  HandleKey_Normal
+EndLoop
+    `;
+
+    pseudoCode = pseudoCode.replace("\r\n", "\n").replace("\r", "");
+    pseudoCode = pseudoCode.substring(1, pseudoCode.length - 1);
+
+
+    el = document.querySelector("#pseudoCode");
+    // createTIBlocks(pseudoCode, el);
+
+    groups = [
+      {
+        name: "setup",
+        begin: 1,
+        end: 2
+      },
+      {
+        name: "beginLoop",
+        begin: 2,
+        end: 3
+      },
+      {
+        name: "drawCountLines",
+        begin: 3,
+        end: 4
+      },
+      {
+        name: "drawFurther",
+        begin: 4,
+        end: 6
+      },
+      {
+        name: "waitForKey",
+        begin: 7,
+        end: 8
+      },
+      {
+        name: "handleKey_Setup",
+        begin: 8,
+        end: 9
+      },
+      {
+        name: "handleKey_Normal",
+        begin: 9,
+        end: 10
+      },
+      {
+        name: "endLoop",
+        begin: 10,
+        end: 11,
+      },
+    ];
+    
+    updateColors(el, l => {
+      for (let g of groups) {
+        if (l >= g.begin && l < g.end) {
+          return g.color ?? getColor(g.name);
+        }
+      }
+      return "hsla(0, 100%, 50%, 0%)";
+    });
 });
 
 </script>
@@ -377,46 +459,28 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </div>
 
-<!-- <div style="font-family:'Consolas','Courier New',monospace;border:1px solid;
-margin-bottom:5px;">
-:ClrHome<br/>
-:<br/>
-:0→K<br/>
-:1→S<br/>
-:1→N<br/>
-:1→J<br/>
-:{0,0,0,0,0,0}→⌊<br/>
-</div>
-<div style="font-family:'Consolas','Courier New',monospace;border:1px solid;">
-COUNT<br/>
-:<br/>
-:While K≠22 and <br/>
-K≠45<br/>
-:<br/>
-:0→C<br/>
-:For(I,1,N)<br/>
+<div id="pseudoCode" class="pseudoCode">
+  <span>[Pseudocode]</span>
+  <span data-displayline="1">Setup</span>
+  <span data-displayline="2">BeginLoop</span>
+  <span data-displayline="3">&nbsp; DrawCounts</span>
+  <span data-displayline="4">&nbsp; DrawAvg</span>
+  <span data-displayline="5">&nbsp; DrawSetupUI</span>
+  <span data-displayline="6"></span>
+  <span data-displayline="7">&nbsp; AwaitKey</span>
+  <span data-displayline="8">&nbsp; HandleKey_Setup</span>
+  <span data-displayline="9">&nbsp; HandleKey_Normal</span>
+  <span data-displayline="10">EndLoop</span>
 </div>
 
+This demonstrates a simple program where we have a number of counters, which we
+can increment by pressing the '+'-button (key 95), go to line 90. We can also
+reset a counter by pressing '0' (key 102, go to line 85). There are multiple
+counters, and we can navigate between them using the arrows (go to line 97).
 
-<div style="font-family:'Consolas','Courier New',monospace">
-<div style="width:8em;text-align:left;">
-<pre>
-ClrHome
-
-0→K
-1→S
-1→N
-1→J
-{0,0,0,0,0,0}→⌊COUNT
-
-While K≠22 and K≠45
-
-0→C
-For(I,1,N)
-C+⌊COUNT(I)→C
-</pre>
-</div>
-</div> -->
+Additionally, there is a 'setup' mode, in which we can increase and decrease
+the amount of counters. This mode is entered and leaved by pressing '2nd' (key
+21).
 
 
 ## Solution 2: A redirection center <span id="redirectioncenter"></span>

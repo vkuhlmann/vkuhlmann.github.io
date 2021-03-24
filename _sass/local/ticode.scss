@@ -3,15 +3,32 @@
 .tiCode {
     font-family: 'Consolas','Courier New',monospace;
     display: flex;
-    flex-flow: row wrap;
     max-height: 400px;
     max-height: MAX(90vh, 400px);
     padding-bottom: 10px;
-    overflow-x: auto;
-    align-content: center;
-    //padding: 6px;
+    overflow: auto;
     gap: 0px;
     padding: 8px;
+
+    // Vertical situation
+    // flex-flow: column wrap;
+    // align-content: center;
+
+    // Horizontal situation
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: center;
+}
+
+.pseudoCode {
+    font-family: 'Consolas','Courier New',monospace;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 8px;
+}
+
+.pseudoCode > span {
+    padding-left: 3px;
 }
 
 // .tiCode > div, .tiCode > span {
