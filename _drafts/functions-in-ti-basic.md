@@ -180,191 +180,65 @@ ClrHome
 code = code.replace("\r\n", "\n").replace("\r", "");
 code = code.substring(1, code.length - 1);
 
-function formatTI() {
-  let el = document.querySelector("#tiCode");
-  el.innerHTML = "";
-  code = code.trim();
-  for (let l of code.split("\n")) {
-    let builtup = "";
-    let remainingLength = 15;
-    while (l.length > 0 || builtup.length == 0) {
-      let text = l.substring(0, remainingLength);
-      text = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-      builtup += text + "<br/>";
-      l = l.substring(remainingLength);
-      remainingLength = 16;
-    }
-
-    let t = document.createElement("span");
-    t.innerHTML = `
-    <span style="user-select:none;">:</span>${builtup}
-    `;
-    el.appendChild(t);
-  }
-}
-
-function splitInTILines(code) {
-  let outp = [];
-  for (let l of code.split("\n")) {
-    let remainingLength = 15;
-    while (true) {
-      let text = l.substring(0, remainingLength);
-      text = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-      if (remainingLength == 15)
-        text = `<span style="user-select:none;">:</span>${text}`;
-      let terminate = l.length < remainingLength;
-      if (terminate)
-        text = `${text}<br/>`;
-      outp.push(text);
-
-      if (terminate)
-        break;
-      l = l.substring(remainingLength);
-      remainingLength = 16;
-    }
-  }
-  return outp;
-}
-
-function createTIBlocks(code, el) {
-  el.innerHTML = "";
-  let lines = splitInTILines(code);
-
-  for (let i = 0; i < lines.length; i += 7) {
-    let sel = lines.slice(i, i + 7);
-    let lineDecl = ` Line ${i + 1} `; 
-    while (lineDecl.length < 16) {
-      if (lineDecl.length < 15)
-        lineDecl = "." + lineDecl;
-      lineDecl += ".";
-    }
-    lineDecl = `<span style="user-select:none;">${lineDecl}<br/></span>`;
-
-    sel.splice(0, 0, lineDecl);
-    while (sel.length < 8)
-      sel.push("<br/>");
-    
-    let divh = document.createElement("span");
-
-    let fr = document.createElement("div");
-    fr.classList = "fr";
-    divh.appendChild(fr);
-
-    let frHoriz = document.createElement("div");
-    frHoriz.classList = "fr-horiz";
-    divh.appendChild(frHoriz);
-
-
-    let div = document.createElement("span");
-    divh.appendChild(div);
-
-    let lineno = i - 1;
-    for (let l of sel) {
-      let t = document.createElement("span");
-      t.innerHTML = l;
-
-      lineno += 1;
-      //let col = "transparent";
-      if (lineno != i)
-        t.setAttribute("data-displayline", lineno);
-
-      //   if ((Math.floor(lineno / 5) % 2) == 0)
-      //     col = "red";
-      // }
-
-      // t.style["border-left"] = `4px solid ${col}`;
-      t.style["border-left"] = `4px solid transparent`;
-
-      div.appendChild(t);
-    }
-
-    el.appendChild(divh);
-  }
-}
-
-function updateColors(el, getLineColor) {
-  //debugger;
-  for (let t of el.querySelectorAll("[data-displayline]")) {
-    let lineNumber = t.getAttribute("data-displayline");
-    let col = getLineColor(lineNumber);
-    t.style["border-left"] = `4px solid ${col}`;
-  }
-}
-
-
 document.addEventListener("DOMContentLoaded", () => {
     //formatTI();
-    let el = document.querySelector("#tiCode");
+    let el = document.querySelector("#tiCode").div;
     createTIBlocks(code, el);
-
-    let colors = {
-      "setup": "hsl(54, 90%, 50%)",
-      "beginLoop": "hsla(189, 90%, 50%)"
-    }
 
     let srcGroups = [
       {
         name: "setup",
         begin: 1,
         end: 9,
-        color: colors["setup"]
+        color: "yellow"
       },
       {
         name: "beginLoop",
         begin: 10,
         end: 12,
-        color: colors["beginLoop"]
+        color: "lightblue"
       },
       {
         name: "drawCountLines",
         begin: 13,
         end: 31,
-        color: "hsla(90, 90%, 50%)"
+        color: "lightgreen"
       },
       {
         name: "drawFurther",
         begin: 31,
         end: 47,
-        color: "hsla(122, 90%, 20%)"
+        color: "darkgreen"
       },
       {
         name: "waitForKey",
         begin: 48,
         end: 52,
-        color: "hsla(31, 90%, 50%)"
+        color: "orange"
       },
       {
         name: "handleKey_Setup",
         begin: 53,
         end: 79,
-        color: "hsla(207, 90%, 50%)"
+        color: "blue"
       },
       {
         name: "handleKey_Normal",
         begin: 80,
         end: 108,
-        color: "hsla(207, 90%, 20%)"
+        color: "darkblue"
       },
       {
         name: "endLoop",
         begin: 109,
         end: 110,
-        color: "hsla(189, 90%, 50%)"
+        color: "lightblue"
       },
     ];
     let groups = srcGroups;
 
-    function getColor(name) {
-      if (name in colors)
-        return colors[name];
-
-      for (let g of srcGroups) {
-        if (g.name != name)
-          continue;
-        return g.color;
-      }
-      return "purple";
-    }
+    let nameToColor = {};
+    produceGroups(groups, nameToColor);
 
     updateColors(el, l => {
       for (let g of groups) {
@@ -373,8 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
       return "hsla(0, 100%, 50%, 0%)";
-
-      //return (l % 2 == 0) ? "hsla(0, 100%, 50%, 100%)" : "hsla(0, 100%, 50%, 25%)";
     });
 
 
@@ -392,9 +264,8 @@ BeginLoop
 EndLoop
     `;
 
-    pseudoCode = pseudoCode.replace("\r\n", "\n").replace("\r", "");
+    pseudoCode = pseudoCode.replace("\r\n", "\n").replace("\r", "\n");
     pseudoCode = pseudoCode.substring(1, pseudoCode.length - 1);
-
 
     el = document.querySelector("#pseudoCode");
     // createTIBlocks(pseudoCode, el);
@@ -442,10 +313,12 @@ EndLoop
       },
     ];
     
+    produceGroups(groups, nameToColor);
+
     updateColors(el, l => {
       for (let g of groups) {
         if (l >= g.begin && l < g.end) {
-          return g.color ?? getColor(g.name);
+          return g.color;
         }
       }
       return "hsla(0, 100%, 50%, 0%)";
@@ -454,10 +327,14 @@ EndLoop
 
 </script>
 
-<div style="position:relative;width:calc(max(100%, 70vw));margin-left:calc((100% - max(100%, 70vw))/2);">
-  <div id="tiCode" class="tiCode">
+<!-- <div id="tiCode" class="tiCode">
 
-  </div>
+</div> -->
+
+<div style="position:relative;width:calc(max(100%, 70vw));margin-left:calc((100% - max(100%, 70vw))/2);">
+  <ti-viewer id="tiCode">
+
+  </ti-viewer>
 </div>
 
 <div id="pseudoCode" class="pseudoCode">
