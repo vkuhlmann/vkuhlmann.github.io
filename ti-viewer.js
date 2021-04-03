@@ -21,15 +21,99 @@ tiViewerBaseContent.innerHTML = `
 </div>
 `;
 
+let tiViewerSlots = document.createElement("template");
+tiViewerSlots.innerHTML = `
+    <slot></slot>
+`;
+
 class TIViewer extends HTMLElement {
     constructor() {
         super();
+        // console.log("A");
+        // this.innerHTML = "";
+        // console.log("B");
+
+        // console.log(`Contents (1a): (${this.outerHTML})`);
+        // console.log(`Contents (1b): (${this.textContent})`);
 
         var shadow = this.attachShadow({mode: "open"});
-        shadow.appendChild(tiViewerBaseContent.content.cloneNode(true));
+        //shadow.appendChild(tiViewerBaseContent.content.cloneNode(true));
+        shadow.appendChild(tiViewerSlots.content.cloneNode(true));
         this.div = shadow.querySelector("div");
+        this.slotContents = this.shadowRoot.querySelector("slot");
+
+        this.listenersCodeProcessed = [];
+        this.iscodeprocessed = false;
+
+        //console.log(`Contents (1c): (${this.slotContents.assignedNodes()})`);
+
+        //shadow.appendChild(document.createElement("slot"));
+        
 
         //var container = document.createElement("div");
+    }
+
+    connectedCallback() {
+        // console.log(`Contents (2a): (${this.outerHTML})`);
+        // console.log(`Contents (2b): (${this.textContent})`);
+        // console.log(`Contents (2c): (${this.innerHTML})`);
+        // console.log(`Contents (2d): (${this.shadowRoot.innerHTML})`);
+        // console.log(`Contents (2e): (${this.shadowRoot.textContent})`);
+
+        this.slotContents = this.shadowRoot.querySelector("slot");
+        //console.log(`Contents (3a): (${this.slotContents.assignedNodes()})`);
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log(`Contents: (${this.slotContents.assignedNodes()})`);
+            let nodes = this.slotContents.assignedNodes();
+            let thecode = null;
+            for (let n of nodes) {
+                console.log(`Nodename ${n.nodeName}`);
+                if (n.nodeName.toLowerCase() == "code") {
+                    thecode = n.textContent;
+                    //console.log(`Thecode children: ${n.childNodes}`);
+                }
+            }
+            while (this.shadowRoot.firstChild) {
+                this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+            }
+
+            this.shadowRoot.appendChild(tiViewerBaseContent.content.cloneNode(true));
+            this.div = this.shadowRoot.querySelector("div");
+
+            thecode = thecode.replace("\r\n", "\n").replace("\r", "");
+            if (thecode[0] == "\n")
+                thecode = thecode.substring(1);
+            if (thecode[thecode.length - 1] == "\n")
+                thecode = thecode.substring(0, code.length - 1);
+
+            //console.log(`The code: (${thecode})`);
+            createTIBlocks(thecode, this.div);
+            this.iscodeprocessed = true;
+            for (let list of this.listenersCodeProcessed) {
+                this.whenCodeProcessed(list);
+            }
+
+        });
+
+    }
+
+    whenCodeProcessed(func) {
+        if (this.iscodeprocessed) {
+            console.log("Executing listener.");
+            func();
+            return;
+        }
+
+        this.listenersCodeProcessed.push(func);
+    }
+
+    disconnectedCallback() {
+
+    }
+
+    attributeChangedCallback() {
+
     }
 }
 
@@ -85,6 +169,8 @@ function formatTI() {
 function splitInTILines(code) {
     let outp = [];
     for (let l of code.split("\n")) {
+        l = l.trimStart();
+
         let remainingLength = 15;
         while (true) {
             let text = l.substring(0, remainingLength);

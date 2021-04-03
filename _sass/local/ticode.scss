@@ -4,7 +4,8 @@
     font-family: 'Consolas','Courier New',monospace;
     display: flex;
     max-height: 400px;
-    max-height: MAX(90vh, 400px);
+    //max-height: MAX(90vh, 400px);
+    max-height: none;
     padding-bottom: 10px;
     overflow: auto;
     gap: 0px;

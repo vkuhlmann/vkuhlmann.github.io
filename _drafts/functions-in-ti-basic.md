@@ -81,176 +81,79 @@ function yourself. From worst to best, what are the solutions?
 ## Solution 1: Your own state machine <span id="statemachine"></span>
 
 <script>
-let code = `
-ClrHome
-
-0→K
-1→S
-1→N
-1→J
-{0,0,0,0,0,0}→⌊COUNT
-
-While K≠22 and K≠45
-
-0→C
-For(I,1,N)
-C+⌊COUNT(I)→C
-If I=J and S=0
-Then
-Output(I,1,">")
-Else
-Output(I,1," ")
-End
-Output(I,2,"COUNT:")
-Output(I,9,"    ")
-Output(I,9,⌊COUNT(I))
-End
-Output(7,1,"AVG:")
-Output(7,9,"        ")
-Output(7,9,round(C/N,2))
-
-If S=1
-Then
-Output(8,1,"COUNTERS:")
-Output(8,11,N)
-Else
-Output(8,1,"           ")
-End
-
-0→K
-While K=0
-getKey→K
-End
-
-If S=1
-Then
-
-If K=95
-Then
-min(N+1,dim(⌊COUNT))→N
-0→⌊COUNT(N)
-0→K
-End
-
-If K=85
-Then
-max(1,N-1)→N
-min(N,J)→J
-ClrHome
-0→K
-End
-
-If K=21
-Then
-0→S
-0→K
-End
-
-End
-
-If K=21
-Then
-1→S
-End
-
-If K=102
-Then
-0→⌊COUNT(J)
-End
-
-If K=95 or K=85
-Then
-⌊COUNT(J)-1+2*(K=95)→⌊COUNT(J)
-End
-
-If K=34
-Then
-remainder(J,N)+1→J
-End
-
-If K=25
-Then
-remainder(J+N-2,N)+1→J
-End
-
-End
-ClrHome
-`;
-
-code = code.replace("\r\n", "\n").replace("\r", "");
-code = code.substring(1, code.length - 1);
 
 document.addEventListener("DOMContentLoaded", () => {
     //formatTI();
-    let el = document.querySelector("#tiCode").div;
-    createTIBlocks(code, el);
+    let el = document.querySelector("#tiCode");
+    //createTIBlocks(code, el);
 
-    let srcGroups = [
-      {
-        name: "setup",
-        begin: 1,
-        end: 9,
-        color: "yellow"
-      },
-      {
-        name: "beginLoop",
-        begin: 10,
-        end: 12,
-        color: "lightblue"
-      },
-      {
-        name: "drawCountLines",
-        begin: 13,
-        end: 31,
-        color: "lightgreen"
-      },
-      {
-        name: "drawFurther",
-        begin: 31,
-        end: 47,
-        color: "darkgreen"
-      },
-      {
-        name: "waitForKey",
-        begin: 48,
-        end: 52,
-        color: "orange"
-      },
-      {
-        name: "handleKey_Setup",
-        begin: 53,
-        end: 79,
-        color: "blue"
-      },
-      {
-        name: "handleKey_Normal",
-        begin: 80,
-        end: 108,
-        color: "darkblue"
-      },
-      {
-        name: "endLoop",
-        begin: 109,
-        end: 110,
-        color: "lightblue"
-      },
-    ];
-    let groups = srcGroups;
+    el.whenCodeProcessed(e => {
+      let srcGroups = [
+        {
+          name: "setup",
+          begin: 1,
+          end: 9,
+          color: "yellow"
+        },
+        {
+          name: "beginLoop",
+          begin: 10,
+          end: 12,
+          color: "lightblue"
+        },
+        {
+          name: "drawCountLines",
+          begin: 13,
+          end: 31,
+          color: "lightgreen"
+        },
+        {
+          name: "drawFurther",
+          begin: 31,
+          end: 47,
+          color: "darkgreen"
+        },
+        {
+          name: "waitForKey",
+          begin: 48,
+          end: 52,
+          color: "orange"
+        },
+        {
+          name: "handleKey_Setup",
+          begin: 53,
+          end: 79,
+          color: "blue"
+        },
+        {
+          name: "handleKey_Normal",
+          begin: 80,
+          end: 108,
+          color: "darkblue"
+        },
+        {
+          name: "endLoop",
+          begin: 109,
+          end: 110,
+          color: "lightblue"
+        },
+      ];
+      let groups = srcGroups;
 
-    let nameToColor = {};
-    produceGroups(groups, nameToColor);
+      let nameToColor = {};
+      produceGroups(groups, nameToColor);
 
-    updateColors(el, l => {
-      for (let g of groups) {
-        if (l >= g.begin && l < g.end) {
-          return g.color;
+      updateColors(el.div, l => {
+        for (let g of groups) {
+          if (l >= g.begin && l < g.end) {
+            return g.color;
+          }
         }
-      }
-      return "hsla(0, 100%, 50%, 0%)";
-    });
+        return "hsla(0, 100%, 50%, 0%)";
+      });
 
 
-    let pseudoCode = `
+      let pseudoCode = `
 [Pseudocode]
 Setup
 BeginLoop
@@ -262,66 +165,67 @@ BeginLoop
   HandleKey_Setup
   HandleKey_Normal
 EndLoop
-    `;
+      `;
 
-    pseudoCode = pseudoCode.replace("\r\n", "\n").replace("\r", "\n");
-    pseudoCode = pseudoCode.substring(1, pseudoCode.length - 1);
+      pseudoCode = pseudoCode.replace("\r\n", "\n").replace("\r", "\n");
+      pseudoCode = pseudoCode.substring(1, pseudoCode.length - 1);
 
-    el = document.querySelector("#pseudoCode");
-    // createTIBlocks(pseudoCode, el);
+      el = document.querySelector("#pseudoCode");
+      // createTIBlocks(pseudoCode, el);
 
-    groups = [
-      {
-        name: "setup",
-        begin: 1,
-        end: 2
-      },
-      {
-        name: "beginLoop",
-        begin: 2,
-        end: 3
-      },
-      {
-        name: "drawCountLines",
-        begin: 3,
-        end: 4
-      },
-      {
-        name: "drawFurther",
-        begin: 4,
-        end: 6
-      },
-      {
-        name: "waitForKey",
-        begin: 7,
-        end: 8
-      },
-      {
-        name: "handleKey_Setup",
-        begin: 8,
-        end: 9
-      },
-      {
-        name: "handleKey_Normal",
-        begin: 9,
-        end: 10
-      },
-      {
-        name: "endLoop",
-        begin: 10,
-        end: 11,
-      },
-    ];
-    
-    produceGroups(groups, nameToColor);
+      groups = [
+        {
+          name: "setup",
+          begin: 1,
+          end: 2
+        },
+        {
+          name: "beginLoop",
+          begin: 2,
+          end: 3
+        },
+        {
+          name: "drawCountLines",
+          begin: 3,
+          end: 4
+        },
+        {
+          name: "drawFurther",
+          begin: 4,
+          end: 6
+        },
+        {
+          name: "waitForKey",
+          begin: 7,
+          end: 8
+        },
+        {
+          name: "handleKey_Setup",
+          begin: 8,
+          end: 9
+        },
+        {
+          name: "handleKey_Normal",
+          begin: 9,
+          end: 10
+        },
+        {
+          name: "endLoop",
+          begin: 10,
+          end: 11,
+        },
+      ];
+      
+      produceGroups(groups, nameToColor);
 
-    updateColors(el, l => {
-      for (let g of groups) {
-        if (l >= g.begin && l < g.end) {
-          return g.color;
+      updateColors(el, l => {
+        for (let g of groups) {
+          if (l >= g.begin && l < g.end) {
+            return g.color;
+          }
         }
-      }
-      return "hsla(0, 100%, 50%, 0%)";
+        return "hsla(0, 100%, 50%, 0%)";
+      });
     });
 });
 
@@ -332,8 +236,102 @@ EndLoop
 </div> -->
 
 <div style="position:relative;width:calc(max(100%, 70vw));margin-left:calc((100% - max(100%, 70vw))/2);">
-  <ti-viewer id="tiCode">
+  <ti-viewer id="tiCode" mytest="ok">
+    <code style="white-space:pre;">
+      ClrHome
 
+      0→K
+      1→S
+      1→N
+      1→J
+      {0,0,0,0,0,0}→⌊COUNT
+
+      While K≠22 and K≠45
+
+      0→C
+      For(I,1,N)
+      C+⌊COUNT(I)→C
+      If I=J and S=0
+      Then
+      Output(I,1,">")
+      Else
+      Output(I,1," ")
+      End
+      Output(I,2,"COUNT:")
+      Output(I,9,"    ")
+      Output(I,9,⌊COUNT(I))
+      End
+      Output(7,1,"AVG:")
+      Output(7,9,"        ")
+      Output(7,9,round(C/N,2))
+
+      If S=1
+      Then
+      Output(8,1,"COUNTERS:")
+      Output(8,11,N)
+      Else
+      Output(8,1,"           ")
+      End
+
+      0→K
+      While K=0
+      getKey→K
+      End
+
+      If S=1
+      Then
+
+      If K=95
+      Then
+      min(N+1,dim(⌊COUNT))→N
+      0→⌊COUNT(N)
+      0→K
+      End
+
+      If K=85
+      Then
+      max(1,N-1)→N
+      min(N,J)→J
+      ClrHome
+      0→K
+      End
+
+      If K=21
+      Then
+      0→S
+      0→K
+      End
+
+      End
+
+      If K=21
+      Then
+      1→S
+      End
+
+      If K=102
+      Then
+      0→⌊COUNT(J)
+      End
+
+      If K=95 or K=85
+      Then
+      ⌊COUNT(J)-1+2*(K=95)→⌊COUNT(J)
+      End
+
+      If K=34
+      Then
+      remainder(J,N)+1→J
+      End
+
+      If K=25
+      Then
+      remainder(J+N-2,N)+1→J
+      End
+
+      End
+      ClrHome
+    </code>
   </ti-viewer>
 </div>
 
