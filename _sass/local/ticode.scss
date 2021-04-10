@@ -47,7 +47,7 @@
     margin: 0px;
 }
 
-.tiCode > div > span, .tiCode > span > span {
+.tiCode.ti-blocks > div > span, .tiCode.ti-blocks > span > span {
     // position: relative;
     // left: -1px;
     // right: 1px;
@@ -61,7 +61,11 @@
     margin: 0px;
 }
 
-.tiCode > span > span > span {
+// .tiCode.ti-blocks > span > span > span {
+//     padding-left: 3px;
+// }
+
+.bordercolor {
     padding-left: 3px;
 }
 
@@ -89,7 +93,7 @@
 //     //background-color: red;
 // }
 
-.tiCode > span > .fr {
+.tiCode.ti-blocks > span > .fr {
     border-left: 2px solid black;
     border-right: 2px solid black;
     position: absolute;
@@ -135,7 +139,7 @@
 //     z-index: -1;
 // }
 
-.tiCode > span > .fr-horiz {
+.tiCode.ti-blocks > span > .fr-horiz {
     border-top: 5px solid black;
     //border-bottom: 5px solid black;
     position: absolute;

@@ -70,7 +70,9 @@ class TIViewer extends HTMLElement {
             for (let n of nodes) {
                 console.log(`Nodename ${n.nodeName}`);
                 if (n.nodeName.toLowerCase() == "code") {
-                    thecode = n.textContent;
+                    //thecode = n.textContent;
+                    thecode = n.innerText;
+                    //console.log(`Code children: ${n.childNodes[0].textContent}`);
                     //console.log(`Thecode children: ${n.childNodes}`);
                 }
             }
@@ -88,14 +90,68 @@ class TIViewer extends HTMLElement {
                 thecode = thecode.substring(0, code.length - 1);
 
             //console.log(`The code: (${thecode})`);
-            createTIBlocks(thecode, this.div);
-            this.iscodeprocessed = true;
+            this.dataFormatCode(thecode);
+
             for (let list of this.listenersCodeProcessed) {
                 this.whenCodeProcessed(list);
             }
 
         });
 
+    }
+
+    dataFormatCode(code) {
+        this.dataCode = code;
+        this.dataGroups = [];
+
+        let mode = this.getAttribute("mode") || "blocks";
+
+        if (mode == "linear") {
+            this.createLinear(code);
+        } else if (mode == "blocks") {
+            this.createBlocks(code);
+        }
+    }
+
+    createBlocks(code) {
+        let groups = [];
+        createTIBlocks(code, this.div, groups);
+        console.log(`Groups is (${JSON.stringify(groups)})`);
+
+        this.iscodeprocessed = true;
+
+        let nameToColor = {};
+        produceGroups(groups, nameToColor);
+
+        updateColors(this.div, l => {
+            for (let g of groups) {
+                if (l >= g.begin && l < g.end) {
+                    return g.color;
+                }
+            }
+            return "hsla(0, 100%, 50%, 0%)";
+        });
+        this.dataGroups = groups;
+    }
+
+    createLinear(code) {
+        let groups = [];
+        createTILinear(code, this.div, groups);
+        //console.log()
+
+        this.iscodeprocessed = true;
+        let nameToColor = {};
+        produceGroups(groups, nameToColor);
+
+        updateColors(this.div, l => {
+            for (let g of groups) {
+                if (l >= g.begin && l < g.end) {
+                    return g.color;
+                }
+            }
+            return "hsla(0, 100%, 50%, 0%)";
+        });
+        this.dataGroups = groups;
     }
 
     whenCodeProcessed(func) {
@@ -166,10 +222,18 @@ function formatTI() {
     }
 }
 
-function splitInTILines(code) {
+function splitInTILines(code, groups) {
     let outp = [];
+    if (groups == null)
+        groups = [];
+
     for (let l of code.split("\n")) {
         l = l.trimStart();
+
+        l = processLine(l, groups, outp.length + 1);
+
+        if (l == null)
+            continue;
 
         let remainingLength = 15;
         while (true) {
@@ -191,9 +255,130 @@ function splitInTILines(code) {
     return outp;
 }
 
-function createTIBlocks(code, el) {
+function splitInLines(code, groups) {
+    let outp = [];
+    if (groups == null)
+        groups = [];
+
+    let lines = code.split("\n");
+    let indent = lines[0].length - lines[0].trimStart().length;
+
+    for (let l of code.split("\n")) {
+        //l = l.trimStart();
+        l = l.substring(indent);
+        if (l.startsWith(" ")) {
+            l = "&nbsp;" + l.substring(1);
+        }
+
+        l = processLine(l, groups, outp.length + 1);
+
+        if (l == null)
+            continue;
+
+        let text = l;
+        text = `${text}<br/>`;
+        outp.push(text);
+    }
+    return outp;
+}
+
+function processLine(l, groups, linenumber) {
+    let hashtagPos = l.indexOf("#");
+    let comm = "";
+
+    if (hashtagPos != -1) {
+        comm = l.substring(hashtagPos + 1);
+        l = l.substring(0, hashtagPos);
+
+        if (comm.startsWith("#")) {
+            l = null;
+            comm = comm.substring(1);
+        }
+        comm = comm.trimStart();
+
+        processComment(comm, groups, linenumber);
+    }
+    return l;
+}
+
+function processComment(comm, groups, linenumber) {
+    let markRe = /^MARK ("(?<name>[^"]*)"( |$))?(?<color>[a-zA-Z0-9_\-*]+)$/;
+    let m = comm.match(markRe);
+    if (m != null) {
+        let name = m.groups.name;
+        let color = m.groups.color;
+        //console.log(`Name ${name} with color ${color}`);
+        groups.push({
+            name: name,
+            color: color,
+            begin: linenumber,
+            end: linenumber + 1
+        });
+        return;
+    }
+
+    let beginRe = /^BEGIN ("(?<name>[^"]*)"( |$))?(?<color>[a-zA-Z0-9_\-*]+)$/;
+    
+    m = comm.match(beginRe);
+    if (m != null) {
+        let name = m.groups.name;
+        let color = m.groups.color;
+        //console.log(`Name ${name} with color ${color}`);
+        groups.push({
+            name: name,
+            color: color,
+            begin: linenumber,
+            end: Infinity
+        });
+        return;
+    }
+
+    let endRe = /^END "(?<name>[^"]*)"$/;
+
+    m = comm.match(endRe);
+    if (m != null) {
+        let name = m.groups.name;
+        let g = null;
+        for (let gr of groups) {
+            if (gr.name == name) {
+                g = gr;
+                break;
+            }
+        }
+
+        if (g != null) {
+            g.end = linenumber;
+        }
+        return;
+    }
+    console.log("Comment ignored");
+}
+
+function createTILinear(code, el, groups) {
+    console.log(`Code is: (${code})`);
     el.innerHTML = "";
-    let lines = splitInTILines(code);
+    let lines = splitInLines(code, groups);
+
+    let div = document.createElement("div");
+    el.appendChild(div);
+
+    let lineno = 0;
+    for (let l of lines) {
+        let t = document.createElement("span");
+        t.innerHTML = l;
+        lineno += 1;
+        t.setAttribute("data-displayline", lineno);
+        t.classList.add("bordercolor");
+
+        div.appendChild(t);
+    }
+}
+
+function createTIBlocks(code, el, groups) {
+    el.innerHTML = "";
+    let lines = splitInTILines(code, groups);
+
+    el.classList.add("ti-blocks");
 
     for (let i = 0; i < lines.length; i += 7) {
         let sel = lines.slice(i, i + 7);
@@ -232,6 +417,7 @@ function createTIBlocks(code, el) {
             //let col = "transparent";
             if (lineno != i)
                 t.setAttribute("data-displayline", lineno);
+            t.classList.add("bordercolor");
 
             //   if ((Math.floor(lineno / 5) % 2) == 0)
             //     col = "red";
@@ -248,7 +434,6 @@ function createTIBlocks(code, el) {
 }
 
 function updateColors(el, getLineColor) {
-    //debugger;
     for (let t of el.querySelectorAll("[data-displayline]")) {
         let lineNumber = t.getAttribute("data-displayline");
         let col = getLineColor(lineNumber);
