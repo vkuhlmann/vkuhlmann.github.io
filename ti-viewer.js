@@ -16,8 +16,11 @@ let TI_VIEWER_MARKCOLORS = {
 let tiViewerBaseContent = document.createElement("template");
 tiViewerBaseContent.innerHTML = `
 <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<div class="tiCode">
-    
+<div class="tiViewer">
+    <button type="button" class="button-toggle" data-id="collapseCode">Collapse</button>
+    <div class="tiCode" data-id="code">
+        
+    </div>
 </div>
 `;
 
@@ -40,6 +43,7 @@ class TIViewer extends HTMLElement {
         //shadow.appendChild(tiViewerBaseContent.content.cloneNode(true));
         shadow.appendChild(tiViewerSlots.content.cloneNode(true));
         this.div = shadow.querySelector("div");
+        this.codeTarget = shadow.querySelector("[data-id=\"code\"]");
         this.slotContents = this.shadowRoot.querySelector("slot");
 
         this.listenersCodeProcessed = [];
@@ -82,6 +86,7 @@ class TIViewer extends HTMLElement {
 
             this.shadowRoot.appendChild(tiViewerBaseContent.content.cloneNode(true));
             this.div = this.shadowRoot.querySelector("div");
+            this.codeTarget = this.shadowRoot.querySelector("[data-id=\"code\"]");
 
             thecode = thecode.replace("\r\n", "\n").replace("\r", "");
             if (thecode[0] == "\n")
@@ -91,6 +96,27 @@ class TIViewer extends HTMLElement {
 
             //console.log(`The code: (${thecode})`);
             this.dataFormatCode(thecode);
+
+            if (this.classList.contains("overwide")) {
+                this.div.classList.add("overwide");
+                this.classList.remove("overwide");
+            }
+
+            this.collapseCode = new ToggleButton(this.div.querySelector("[data-id=\"collapseCode\"]"));
+            this.collapseCode.onToggle = () => {
+                //this.codeTarget.classList.add("hide");
+                this.div.classList.add("collapsed");
+                this.collapseCode.el.innerHTML = "Show code";
+            };
+
+            this.collapseCode.onUntoggle = () => {
+                //this.codeTarget.classList.remove("hide");
+                this.div.classList.remove("collapsed");
+                this.collapseCode.el.innerHTML = "Hide code";
+            };
+
+            this.collapseCode.onUntoggle();
+
 
             for (let list of this.listenersCodeProcessed) {
                 this.whenCodeProcessed(list);
@@ -115,7 +141,7 @@ class TIViewer extends HTMLElement {
 
     createBlocks(code) {
         let groups = [];
-        createTIBlocks(code, this.div, groups);
+        createTIBlocks(code, this.codeTarget, groups);
         console.log(`Groups is (${JSON.stringify(groups)})`);
 
         this.iscodeprocessed = true;
@@ -136,7 +162,7 @@ class TIViewer extends HTMLElement {
 
     createLinear(code) {
         let groups = [];
-        createTILinear(code, this.div, groups);
+        createTILinear(code, this.codeTarget, groups);
         //console.log()
 
         this.iscodeprocessed = true;
@@ -438,6 +464,59 @@ function updateColors(el, getLineColor) {
         let lineNumber = t.getAttribute("data-displayline");
         let col = getLineColor(lineNumber);
         t.style["border-left"] = `4px solid ${col}`;
+    }
+}
+
+class ToggleButton {
+    constructor(el) {
+        this.el = el;
+        this.state = 0;
+
+        const that = this;
+        this.el.addEventListener("click", e => that.cycleToggle());
+    }
+
+    getState() {
+        return this.state;
+    }
+
+    isToggled() {
+        return this.state > 0;
+    }
+
+    toggle() {
+        if (this.isToggled())
+            return;
+        this.el.classList.add("toggled");
+        this.state = 1;
+
+        this.onToggle();
+    }
+
+    onToggle() {
+        console.log("Toggle handler not overriden!");
+        // Override this
+    }
+
+    untoggle() {
+        if (this.state == 0)
+            return;
+        this.state = 0;
+        this.el.classList.remove("toggled");
+
+        this.onUntoggle();
+    }
+
+    onUntoggle() {
+        // Override this
+    }
+
+    cycleToggle() {
+        if (this.state == 1) {
+            this.untoggle();
+        } else {
+            this.toggle();
+        }
     }
 }
 

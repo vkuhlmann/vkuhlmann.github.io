@@ -80,8 +80,8 @@ function yourself. From worst to best, what are the solutions?
 
 ## Solution 1: Your own state machine <span id="statemachine"></span>
 
-<div style="position:relative;width:calc(max(100%, 70vw));margin-left:calc((100% - max(100%, 70vw))/2);">
-  <ti-viewer id="tiCode" mode="blocks">
+<!--<div style="position:relative;width:calc(max(100%, 70vw));margin-left:calc((100% - max(100%, 70vw))/2);">-->
+  <ti-viewer id="tiCode" mode="blocks" class="overwide">
     <code style="white-space:pre;">
       ## BEGIN "setup" yellow
         ClrHome
@@ -194,7 +194,7 @@ function yourself. From worst to best, what are the solutions?
       ClrHome
     </code>
   </ti-viewer>
-</div>
+<!--</div>-->
 
 <ti-viewer mode="linear">
   <code style="white-space:pre;">

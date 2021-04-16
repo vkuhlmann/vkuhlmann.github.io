@@ -1,4 +1,4 @@
-
+@use "inputs.scss";
 
 .tiCode {
     font-family: 'Consolas','Courier New',monospace;
@@ -18,7 +18,32 @@
     // Horizontal situation
     flex-flow: row wrap;
     align-content: flex-start;
+}
+
+.tiCode.ti-blocks {
     justify-content: center;
+}
+
+ti-viewer:not(.collapsed).overwide {
+    display: block;
+    position: relative;
+    width: calc(max(100%, 70vw));
+    margin-left: calc((100% - MAX(100%, 70vw))/2);
+}
+
+.tiViewer:not(.collapsed).overwide {
+    position: relative;
+    width: calc(max(100%, 70vw));
+    margin-left: calc((100% - MAX(100%, 70vw))/2);
+}
+
+.tiViewer {
+    @extend .card;
+    margin-bottom: 10px;
+}
+
+.tiViewer.collapsed > .tiCode {
+    @extend .hide;
 }
 
 .pseudoCode {
