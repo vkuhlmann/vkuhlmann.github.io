@@ -17,7 +17,7 @@ let tiViewerBaseContent = document.createElement("template");
 tiViewerBaseContent.innerHTML = `
 <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
 <div class="tiViewer">
-    <button type="button" class="button-toggle" data-id="collapseCode">Collapse</button>
+    <button type="button" class="button-toggle" data-id="showCode">Show code</button>
     <div class="tiCode" data-id="code">
         
     </div>
@@ -91,8 +91,11 @@ class TIViewer extends HTMLElement {
             thecode = thecode.replace("\r\n", "\n").replace("\r", "");
             if (thecode[0] == "\n")
                 thecode = thecode.substring(1);
-            if (thecode[thecode.length - 1] == "\n")
-                thecode = thecode.substring(0, code.length - 1);
+            while (thecode[thecode.length - 1] == " ")
+                thecode = thecode.substring(0, thecode.length - 1);
+            while (thecode[thecode.length - 1] == "\n")
+                thecode = thecode.substring(0, thecode.length - 1);
+            console.log(`Code: (${thecode})`);
 
             //console.log(`The code: (${thecode})`);
             this.dataFormatCode(thecode);
@@ -102,20 +105,29 @@ class TIViewer extends HTMLElement {
                 this.classList.remove("overwide");
             }
 
-            this.collapseCode = new ToggleButton(this.div.querySelector("[data-id=\"collapseCode\"]"));
+            if (this.classList.contains("minimal")) {
+                this.div.classList.add("minimal");
+                this.classList.remove("minimal");
+            }
+
+            this.collapseCode = new ToggleButton(this.div.querySelector("[data-id=\"showCode\"]"));
             this.collapseCode.onToggle = () => {
                 //this.codeTarget.classList.add("hide");
-                this.div.classList.add("collapsed");
-                this.collapseCode.el.innerHTML = "Show code";
-            };
-
-            this.collapseCode.onUntoggle = () => {
-                //this.codeTarget.classList.remove("hide");
                 this.div.classList.remove("collapsed");
                 this.collapseCode.el.innerHTML = "Hide code";
             };
 
-            this.collapseCode.onUntoggle();
+            this.collapseCode.onUntoggle = () => {
+                //this.codeTarget.classList.remove("hide");
+                this.div.classList.add("collapsed");
+                this.collapseCode.el.innerHTML = "Show code";
+            };
+
+            this.collapseCode.toggle();
+            if (this.hasAttribute("collapsed"))
+                this.collapseCode.untoggle();
+            else
+                this.collapseCode.toggle();
 
 
             for (let list of this.listenersCodeProcessed) {
@@ -265,8 +277,14 @@ function splitInTILines(code, groups) {
         while (true) {
             let text = l.substring(0, remainingLength);
             text = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            let colonStyle = "";
+            if (text.startsWith("\""))
+                colonStyle = "color:green;font-weight:bold;background-color:lightgreen;";
+            else if (text.startsWith("Lbl"))
+                colonStyle = "color:red;font-weight:bold;background-color:hsl(0, 100%, 80%);";
+
             if (remainingLength == 15)
-                text = `<span style="user-select:none;">:</span>${text}`;
+                text = `<span style="user-select:none;${colonStyle}">:</span>${text}`;
             let terminate = l.length < remainingLength;
             if (terminate)
                 text = `${text}<br/>`;

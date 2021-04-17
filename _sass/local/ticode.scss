@@ -37,6 +37,10 @@ ti-viewer:not(.collapsed).overwide {
     margin-left: calc((100% - MAX(100%, 70vw))/2);
 }
 
+.tiViewer.minimal [data-id="showCode"] {
+    @extend .hide;
+}
+
 .tiViewer {
     @extend .card;
     margin-bottom: 10px;
