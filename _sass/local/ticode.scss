@@ -1,10 +1,11 @@
-
+@use "inputs.scss";
 
 .tiCode {
     font-family: 'Consolas','Courier New',monospace;
     display: flex;
     max-height: 400px;
-    max-height: MAX(90vh, 400px);
+    //max-height: MAX(90vh, 400px);
+    max-height: none;
     padding-bottom: 10px;
     overflow: auto;
     gap: 0px;
@@ -17,7 +18,36 @@
     // Horizontal situation
     flex-flow: row wrap;
     align-content: flex-start;
+}
+
+.tiCode.ti-blocks {
     justify-content: center;
+}
+
+ti-viewer:not(.collapsed).overwide {
+    display: block;
+    position: relative;
+    width: calc(max(100%, 70vw));
+    margin-left: calc((100% - MAX(100%, 70vw))/2);
+}
+
+.tiViewer:not(.collapsed).overwide {
+    position: relative;
+    width: calc(max(100%, 70vw));
+    margin-left: calc((100% - MAX(100%, 70vw))/2);
+}
+
+.tiViewer.minimal [data-id="showCode"] {
+    @extend .hide;
+}
+
+.tiViewer {
+    @extend .card;
+    margin-bottom: 10px;
+}
+
+.tiViewer.collapsed > .tiCode {
+    @extend .hide;
 }
 
 .pseudoCode {
@@ -46,7 +76,7 @@
     margin: 0px;
 }
 
-.tiCode > div > span, .tiCode > span > span {
+.tiCode.ti-blocks > div > span, .tiCode.ti-blocks > span > span {
     // position: relative;
     // left: -1px;
     // right: 1px;
@@ -60,7 +90,11 @@
     margin: 0px;
 }
 
-.tiCode > span > span > span {
+// .tiCode.ti-blocks > span > span > span {
+//     padding-left: 3px;
+// }
+
+.bordercolor {
     padding-left: 3px;
 }
 
@@ -88,7 +122,7 @@
 //     //background-color: red;
 // }
 
-.tiCode > span > .fr {
+.tiCode.ti-blocks > span > .fr {
     border-left: 2px solid black;
     border-right: 2px solid black;
     position: absolute;
@@ -134,7 +168,7 @@
 //     z-index: -1;
 // }
 
-.tiCode > span > .fr-horiz {
+.tiCode.ti-blocks > span > .fr-horiz {
     border-top: 5px solid black;
     //border-bottom: 5px solid black;
     position: absolute;
