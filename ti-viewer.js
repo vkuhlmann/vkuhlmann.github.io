@@ -32,52 +32,27 @@ tiViewerSlots.innerHTML = `
 class TIViewer extends HTMLElement {
     constructor() {
         super();
-        // console.log("A");
-        // this.innerHTML = "";
-        // console.log("B");
-
-        // console.log(`Contents (1a): (${this.outerHTML})`);
-        // console.log(`Contents (1b): (${this.textContent})`);
 
         var shadow = this.attachShadow({mode: "open"});
-        //shadow.appendChild(tiViewerBaseContent.content.cloneNode(true));
         shadow.appendChild(tiViewerSlots.content.cloneNode(true));
         this.div = shadow.querySelector("div");
-        this.codeTarget = shadow.querySelector("[data-id=\"code\"]");
         this.slotContents = this.shadowRoot.querySelector("slot");
 
         this.listenersCodeProcessed = [];
-        this.iscodeprocessed = false;
-
-        //console.log(`Contents (1c): (${this.slotContents.assignedNodes()})`);
-
-        //shadow.appendChild(document.createElement("slot"));
-        
-
-        //var container = document.createElement("div");
+        this.iscodeprocessed = false;;
     }
 
     connectedCallback() {
-        // console.log(`Contents (2a): (${this.outerHTML})`);
-        // console.log(`Contents (2b): (${this.textContent})`);
-        // console.log(`Contents (2c): (${this.innerHTML})`);
-        // console.log(`Contents (2d): (${this.shadowRoot.innerHTML})`);
-        // console.log(`Contents (2e): (${this.shadowRoot.textContent})`);
-
         this.slotContents = this.shadowRoot.querySelector("slot");
-        //console.log(`Contents (3a): (${this.slotContents.assignedNodes()})`);
         
         document.addEventListener("DOMContentLoaded", () => {
-            console.log(`Contents: (${this.slotContents.assignedNodes()})`);
+            //console.log(`Contents: (${this.slotContents.assignedNodes()})`);
             let nodes = this.slotContents.assignedNodes();
             let thecode = null;
             for (let n of nodes) {
-                console.log(`Nodename ${n.nodeName}`);
+                //console.log(`Nodename ${n.nodeName}`);
                 if (n.nodeName.toLowerCase() == "code") {
-                    //thecode = n.textContent;
                     thecode = n.innerText;
-                    //console.log(`Code children: ${n.childNodes[0].textContent}`);
-                    //console.log(`Thecode children: ${n.childNodes}`);
                 }
             }
             while (this.shadowRoot.firstChild) {
@@ -95,9 +70,8 @@ class TIViewer extends HTMLElement {
                 thecode = thecode.substring(0, thecode.length - 1);
             while (thecode[thecode.length - 1] == "\n")
                 thecode = thecode.substring(0, thecode.length - 1);
-            console.log(`Code: (${thecode})`);
+            //console.log(`Code: (${thecode})`);
 
-            //console.log(`The code: (${thecode})`);
             this.dataFormatCode(thecode);
 
             if (this.classList.contains("overwide")) {
@@ -154,7 +128,7 @@ class TIViewer extends HTMLElement {
     createBlocks(code) {
         let groups = [];
         createTIBlocks(code, this.codeTarget, groups);
-        console.log(`Groups is (${JSON.stringify(groups)})`);
+        //console.log(`Groups is (${JSON.stringify(groups)})`);
 
         this.iscodeprocessed = true;
 
@@ -399,7 +373,7 @@ function processComment(comm, groups, linenumber) {
 }
 
 function createTILinear(code, el, groups) {
-    console.log(`Code is: (${code})`);
+    //console.log(`Code is: (${code})`);
     el.innerHTML = "";
     let lines = splitInLines(code, groups);
 

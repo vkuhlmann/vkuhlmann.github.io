@@ -1,6 +1,6 @@
 <!-- jekyll.environment == "production" -->
 
-{%- if page.comments != false -%}
+{%- if page.comments != false and jekyll.environment == "production" -%}
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {
