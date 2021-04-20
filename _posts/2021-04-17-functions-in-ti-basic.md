@@ -15,8 +15,7 @@ stupid (read: challenging) programming language: TI-BASIC. I made a wild host of
 programs on it, like a program to count down to the end of class, and a
 text-to-morse converter.
 
-Doesn't sound that bad, does it? Be blessed with ignorance. Anyway, I want to
-focus on one hurdle in this article, and how I solved it: functions.
+In this article, I want to focus on one hurdle, and how I solved it: functions.
 
 <tibasic-simulator>
     <code>
