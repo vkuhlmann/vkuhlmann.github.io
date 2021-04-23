@@ -34,6 +34,7 @@ Output(8,1,remainder(int(3.2),5))
     </div>
     <div>
         <button class="button-action" data-id="runButton">Run</button>
+        <button class="button-action" data-id="stopButton">Stop</button>
         <button class="button-action">2nd</button>
     </div>
 </div>
@@ -116,6 +117,7 @@ class TIBasicTryitGadget extends HTMLElement {
             this.div = this.shadowRoot.querySelector("div");
             this.codeAreaEl = this.div.querySelector("[data-id=\"codeArea\"]");
             this.runButtonEl = this.div.querySelector("[data-id=\"runButton\"]");
+            this.stopButtonEl = this.div.querySelector("[data-id=\"stopButton\"]");
             this.statusEl = this.div.querySelector("[data-id=\"status\"]");
             this.createScreen();
             //this.randomizeScreen();
@@ -140,12 +142,37 @@ class TIBasicTryitGadget extends HTMLElement {
         this.context = new TryitGadgetContext(this);
         const that = this;
         this.runButtonEl.addEventListener("click", () => that.runCode());
+        this.stopButtonEl.addEventListener("click", () => that.stopCode());
     }
 
     runCode() {
         let code = this.codeAreaEl.value;
         this.context.SetCode(code);
-        TIBasicLogic.Run(this.context);
+        this.runButtonEl.setAttribute("disabled", "disabled");
+        this.isRunning = true;
+        this.currentlyRunning = TIBasicLogic.Run(this.context);
+        this.stopButtonEl.removeAttribute("disabled", "disabled");
+
+        const that = this;
+        this.currentlyRunning.then(
+            () => {
+                that.onRunFinished();
+            }
+        ).catch(
+            () => {
+                that.onRunFinished();
+            }
+        );
+    }
+
+    onRunFinished() {
+        this.isRunning = false;
+        this.runButtonEl.removeAttribute("disabled");
+        this.stopButtonEl.setAttribute("disabled", "disabled");
+    }
+
+    stopCode() {
+        this.context.Break();
     }
 }
 

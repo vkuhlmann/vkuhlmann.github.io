@@ -8,6 +8,7 @@ class TIBasicContext {
         this.memory = {};
         this.timeoffset = Math.floor(new Date(2021, 4, 21).getTime() / 1000);
         this.stack = [];
+        this.isStopRequested = false;
     }
 
     SetCode(code) {
@@ -67,9 +68,18 @@ class TIBasicContext {
         return Math.floor(getTime() / 1000) - this.timeoffset;
     }
 
+    Break() {
+        this.isStopRequested = true;
+    }
+
     SetStatus(status) {
         
     }
+}
+
+// Source: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
@@ -206,14 +216,20 @@ class TIBasicLogic {
         return;
     }
 
-    static Run(context) {
+    static async Run(context) {
+        context.isStopRequested = false;
         context.SetStatus("Uncompleted");
         code = context.code;
 
         let status = null;
         try {
             while (context.pos < code.length) {
+                if (context.isStopRequested) {
+                    context.isStopRequested = false;
+                    return;
+                }
                 TIBasicLogic.RunStatement(context);
+                await sleep(20);
             }
         } catch (ex) {
             if (ex.message?.startsWith("TI-BASIC")) {
