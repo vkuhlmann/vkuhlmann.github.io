@@ -17,11 +17,11 @@ text-to-morse converter.
 
 In this article, I want to focus on one hurdle, and how I solved it: functions.
 
-<tibasic-simulator>
+<tibasic-tryit>
     <code>
         CCC
     </code>
-</tibasic-simulator>
+</tibasic-tryit>
 
 
 In this post:
