@@ -8,6 +8,27 @@ let code = `
     Output(1,1,"Hey!")
 `;
 
+let oldCode = `
+ClrHome
+2->A
+3+A->B
+(B+1)/2->A
+If ((0>2)=0)*4-5
+Output(A,1,B)
+Output((A+1<5)+1,1,"Hey!")
+Output(8,1,remainder(int(3.2),5))
+`;
+
+let keyTestCode = `
+ClrHome
+0->K
+While K!=105
+getKey->K
+If K
+Output(1,1,K)
+End
+`;
+
 let tibasicTryitBaseContent = document.createElement("template");
 tibasicTryitBaseContent.innerHTML = `
 <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
@@ -22,14 +43,7 @@ tibasicTryitBaseContent.innerHTML = `
     </div>
     <div style="flex:1 0 auto;">
         <textarea style="width:100%;height:100%;" data-id="codeArea">
-ClrHome
-2->A
-3+A->B
-(B+1)/2->A
-If ((0>2)=0)*4-5
-Output(A,1,B)
-Output((A+1<5)+1,1,"Hey!")
-Output(8,1,remainder(int(3.2),5))
+Code wasn't loaded!
 </textarea>
     </div>
     <div class="tryitButtons">
@@ -114,6 +128,14 @@ class TIBasicTryitGadget extends HTMLElement {
                     thecode = n.innerText;
                 }
             }
+            thecode = thecode.replace(/(^|\n)\s+/g, "\n");
+            thecode = thecode.replace(/##[^\n]*\n/g, "");
+            thecode = thecode.replace(/^\n/g, "");
+            thecode = thecode.replaceAll("→","->");
+            thecode = thecode.replaceAll("⌊","l");
+            thecode = thecode.replaceAll("≠","!=");
+
+
             while (this.shadowRoot.firstChild) {
                 this.shadowRoot.removeChild(this.shadowRoot.firstChild);
             }
@@ -121,6 +143,7 @@ class TIBasicTryitGadget extends HTMLElement {
             this.shadowRoot.appendChild(tibasicTryitBaseContent.content.cloneNode(true));
             this.div = this.shadowRoot.querySelector("div");
             this.codeAreaEl = this.div.querySelector("[data-id=\"codeArea\"]");
+            this.codeAreaEl.value = thecode;
             this.runButtonEl = this.div.querySelector("[data-id=\"runButton\"]");
             this.stopButtonEl = this.div.querySelector("[data-id=\"stopButton\"]");
             this.statusEl = this.div.querySelector("[data-id=\"status\"]");
@@ -174,8 +197,9 @@ class TIBasicTryitGadget extends HTMLElement {
                 that.onRunFinished();
             }
         ).catch(
-            () => {
+            (ex) => {
                 that.onRunFinished();
+                throw ex;
             }
         );
     }
