@@ -1,6 +1,7 @@
 @use "inputs.scss";
 
-.simView, .simView.align-justify {
+.simView,
+.simView.align-justify {
     background-color: #eee;
     font-family: 'Consolas', 'Courier New', monospace;
     display: grid;
@@ -27,6 +28,13 @@
     * {
         box-sizing: border-box;
     }
+}
+
+.tryitButtons {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 2cm;
+    gap: 5px;
 }
 
 

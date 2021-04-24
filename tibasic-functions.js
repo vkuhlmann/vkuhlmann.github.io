@@ -17,6 +17,25 @@ TIBasicEvaluator.FnInt = context => {
     return Math.floor(vals[0]);
 }
 
+TIBasicEvaluator.FnAbs = context => {
+    let vals = TIBasicLogic.ReadArgs(context, "n");
+    return Math.abs(vals[0]);
+}
+
+TIBasicEvaluator.FnRound = context => {
+    let vals = TIBasicLogic.ReadArgs(context, "n");
+    return Math.round(vals[0]);
+}
+
+TIBasicEvaluator.FnStartTmr = context => {
+    return context.StartTmr();
+}
+
+TIBasicEvaluator.FnGetKey = context => {
+    return context.GetKey();
+}
+
+
 TIBasicControlStatements.InstrIf = context => {
     let code = context.code;
 

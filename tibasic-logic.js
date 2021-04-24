@@ -9,6 +9,7 @@ class TIBasicContext {
         this.timeoffset = Math.floor(new Date(2021, 4, 21).getTime() / 1000);
         this.stack = [];
         this.isStopRequested = false;
+        this.key = 0;
     }
 
     SetCode(code) {

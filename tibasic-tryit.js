@@ -32,10 +32,15 @@ Output((A+1<5)+1,1,"Hey!")
 Output(8,1,remainder(int(3.2),5))
 </textarea>
     </div>
-    <div>
+    <div class="tryitButtons">
         <button class="button-action" data-id="runButton">Run</button>
         <button class="button-action" data-id="stopButton">Stop</button>
-        <button class="button-action">2nd</button>
+        <button class="button-action" data-key="21">2nd</button>
+        <button class="button-action" data-key="22">Mode (Quit)</button>
+        <button class="button-action" data-key="105">Enter</button>
+        <button class="button-action" data-key="85">+</button>
+        <button class="button-action" data-key="75">-</button>
+        <button class="button-action" data-key="102">0</button>
     </div>
 </div>
 `;
@@ -143,6 +148,16 @@ class TIBasicTryitGadget extends HTMLElement {
         const that = this;
         this.runButtonEl.addEventListener("click", () => that.runCode());
         this.stopButtonEl.addEventListener("click", () => that.stopCode());
+
+        for (let keyEl of this.div.querySelectorAll("[data-key]")) {
+            if (keyEl.hasAttribute("registered"))
+                continue;
+
+            let keyNum = keyEl.getAttribute("data-key");
+            keyEl.addEventListener("pointerdown", () => that.context.SetKey(+keyNum));
+
+            keyEl.setAttribute("registered", "registered");
+        }
     }
 
     runCode() {
@@ -209,8 +224,15 @@ class TryitGadgetContext extends TIBasicContext {
     }
 
     GetKey() {
-        return 0;
+        let ans = this.key;
+        this.key = 0;
+        return ans;
     }
+
+    SetKey(key) {
+        this.key = key;
+    }
+
 
     SetStatus(status) {
         this.gadget.statusEl.innerText = status;
