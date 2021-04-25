@@ -1,7 +1,46 @@
 @use "inputs.scss";
 
+.simView,
+.simView.align-justify {
+    background-color: #eee;
+    font-family: 'Consolas', 'Courier New', monospace;
+    display: grid;
+    width: 200px;
+    // height: 128px;
+    //width: initial;
+    grid-template-columns: repeat(16, 12px);
+    grid-template-rows: repeat(8, 16px);
+    padding: 5px;
+
+    span {
+        line-height: 16px;
+        text-align: center;
+    }
+}
+
+.tiBasicSimulator {
+    font-family: 'Consolas', 'Courier New', monospace;
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    gap: 10px;
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.tryitButtons {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 2cm;
+    gap: 5px;
+    align-content: flex-start;
+}
+
+
 .tiCode {
-    font-family: 'Consolas','Courier New',monospace;
+    font-family: 'Consolas', 'Courier New', monospace;
     display: flex;
     max-height: 400px;
     //max-height: MAX(90vh, 400px);
@@ -46,18 +85,18 @@ ti-viewer:not(.collapsed).overwide {
     margin-bottom: 10px;
 }
 
-.tiViewer.collapsed > .tiCode {
+.tiViewer.collapsed>.tiCode {
     @extend .hide;
 }
 
 .pseudoCode {
-    font-family: 'Consolas','Courier New',monospace;
+    font-family: 'Consolas', 'Courier New', monospace;
     display: flex;
     flex-flow: column nowrap;
     padding: 8px;
 }
 
-.pseudoCode > span {
+.pseudoCode>span {
     padding-left: 3px;
 }
 
@@ -69,14 +108,16 @@ ti-viewer:not(.collapsed).overwide {
 //     margin: 0px;
 // }
 
-.tiCode > div, .tiCode > span {
+.tiCode>div,
+.tiCode>span {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
     margin: 0px;
 }
 
-.tiCode.ti-blocks > div > span, .tiCode.ti-blocks > span > span {
+.tiCode.ti-blocks>div>span,
+.tiCode.ti-blocks>span>span {
     // position: relative;
     // left: -1px;
     // right: 1px;
@@ -122,7 +163,7 @@ ti-viewer:not(.collapsed).overwide {
 //     //background-color: red;
 // }
 
-.tiCode.ti-blocks > span > .fr {
+.tiCode.ti-blocks>span>.fr {
     border-left: 2px solid black;
     border-right: 2px solid black;
     position: absolute;
@@ -168,7 +209,7 @@ ti-viewer:not(.collapsed).overwide {
 //     z-index: -1;
 // }
 
-.tiCode.ti-blocks > span > .fr-horiz {
+.tiCode.ti-blocks>span>.fr-horiz {
     border-top: 5px solid black;
     //border-bottom: 5px solid black;
     position: absolute;

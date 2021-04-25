@@ -25,8 +25,13 @@ under which Bootstrap is distributed. */
     margin: 0px;
 }
 
-.button-action:focus,
-.button-toggle:focus {
+
+.button-action:disabled {
+    background-color: #ccc;
+}
+
+.button-action:focus:not(:disabled),
+.button-toggle:focus:not(:disabled) {
     outline: 0 none black;
 }
 
@@ -40,8 +45,8 @@ under which Bootstrap is distributed. */
     cursor: pointer;
 }
 
-.button-action:hover,
-.button-toggle:hover:not(.toggled) {
+.button-action:hover:not(:disabled),
+.button-toggle:hover:not(.toggled):not(:disabled) {
     /*color: #0069d9;*/
     /*color: hsl(211, 100%, 25%);*/
     color: #fff;
