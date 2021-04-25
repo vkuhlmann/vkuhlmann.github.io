@@ -258,12 +258,12 @@ class TIBasicLogic {
                 && code[context.pos] <= 'Z' && typeof val == "object")) {
 
                 let listName = TIBasicLogic.ReadListName(context);
-                if (code[context.pos] == "(" && isProperList) {
+                if (code[context.pos] == "(") {
                     let index = TIBasicLogic.ReadArgs(context, "n")[0];
                     if (index != Math.floor(index))
                         throw context.InvalidDimError();
 
-                    if (context.memory[listName] == null || index < 1 || index > context.memory[listName].length)
+                    if (context.memory[listName] == null || index < 1 || index > context.memory[listName].length + 1)
                         throw context.InvalidDimError();
 
                     if (code[context.pos] != "\n")
@@ -284,7 +284,35 @@ class TIBasicLogic {
                 }
 
             } else {
-                throw context.SyntaxError();
+                let pos = context.pos;
+                let assignTarget = TIBasicLogic.ReadFunctionName(context, true);
+                if (assignTarget == "dim") {
+                    if (typeof val != "number")
+                        throw context.DataTypeError();
+                    if (Math.floor(val) != val)
+                        throw context.InvalidDimError();
+
+                    if (code[context.pos] != "(")
+                        throw context.SyntaxError();
+                    context.pos++;
+                    if (code[context.pos] != "l")
+                        throw context.SyntaxError();
+                    let listName = TIBasicLogic.ReadListName(context);
+                    if (context.memory[listName] == null)
+                        context.memory[listName] = [];
+                    let l = context.memory[listName];
+                    l.splice(val);
+                    while (l.length < val) {
+                        l.push(0);
+                    }
+                    if (code[context.pos] != ")" && code[context.pos] != "\n")
+                        throw context.SyntaxError();
+                    if (code[context.pos] == ")")
+                        context.pos++;
+                } else {
+                    context.pos = pos;
+                    throw context.SyntaxError();
+                }
             }
         }
         context.memory["Ans"] = val;
@@ -299,6 +327,7 @@ class TIBasicLogic {
         context.isStopRequested = false;
         context.SetStatus("Uncompleted");
         code = context.code;
+        broadcastAllSing();
 
         let status = null;
         try {
@@ -403,7 +432,14 @@ class TIBasicEvaluator {
 
         while (code[context.pos] != '\n') {
             let op = code[context.pos];
-            if (">=".includes(code[context.pos + 1]))
+            if (op == " ") {
+                let p = context.pos + 1;
+                for (; code[p] >= 'a' && code[p] <= 'z'; p++)
+                    op += code[p];
+                op += code[p];
+                if (op[op.length - 1] != ' ')
+                    throw context.SyntaxError();
+            } else if (">=".includes(code[context.pos + 1]))
                 op += code[context.pos + 1];
 
             if (op == "->" || op[0] == ',' || op[0] == ')' || op[0] == '}')
@@ -430,9 +466,12 @@ class TIBasicEvaluator {
             if (!type.includes("s"))
                 throw context.DataTypeError();
             
+            if (val.length == 0)
+                throw context.InvalidDimError();
+
             let str = "{";
             for (let i = 0; i < val.length - 1; i++) {
-                str += `${val[i]},`;
+                str += `${val[i]} `;
             }
             if (val.length > 0)
                 str += `${val[val.length - 1]}`;
@@ -564,6 +603,22 @@ TIBasicEvaluator.binPerform = {
 
 }
 
+function broadcastUnOp(singFunc) {
+    return (context, a) => {
+        let isANum = (typeof a == "number");
+
+        if (isANum) {
+            return singFunc(a);
+        } else {
+            let arr = new Array(a.length);
+            for (let i = 0; i < a.length; i++) {
+                arr[i] = singFunc(a[i]);
+            }
+            return arr;
+        }
+    };
+}
+
 function broadcastBinOp(singFunc) {
     return (context, a, b) => {
         let isANum = (typeof a == "number");
@@ -597,8 +652,19 @@ function broadcastBinOp(singFunc) {
     };
 }
 
-for (let op in TIBasicEvaluator.binPerformSing) {
-    TIBasicEvaluator.binPerform[op] = broadcastBinOp(TIBasicEvaluator.binPerformSing[op]);
+TIBasicEvaluator.recognizedBinOperators = [];
+for (let op in TIBasicEvaluator.binPerform) {
+    TIBasicEvaluator.recognizedBinOperators.push(op);
+}
+
+function broadcastAllSing() {
+    for (let op in TIBasicEvaluator.binPerformSing) {
+        TIBasicEvaluator.binPerform[op] = broadcastBinOp(TIBasicEvaluator.binPerformSing[op]);
+    }
+    for (let op in TIBasicEvaluator.binPerform) {
+        if (!TIBasicEvaluator.recognizedBinOperators.includes(op))
+            TIBasicEvaluator.recognizedBinOperators.push(op);
+    }
 }
 
 TIBasicEvaluator.binAssociativity = {
@@ -613,12 +679,12 @@ TIBasicEvaluator.binAssociativity = {
     ">": 0,
     "<": 0,
     ">=": 0,
-    "<=": 0
+    "<=": 0,
+    " and ": -1,
+    " or ": -1,
+    " xor ": -1
 };
 
-TIBasicEvaluator.recognizedBinOperators = [];
-for (let op in TIBasicEvaluator.binPerform) {
-    TIBasicEvaluator.recognizedBinOperators.push(op);
-}
-
-
+TIBasicEvaluator.binPerformSing[" and "] = (a, b) => (a != 0 && b != 0) ? 1 : 0;
+TIBasicEvaluator.binPerformSing[" or "] = (a, b) => (a != 0 || b != 0) ? 1 : 0;
+TIBasicEvaluator.binPerformSing[" xor "] = (a, b) => ((a != 0) != (b != 0)) ? 1 : 0;

@@ -3,28 +3,36 @@
 TIBasicEvaluator.FnRemainder = context => {
     let code = context.code;
 
-    let vals = TIBasicLogic.ReadArgs(context, "n,n");
-    if (vals[0] != Math.floor(vals[0]) || vals[1] != Math.floor(vals[1])) {
-        if (code[context.pos - 1] == ")")
-            context.pos--;
-        throw context.DomainError();
-    }
-    return vals[0] % vals[1];
+    let vals = TIBasicLogic.ReadArgs(context, "nl,nl");
+    return broadcastBinOp((a, b) => {
+        if (a != Math.floor(a) || b != Math.floor(b)) {
+            if (code[context.pos - 1] == ")")
+                context.pos--;
+            throw context.DomainError();
+        }
+        return a % b;
+    })(context, vals[0], vals[1]);
 }
 
 TIBasicEvaluator.FnInt = context => {
-    let vals = TIBasicLogic.ReadArgs(context, "n");
-    return Math.floor(vals[0]);
+    let vals = TIBasicLogic.ReadArgs(context, "nl");
+    return broadcastUnOp(a => {
+        return Math.floor(a);
+    })(context, vals[0]);
 }
 
 TIBasicEvaluator.FnAbs = context => {
-    let vals = TIBasicLogic.ReadArgs(context, "n");
-    return Math.abs(vals[0]);
+    let vals = TIBasicLogic.ReadArgs(context, "nl");
+    return broadcastUnOp(a => {
+        return Math.abs(a);
+    })(context, vals[0]);
 }
 
 TIBasicEvaluator.FnRound = context => {
-    let vals = TIBasicLogic.ReadArgs(context, "n");
-    return Math.round(vals[0]);
+    let vals = TIBasicLogic.ReadArgs(context, "nl");
+    return broadcastUnOp(a => {
+        return Math.round(a);
+    })(context, vals[0]);
 }
 
 TIBasicEvaluator.FnStartTmr = context => {
@@ -33,6 +41,13 @@ TIBasicEvaluator.FnStartTmr = context => {
 
 TIBasicEvaluator.FnGetKey = context => {
     return context.GetKey();
+}
+
+TIBasicEvaluator.FnNot = context => {
+    let vals = TIBasicLogic.ReadArgs(context, "nl");
+    return broadcastUnOp(a => {
+        return (a == 0) ? 1 : 0;
+    })(context, vals[0]);
 }
 
 
@@ -226,3 +241,5 @@ TIBasicControlStatements.InstrFor = context => {
         "condition": condition
     });
 }
+
+
