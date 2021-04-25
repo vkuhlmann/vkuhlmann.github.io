@@ -17,6 +17,8 @@ text-to-morse converter.
 
 In this article, I want to focus on one hurdle, and how I solved it: functions.
 
+
+<div class="card" style="padding:8px;margin-bottom:40px;">
 A try-it of the program in Solution 1:
 <tibasic-tryit>
   <code style="white-space:pre;">
@@ -131,7 +133,7 @@ A try-it of the program in Solution 1:
     ClrHome
   </code>
 </tibasic-tryit>
-
+</div>
 
 In this post:
 1. [Functions: The need](#theneed)
