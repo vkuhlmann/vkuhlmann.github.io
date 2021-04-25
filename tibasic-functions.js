@@ -29,10 +29,26 @@ TIBasicEvaluator.FnAbs = context => {
 }
 
 TIBasicEvaluator.FnRound = context => {
-    let vals = TIBasicLogic.ReadArgs(context, "nl");
-    return broadcastUnOp(a => {
-        return Math.round(a);
-    })(context, vals[0]);
+    let vals = TIBasicLogic.ReadArgs(context, "nl,[n");
+    if (vals.length == 1)
+        vals[1] = 0;
+    return broadcastBinOp((a, b) => {
+        return Math.round(a * Math.pow(10, b)) / Math.pow(10, b);
+    })(context, vals[0], vals[1]);
+}
+
+TIBasicEvaluator.FnMax = context => {
+    let vals = TIBasicLogic.ReadArgs(context, "nl,nl");
+    return broadcastBinOp((a, b) => {
+        return Math.max(a, b);
+    })(context, vals[0], vals[1]);
+}
+
+TIBasicEvaluator.FnMin = context => {
+    let vals = TIBasicLogic.ReadArgs(context, "nl,nl");
+    return broadcastBinOp((a, b) => {
+        return Math.min(a, b);
+    })(context, vals[0], vals[1]);
 }
 
 TIBasicEvaluator.FnStartTmr = context => {
@@ -48,6 +64,26 @@ TIBasicEvaluator.FnNot = context => {
     return broadcastUnOp(a => {
         return (a == 0) ? 1 : 0;
     })(context, vals[0]);
+}
+
+TIBasicEvaluator.FnDim = context => {
+    let code = context.code;
+    if (code[context.pos] != "(")
+        throw context.SyntaxError();
+    context.pos++;
+
+    if (code[context.pos] != "l")
+        throw context.SyntaxError();
+    let listName = TIBasicLogic.ReadListName(context);
+    if (context.memory[listName] == null)
+        throw context.UndefinedError();
+
+    if (code[context.pos] != ")" && code[context.pos] != "\n")
+        throw context.SyntaxError();
+    if (code[context.pos] == ")")
+        context.pos++;
+
+    return listName.length;
 }
 
 

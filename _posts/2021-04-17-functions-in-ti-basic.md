@@ -17,6 +17,7 @@ text-to-morse converter.
 
 In this article, I want to focus on one hurdle, and how I solved it: functions.
 
+A try-it of the program in Solution 1:
 <tibasic-tryit>
   <code style="white-space:pre;">
     ## BEGIN "setup" yellow

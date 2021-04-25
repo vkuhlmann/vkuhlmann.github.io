@@ -52,9 +52,11 @@ Code wasn't loaded!
         <button class="button-action" data-key="21">2nd</button>
         <button class="button-action" data-key="22">Mode (Quit)</button>
         <button class="button-action" data-key="105">Enter</button>
-        <button class="button-action" data-key="85">+</button>
-        <button class="button-action" data-key="75">-</button>
+        <button class="button-action" data-key="95">+</button>
+        <button class="button-action" data-key="85">-</button>
         <button class="button-action" data-key="102">0</button>
+        <button class="button-action" data-key="25">Up</button>
+        <button class="button-action" data-key="34">Down</button>
     </div>
 </div>
 `;

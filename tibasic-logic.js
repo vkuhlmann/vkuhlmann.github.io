@@ -78,11 +78,12 @@ class TIBasicContext {
     }
 
     StartTmr() {
-        return Math.floor(getTime() / 1000) - this.timeoffset;
+        return Math.floor(new Date().getTime() / 1000) - this.timeoffset;
     }
 
     Break() {
         this.isStopRequested = true;
+        this.SetStatus("Stopped");
     }
 
     SetStatus(status) {
@@ -337,7 +338,7 @@ class TIBasicLogic {
                     return;
                 }
                 TIBasicLogic.RunStatement(context);
-                await sleep(20);
+                await sleep(5);
             }
         } catch (ex) {
             if (ex.message?.startsWith("TI-BASIC")) {
@@ -671,9 +672,9 @@ TIBasicEvaluator.binAssociativity = {
     "^": 3,
     "*": 2,
     "": 2,
-    "/": 2,
+    "/": 2.5,
     "+": 1,
-    "-": 1,
+    "-": 1.5,
     "=": 0,
     "!=": 0,
     ">": 0,
