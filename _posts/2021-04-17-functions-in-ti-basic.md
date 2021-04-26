@@ -720,7 +720,7 @@ which could do the crash more easily:
   </code>
 </ti-viewer>
 
-A little program which displays even time on screen. The output is done in the
+A little program which displays even times on screen. The output is done in the
 `1B` segment. But this unsuspecting program crashes with error ERR:MEMORY. In
 fact, it's a stackoverflow. It might be more instructive to imagine a
 `While`-loop instead of an `If`-block. If I write
@@ -766,6 +766,29 @@ a second time. This translates to the following scheme:
     :End
   </code>
 </ti-viewer>
+
+<div class="card" style="padding:8px;margin-bottom:40px;">
+Try-it:
+<tibasic-tryit>
+  <code style="white-space:pre;">
+    ClrHome
+    Disp "A"
+
+    ## BEGIN "funcCall" blue
+    For(H,-­1,0
+    If H:Goto 15
+    End:-­1→H
+    ## END "funcCall"
+    
+    Disp "B"
+    Stop
+<!-- -->
+    Lbl 15
+    Disp "C"
+    :End
+  </code>
+</tibasic-tryit>
+</div>
 
 This outputs `ACB`. The variable `H` is chosen as it is a 'hook' in some way.
 At the first iteration, `H=-1`, and `If` evaluates for any non-zero value. At
@@ -930,3 +953,148 @@ Now our program can be written as
     ClrHome
   </code>
 </ti-viewer>
+
+<div class="card" style="padding:8px;margin-bottom:40px;">
+A try-it of the program in Solution 3:
+<tibasic-tryit>
+  <code style="white-space:pre;">
+    ClrHome
+<!-- -->
+    "MIT 2021 VINCENT KUHLMANN"
+    0→K
+    1→N
+    1→J
+    {0,0,0,0,0,0}→⌊COUNT
+    Goto 20
+<!-- -->
+    :::::::::
+<!-- -->
+<!-- -->
+    "AWAITKEY"
+    Lbl 01
+    0→K
+    While K=0
+    getKey→K
+    End
+    If K=22 or K=45
+    Goto 99
+    :End
+    :::::::::
+<!-- -->
+<!-- -->
+<!-- -->
+    "NORMAL"
+    Lbl 10
+    0→S
+<!-- -->
+    ## BEGIN "funcCall1" blue
+    For(H,­-1,0
+    If H:Goto 15
+    End:­-1→H
+    ## END "funcCall1"
+<!-- -->
+    ## BEGIN "funcCall2" blue
+    For(H,­-1,0
+    If H:Goto 01
+    End:­-1→H
+    ## END "funcCall2"
+<!-- -->
+    If K=21
+    Goto 20
+<!-- -->
+<!-- -->
+    If K=102
+    Then
+    0→⌊COUNT(J)
+    End
+<!-- -->
+    If K=95 or K=85
+    Then
+    ⌊COUNT(J)-1+2*(K=95)→⌊COUNT(J)
+    End
+<!-- -->
+    If K=34
+    Then
+    remainder(J,N)+1→J
+    End
+<!-- -->
+    If K=25
+    Then
+    remainder(J+N-2,N)+1→J
+    End
+<!-- -->
+    Goto 10
+    :::::::::
+    "DRAW"
+    Lbl 15
+<!-- -->
+    0→C
+    For(I,1,N)
+    C+⌊COUNT(I)→C
+    If I=J and S=0
+    Then
+    Output(I,1,">")
+    Else
+    Output(I,1," ")
+    End
+    Output(I,2,"COUNT:")
+    Output(I,9,"    ")
+    Output(I,9,⌊COUNT(I))
+    End
+    Output(7,1,"AVG:")
+    Output(7,9,"        ")
+    Output(7,9,round(C/N,2))
+<!-- -->
+    If S=1
+    Then
+    Output(8,1,"COUNTERS:")
+    Output(8,11,N)
+    Else
+    Output(8,1,"           ")
+    End
+    :End
+    :::::::::
+<!-- -->
+<!-- -->
+<!-- -->
+    "SETUP"
+    Lbl 20
+    1→S
+<!-- -->
+    ## BEGIN "funcCall3" blue
+    For(H,-­1,0
+    If H:Goto 15
+    End:-­1→H
+    ## END "funcCall3"
+<!-- -->
+    ## BEGIN "funcCall4" blue
+    For(H,­-1,0)
+    If H:Goto 01
+    End:­-1→H
+    ## END "funcCall4"
+<!-- -->
+    If K=95
+    Then
+    min(N+1,dim(⌊COUNT))→N
+    0→⌊COUNT(N)
+    0→K
+    End
+<!-- -->
+    If K=85
+    Then
+    max(1,N-1)→N
+    min(N,J)→J
+    ClrHome
+    0→K
+    End
+<!-- -->
+    If K=21
+    Goto 10
+<!-- -->
+    Goto 20
+    :::::::::
+    Lbl 99
+    ClrHome
+  </code>
+</tibasic-tryit>
+</div>

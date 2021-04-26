@@ -6,10 +6,13 @@ class TIBasicContext {
         this.rawCode = "";
         this.pos = 0;
         this.memory = {};
-        this.timeoffset = Math.floor(new Date(2021, 4, 21).getTime() / 1000);
+        this.timeoffset = Math.floor(new Date(2021, 3, 21).getTime() / 1000);
         this.stack = [];
         this.isStopRequested = false;
         this.key = 0;
+        this.extraDelay = 0;
+        this.nextDisplayLine = -1;
+        this.screenHeight = 8;
     }
 
     SetCode(code) {
@@ -24,7 +27,7 @@ class TIBasicContext {
             if (this.code[i] == '"')
                 strModus = !strModus;
             else if (this.code[i] == ":" && !strModus)
-                this.code[i] = '\n';
+                this.code = this.code.slice(0, i) + "\n" + this.code.slice(i + 1);
         }
     }
 
@@ -60,6 +63,14 @@ class TIBasicContext {
         return new Error("TI-BASIC: Undefined");
     }
 
+    LabelError() {
+        return new Error("TI-BASIC: Unknown label");
+    }
+
+    MemoryError() {
+        return new Error("TI-BASIC: Memory");
+    }
+
     DebugEval(code) {
         this.SetCode(code);
         return TIBasicEvaluator.Evaluate(this);
@@ -74,10 +85,12 @@ class TIBasicContext {
     }
 
     GetKey() {
+        this.extraDelay = 10;
         return 0;
     }
 
     StartTmr() {
+        this.extraDelay = 10;
         return Math.floor(new Date().getTime() / 1000) - this.timeoffset;
     }
 
@@ -86,8 +99,22 @@ class TIBasicContext {
         this.SetStatus("Stopped");
     }
 
+    MoveScreenUp() {
+        console.log("MoveScreenUp not overridden!");
+    }
+
     SetStatus(status) {
         
+    }
+
+    PushStack(val) {
+        if (this.stack.length == 200)
+            throw this.MemoryError();
+        this.stack.push(val);
+    }
+
+    PopStack() {
+        return this.stack.pop();
     }
 }
 
@@ -163,6 +190,41 @@ class TIBasicLogic {
 
     static InstrClrHome(context) {
         context.ClrHome();
+    }
+
+    static DisplVal(context, val) {
+        if (!(typeof val == "string")) {
+            val = TIBasicLogic.TIToString(context, val);
+            while (val.length < 16)
+                val = " " + val;
+        }
+
+        if (context.nextDisplayLine == -1 || context.nextDisplayLine == context.screenHeight) {
+            context.MoveScreenUp();
+            context.nextDisplayLine = context.screenHeight - 1;
+        }
+        context.Output(context.nextDisplayLine + 1, 1, val);
+        context.nextDisplayLine++;
+    }
+
+    static InstrDisp(context) {
+        let code = context.code;
+        if (code[context.pos] != ' ')
+            throw context.SyntaxError();
+        context.pos++;
+
+        let commaRequired = false;
+        while (code[context.pos] != '\n') {
+            if (commaRequired) {
+                if (code[context.pos] != ",")
+                    throw context.SyntaxError();
+                context.pos++;
+            }
+            commaRequired = true;
+
+            let val = TIBasicEvaluator.Evaluate(context, "nls");
+            TIBasicLogic.DisplVal(context, val);
+        }
     }
 
     static ReadFunctionName(context, allowLowercaseStart = false) {
@@ -332,15 +394,21 @@ class TIBasicLogic {
 
         let status = null;
         try {
+            context.isPaused = false;
             while (context.pos < code.length) {
                 if (context.isStopRequested) {
                     context.isStopRequested = false;
                     return;
                 }
                 TIBasicLogic.RunStatement(context);
-                await sleep(5);
+                await sleep(2 + context.extraDelay);
+                context.extraDelay = 0;
             }
+            context.isPaused = false;
+
         } catch (ex) {
+            context.isPaused = false;
+
             if (ex.message?.startsWith("TI-BASIC")) {
                 let lineStart = context.rawCode.lastIndexOf("\n", context.pos - 1) + 1;
                 let lineEnd = context.rawCode.indexOf("\n", lineStart + 1);
@@ -402,6 +470,27 @@ class TIBasicLogic {
         context.pos = oldPos;
         return tokPos;
     }
+
+    static TIToString(context, val) {
+        if (typeof val == "number") {
+            return val.toString();
+        } else if (typeof val == "object") {
+            if (val.length == 0)
+                throw context.InvalidDimError();
+
+            let str = "{";
+            for (let i = 0; i < val.length - 1; i++) {
+                str += `${val[i]} `;
+            }
+            if (val.length > 0)
+                str += `${val[val.length - 1]}`;
+            str += "}";
+            return str;
+
+        } else {
+            return val.toString();
+        }
+    }
 }
 
 class TIBasicControlStatements {
@@ -458,7 +547,7 @@ class TIBasicEvaluator {
 
         if ((typeof val == "number") && !type.includes("n")) {
             if (type.includes("s"))
-                val = val.toString();
+                val = TIBasicLogic.TIToString(context, val);
             else
                 throw context.DataTypeError();
         }
@@ -467,17 +556,7 @@ class TIBasicEvaluator {
             if (!type.includes("s"))
                 throw context.DataTypeError();
             
-            if (val.length == 0)
-                throw context.InvalidDimError();
-
-            let str = "{";
-            for (let i = 0; i < val.length - 1; i++) {
-                str += `${val[i]} `;
-            }
-            if (val.length > 0)
-                str += `${val[val.length - 1]}`;
-            str += "}";
-            val = str;
+            val = TIBasicLogic.TIToString(context, val);
         }
 
         return val;
@@ -572,7 +651,7 @@ class TIBasicEvaluator {
         let i = -1;
         for (let j = begin; j < end; j++) {
             let a = TIBasicEvaluator.binAssociativity[operators[j]];
-            if (a >= assoc)
+            if (a > assoc)// || (a == assoc && Math.floor(a) == a))
                 continue;
             assoc = a;
             i = j;

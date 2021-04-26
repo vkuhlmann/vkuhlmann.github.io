@@ -107,7 +107,7 @@ TIBasicControlStatements.InstrIf = context => {
             throw context.SyntaxError();
         context.pos++;
 
-        context.stack.push({ type: "If", value: bool });
+        context.PushStack({ type: "If", value: bool });
         
         if (!bool)
             context.pos = TIBasicLogic.FindEnd(context, true);
@@ -141,7 +141,7 @@ TIBasicControlStatements.InstrElse = context => {
 }
 
 TIBasicControlStatements.InstrEnd = context => {
-    let a = context.stack.pop();
+    let a = context.PopStack();
     if (a == null)
         throw context.SyntaxError();
 
@@ -163,7 +163,7 @@ TIBasicControlStatements.InstrEnd = context => {
         if (!bool)
             context.pos = afterEnd;
         else
-            context.stack.push(a);
+            context.PushStack(a);
         return;
 
     } else if (a.type == "For") {
@@ -171,7 +171,7 @@ TIBasicControlStatements.InstrEnd = context => {
         let bool = a.condition();
         if (bool) {
             context.pos = a.execPos;
-            context.stack.push(a);
+            context.PushStack(a);
         }
         return;
 
@@ -196,7 +196,7 @@ TIBasicControlStatements.InstrWhile = context => {
     let bool = (expr != 0);
 
     if (!bool) {
-        context.stack.push({ type: "WhileFalse" });
+        context.PushStack({ type: "WhileFalse" });
         let endPos = TIBasicLogic.FindEnd(context);
         context.pos = endPos;
         return;
@@ -204,7 +204,7 @@ TIBasicControlStatements.InstrWhile = context => {
 
     let execPos = context.pos;
     
-    context.stack.push({
+    context.PushStack({
         "type": "While",
         "condPos": condPos,
         "execPos": execPos
@@ -226,7 +226,7 @@ TIBasicControlStatements.InstrRepeat = context => {
 
     let execPos = context.pos;
     
-    context.stack.push({
+    context.PushStack({
         "type": "Repeat",
         "condPos": condPos,
         "execPos": execPos
@@ -263,13 +263,13 @@ TIBasicControlStatements.InstrFor = context => {
     let bool = condition();
 
     if (!bool) {
-        context.stack.push({ type: "ForFalse" });
+        context.PushStack({ type: "ForFalse" });
         let endPos = TIBasicLogic.FindEnd(context);
         context.pos = endPos;
         return;
     }
     
-    context.stack.push({
+    context.PushStack({
         "type": "For",
         "execPos": execPos,
         "variable": vals[0],
@@ -278,4 +278,86 @@ TIBasicControlStatements.InstrFor = context => {
     });
 }
 
+function IsTIAlphanumeric(c) {
+    return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z');
+}
 
+TIBasicControlStatements.InstrLbl = context => {
+    let code = context.code;
+    if (code[context.pos] != ' ')
+        throw context.SyntaxError();
+    context.pos++;
+    if (!IsTIAlphanumeric(code[context.pos]))
+        throw context.SyntaxError();
+    context.pos++;
+    if (code[context.pos] == "\n")
+        return;
+    
+    if (!IsTIAlphanumeric(code[context.pos]))
+        throw context.SyntaxError();
+    context.pos++;
+    if (code[context.pos] != "\n")
+        throw context.SyntaxError();
+};
+
+TIBasicControlStatements.InstrGoto = context => {
+    let code = context.code;
+    if (code[context.pos] != ' ')
+        throw context.SyntaxError();
+    context.pos++;
+
+    if (!IsTIAlphanumeric(code[context.pos]))
+        throw context.SyntaxError();
+    let label = code[context.pos];
+
+    context.pos++;
+    if (code[context.pos] == "\n")
+        return;
+    
+    if (!IsTIAlphanumeric(code[context.pos]))
+        throw context.SyntaxError();
+    label += code[context.pos];
+    context.pos++;
+
+    if (code[context.pos] != "\n")
+        throw context.SyntaxError();
+    let gotoIndex = code.search(new RegExp(`(?<=\n|^)Lbl ${label}\n`));
+    if (gotoIndex == -1)
+        throw context.LabelError();
+    context.pos = code.indexOf("\n", gotoIndex) + 1;
+};
+
+TIBasicControlStatements.InstrStop = context => {
+    let code = context.code;
+    if (code[context.pos] != '\n')
+        throw context.SyntaxError();
+    context.pos = code.length;
+};
+
+TIBasicControlStatements.InstrPause = context => {
+    let code = context.code;
+    let origPos = code.lastIndexOf("\n", context.pos - 1) + 1;
+
+    if (!context.isPaused) {
+        if (code[context.pos] == " ") {
+            context.pos++;
+            if (code[context.pos] != "\n") {
+                let val = TIBasicEvaluator.Evaluate(context, "nls");
+                TIBasicLogic.DisplVal(context, val);
+            }
+        }
+        if (code[context.pos] != "\n")
+            throw context.SyntaxError();
+
+        context.isPaused = true;
+        context.pos = origPos;
+        context.SetStatus("Paused");
+    }
+    context.pos = origPos;
+
+    if (context.GetKey() == 105) {
+        context.isPaused = false;
+        context.SetStatus("Uncompleted");
+        context.pos = code.indexOf("\n", context.pos) + 1;
+    }
+}
