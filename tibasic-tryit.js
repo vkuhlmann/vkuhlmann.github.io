@@ -130,12 +130,13 @@ class TIBasicTryitGadget extends HTMLElement {
                     thecode = n.innerText;
                 }
             }
-            thecode = thecode.replace(/(^|\n)\s+/g, "\n");
+            thecode = thecode.replace(/(^|\n)( |\t)+/g, "\n");
             thecode = thecode.replace(/##[^\n]*\n/g, "");
             thecode = thecode.replace(/^\n/g, "");
             thecode = thecode.replaceAll("→","->");
             thecode = thecode.replaceAll("⌊","l");
             thecode = thecode.replaceAll("≠","!=");
+            thecode = thecode.replaceAll("\xAD", "");
 
 
             while (this.shadowRoot.firstChild) {
@@ -221,6 +222,7 @@ class TryitGadgetContext extends TIBasicContext {
     constructor(gadget) {
         super();
         this.gadget = gadget;
+        this.screenHeight = this.gadget.grid.length;
     }
 
     ClrHome() {
@@ -230,6 +232,7 @@ class TryitGadgetContext extends TIBasicContext {
             }
         }
         this.gadget.updateScreen();
+        this.nextDisplayLine = 0;
     }
 
     Output(row, column, text) {
@@ -257,6 +260,21 @@ class TryitGadgetContext extends TIBasicContext {
 
     SetKey(key) {
         this.key = key;
+    }
+
+    MoveScreenUp() {
+        let amount = 1;
+        let grid = this.gadget.grid;
+
+        for (let y = 0; y < grid.length - amount; y++) {
+            for (let x = 0; x < grid[y].length; x++)
+                grid[y][x] = grid[y + amount][x];
+        }
+        for (let y = grid.length - amount; y < grid.length; y++) {
+            for (let x = 0; x < grid[y].length; x++)
+                grid[y][x] = " ";
+        }
+        this.gadget.updateScreen();
     }
 
 
