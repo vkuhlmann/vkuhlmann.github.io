@@ -45,7 +45,7 @@
             <div class="navbar-nav" style="flex:1 1 auto;">
                 <ul class="navbar-content">
                     <li class="nav-item">
-                        <a class="nav-link" href="./">Home</a>
+                        <a class="nav-link" href="{{ "/uavlatex" | relative_url }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active disabled" href="#">Materiaal <span class="non-visual-context">(huidig)</span></a>
@@ -88,12 +88,6 @@
                         {% else %}
                             <a href="{{ "/uavlatex/extras/formulenummers" | relative_url }}">Extra: Formulenummers</a>
                         {% endif %}
-                    </li>
-                    <li>
-                        <a href="#">Linka</a>
-                    </li>
-                    <li>
-                        <a class="disabled" href="#">Disabled</a>
                     </li>
                 </ul>
             </div>
