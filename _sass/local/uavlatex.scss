@@ -1,8 +1,11 @@
 //@forward "lib/bootstrap-5.0.0-beta1-dist/css/bootstrap.css";
 //@import "bootstrap";
-@import "../lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
+//@import "../lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
 //@use "bootstrap.css";
 //@forward "bootstrap.css";
+
+//@use "../bootstrap/bootstrap";
+@import "pagepanels";
 
 //@use "/lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
 //@forward "/lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
@@ -76,6 +79,9 @@
     display: none !important;
 }
 
+.preview {
+    display: none !important;
+}
 
 .nav-link:not(:focus) .non-visual-context {
     @extend .visually-hidden;
@@ -353,6 +359,7 @@
 
 .project-name {
     @extend .card-title;
+    //@include card-title;
 }
 
 .project-shortdescription {

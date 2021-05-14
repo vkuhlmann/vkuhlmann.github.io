@@ -10,11 +10,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>U.A.V. LaTeX-cursus d.d. 17 mei 2021</title>
+    <title>U.A.V. LaTeX-cursus</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ "/assets/css/styleBootstrapCompiled.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/styleBootstrap.css" | relative_url }}">
 
     <!--<script src="//cdn.jsdelivr.net/npm/less"></script>-->
     <!-- <script src="{{ "/assets/css/style.css" | relative_url }}../lib/less.js"></script> -->
@@ -22,16 +22,24 @@
     <script src="{{ "/lib/jquery.min.js" | relative_url }}"></script>
     <script src="/lib/popper.min.js"></script>
     <script src="/lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
+    <script src="layout.js"></script>
     <!-- <script src="../layout.js"></script> -->
 </head>
 
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-            <span class="navbar-brand">U.A.V. LaTeX-cursus</span>
+            <span class="navbar-brand">U.A.V. LaTeX-cursus <span style="font-size:70%;font-style: italic;">&ensp;d.d. 17 mei 2021</span></span>
 
-            <!-- <div class="navbar-nav" style="flex:1 1 auto;">
+            <div class="navbar-nav" style="flex:1 1 auto;">
                 <ul class="navbar-content">
+                    <li class="nav-item preview">
+                        <a class="nav-link active disabled" href="#">Home <span class="non-visual-context">(huidig)</span></a>
+                    </li>
+                    <li class="nav-item preview">
+                        <a class="nav-link" href="materiaal">Materiaal</a>
+                    </li>
+            <!--
                     <li class="nav-item">
                         <a class="nav-link" href="./">Home</a>
                     </li>
@@ -44,9 +52,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="https://www.linkedin.com/in/vincentkuhlmann/"
                             target="_blank">LinkedIn</a>
-                    </li>
+                    </li> -->
                 </ul>
-            </div> -->
+            </div>
+            <span class="preview">Preview</span>
         </div>
     </nav>
 

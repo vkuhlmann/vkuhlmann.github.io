@@ -1,0 +1,134 @@
+---
+---
+
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2021 Vincent Kuhlmann
+-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title | escape }} | U.A.V. LaTeX-cursus</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ "/assets/css/styleBootstrap.css" | relative_url }}">
+
+    <script src="{{ "/lib/popper.min.js" | relative_url }}"></script>
+    <script src="{{ "/uavlatex/layout.js" | relative_url}}"></script>
+
+    <script>
+        let beforeHighlight = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (beforeHighlight != null) {
+                beforeHighlight();
+            }
+        });
+    </script>
+
+    <script id="mathjax" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="{{ "/lib/prism/prism.js" | relative_url }}"></script>
+
+    <link href="{{ "/lib/prism/prism.css" | relative_url }}" rel="stylesheet" />
+    <!-- <script src="layout.js"></script> -->
+    <!-- <script src="/lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./">U.A.V. LaTeX-cursus <span style="font-size:70%;font-style: italic;">&ensp;d.d. 17 mei 2021</span></a>
+
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active disabled" href="#">Materiaal <span class="non-visual-context">(huidig)</span></a>
+                    </li>
+                    <!--<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            -->
+                </ul>
+                <!--<form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>-->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid page-container">
+        <div id="leftside" class="panel-left">
+            <div id="sidebarLeft" class="sidebar-left">
+                <ul class="sidebar-menu">
+                    <li>
+                        {% if page.title == "Overzicht" %}
+                            <a class="active disabled" href="#">Overzicht</a>
+                        {% else %}
+                            <a href="{{ "/uavlatex/materiaal" | relative_url }}">Overzicht</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if page.title == "Formulenummers" %}
+                            <a class="active disabled" href="#">Extra: Formulenummers</a>    
+                        {% else %}
+                            <a href="{{ "/uavlatex/extras/formulenummers" | relative_url }}">Extra: Formulenummers</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        <a href="#">Linka</a>
+                    </li>
+                    <li>
+                        <a class="disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-center" style="display:block;">
+            <div style="display:flex;width:100%;height:100%;">
+            <div id="leftFiller" class="left-filler">
+            </div>
+            <div id="mainpage" class="mainpage">
+                <div style="text-align:justify;">
+                    <p>
+                        {{ content }}
+                    </p>
+                </div>
+            </div>
+            <div id="rightFiller" class="right-filler">
+            </div>
+            </div>
+        </div>
+        <!-- <div style="flex:1 1 60em;display:flex;">
+            <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
+                <div style="text-align:justify;">
+                    <p>
+                        Some text
+                    </p>
+                </div>
+            </div>
+            <div id="siderbarRight" class="siderbar-right right-filler"
+                style="flex:1 0 0px;max-width:10ch;max-width:calc(10ch + 10px);">
+
+            </div>
+        </div> -->
+        <div id="rightside" class="panel-right">
+        </div>
+    </div>
+</body>
+
+</html>
