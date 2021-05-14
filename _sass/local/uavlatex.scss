@@ -1,5 +1,9 @@
 //@forward "lib/bootstrap-5.0.0-beta1-dist/css/bootstrap.css";
-@import "bootstrap";
+//@import "bootstrap";
+@import "../lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
+//@use "bootstrap.css";
+//@forward "bootstrap.css";
+
 //@use "/lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
 //@forward "/lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
 
@@ -71,6 +75,7 @@
 .hide {
     display: none !important;
 }
+
 
 .nav-link:not(:focus) .non-visual-context {
     @extend .visually-hidden;
