@@ -1,9 +1,9 @@
 ---
 ---
 
-@import
-  "minima/skins/{{ site.minima.skin | default: 'classic' }}",
-  "minima/initialize";
+// @import
+//   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
+//   "minima/initialize";
 
 @import
   "local/ticode";
@@ -11,6 +11,11 @@
 @import
   "local/inputs";
 
+//@import "../../lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
+
+@import
+  "local/uavlatex";
+
 // @import
-//   "local/uavlatex";
+//   "local/pagepanels";
 

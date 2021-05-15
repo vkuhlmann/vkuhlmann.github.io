@@ -1,0 +1,139 @@
+//@import "../lib/bootstrap-5.0.0-beta1-dist/css/bootstrap";
+@import "../bootstrap/bootstrap";
+//@use "uavlatex";
+
+.sidebar-menu {
+    @extend .nav;
+    flex-flow: column nowrap;
+
+    &>li {
+
+        //.nav-item();
+        &>a {
+            @extend .nav-link;
+
+            &.active {
+                //background-color:hsl(110, 60%, 50%);
+                background-color: hsl(110, 60%, 40%);
+                color: #fff;
+            }
+        }
+
+        border-radius: .25rem;
+        overflow: hidden;
+    }
+}
+
+.sidebar-segment > span {
+    font-weight: bold;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+:root {
+    --panel-gap: 10px;
+    --sidebar-left-minwidth: 10ch;
+    --sidebar-left-maxwidth: 30ch;
+    --mainpage-maxwidth: 60em;
+
+    // --sidebar-left-minwidth: 200px;
+    // --sidebar-right-maxwidth: 400px;
+    // --mainpage-maxwidth: 800px;
+
+    --sidebar-right-minwidth: calc(0px - var(--panel-gap));
+    --sidebar-right-maxwidth: calc(0px - var(--panel-gap));
+
+    --left-filler: 0px;
+    //--right-filler: max(calc(var(--sidebar-left-minwidth) - var(--sidebar-right-maxwidth)), 0px);
+    // --right-filler: max(calc(var(--sidebar-left-minwidth) + var(--panel-gap)), 0px);
+    --right-filler: calc(var(--sidebar-left-minwidth) + var(--panel-gap));
+}
+
+.mainpage {
+    background-color: #f9f9f9;
+    flex: 0 1 60em;
+    flex: 0 1 var(--mainpage-maxwidth);
+    min-width: 20ch;
+    padding: 15px;
+}
+
+.mainpage p {
+    text-align: justify;
+}
+
+// Source: https://getbootstrap.com/docs/4.0/layout/grid/
+// Bootstrap breakpoint sizes:
+//  <567px: Extra small
+// >= 576px: Small
+// >= 768px: Medium
+// >= 992px: Large
+// >= 1200px: Extra large
+
+.page-container {
+    padding: 20px 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    gap: var(--panel-gap);
+    align-items: stretch;
+    min-height: calc(100vh - 60px);
+
+    // 768px
+    // @media only screen and (max-width: 576px) {
+    //     flex-flow: column nowrap;
+
+    //     .main-page {
+    //         flex: 0 0 auto;
+    //     }
+    // }
+
+    // @media only screen and (max-width: 992px) {
+    //     .right-filler {
+    //         display: none;
+    //     }
+    // }
+}
+
+.panel-left {
+    flex: 1 0 var(--sidebar-left-minwidth);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.panel-right {
+    display: none;
+    //flex: 1 0 var(--sidebar-right-minwidth);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.panel-center {
+    flex: 1 1 60em;
+    flex: 1 1 calc(60em + var(--right-filler) + var(--left-filler));
+    flex: 1 1 calc(var(--mainpage-maxwidth) + var(--right-filler) + var(--left-filler));
+    display: flex;
+}
+
+.sidebar-left {
+    flex: 1 0 var(--sidebar-left-minwidth);
+    //max-width: 30ch;
+    max-width: var(--sidebar-left-maxwidth);
+}
+
+.left-filler {
+    display: none;
+    flex: 1 0 0px;
+    max-width: 10ch;
+    max-width: calc(10ch + 10px);
+}
+
+.right-filler {
+    flex: 1 0 0px;
+    //max-width: 10ch;
+    //max-width: calc(10ch + 10px);
+    //max-width: var(--right-filler);
+}
+

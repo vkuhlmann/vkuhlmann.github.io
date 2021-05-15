@@ -1,0 +1,81 @@
+---
+---
+
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2021 Vincent Kuhlmann
+-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title | escape }} | U.A.V. LaTeX-cursus</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ "/assets/css/styleBootstrap.css" | relative_url }}">
+
+    <script src="{{ "/lib/popper.min.js" | relative_url }}"></script>
+    <script src="{{ "/uavlatex/layout.js" | relative_url}}"></script>
+
+    <script>
+        let beforeHighlight = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (beforeHighlight != null) {
+                beforeHighlight();
+            }
+        });
+    </script>
+
+    {% if page.addInHead %}
+    {{ page.addInHead }}
+    {% endif %}
+
+    <script id="mathjax" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="{{ "/lib/prism/prism.js" | relative_url }}"></script>
+
+    <link href="{{ "/lib/prism/prism.css" | relative_url }}" rel="stylesheet" />
+    <!-- <script src="layout.js"></script> -->
+    <!-- <script src="/lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./">U.A.V. LaTeX-cursus <span style="font-size:70%;font-style: italic;">&ensp;d.d. 17 mei 2021</span></a>
+
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
+                    <li class="nav-item">
+                        {% if page.tab == "Home" %}
+                            <a class="nav-link active disabled" href="#">Home <span class="non-visual-context">(huidig)</span></a>
+                        {% else %}
+                            <a class="nav-link" href="{{ "/uavlatex" | relative_url }}">Home</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if page.tab == "Materiaal" %}
+                            <a class="nav-link active disabled" href="#">Materiaal <span class="non-visual-context">(huidig)</span></a>
+                        {% else %}
+                            <a class="nav-link preview" href="{{ "/uavlatex/materiaal" | relative_url }}">Materiaal</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if page.tab == "Scherm" %}
+                            <a class="nav-link active disabled" href="#">Scherm <span class="non-visual-context">(huidig)</span></a>
+                        {% else %}
+                            <a class="nav-link preview" href="{{ "/uavlatex/scherm" | relative_url }}">Scherm</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {{ content }}
+
+</body>
+
+</html>
