@@ -1,8 +1,7 @@
 ---
 title: "Matrices"
 layout: latexReferentie
-
-comments: true
+tab: "Materiaal"
 ---
 
 <script>

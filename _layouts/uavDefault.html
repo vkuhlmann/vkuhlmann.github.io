@@ -14,7 +14,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ "/assets/css/styleBootstrapCompiled.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/styleBootstrap.css" | relative_url }}">
 
     <script src="{{ "/lib/popper.min.js" | relative_url }}"></script>
     <script src="{{ "/uavlatex/layout.js" | relative_url}}"></script>
@@ -27,6 +27,63 @@
                 beforeHighlight();
             }
         });
+
+        beforeHighlight = () => {
+            let a = document.querySelectorAll("code");
+            for (let b of a) {
+                if (b.className.includes("language-"))
+                    continue;
+                if (b.classList.contains("verb"))
+                    continue;
+                b.classList.add("language-latex");
+                let trimmedText = b.innerText.trim();
+
+                if (!trimmedText.includes("\n")
+                && trimmedText.startsWith("\\usepackage")) {
+                    b.classList.add("usepackage");
+                }
+            }
+
+            window.setTokenHighlights = (list) => {
+                let reList = "";
+                for (let it of list) {
+                    if (reList.length > 0)
+                        reList += "|";
+                    reList += `(?:${it})`;
+                }
+
+                let e = new RegExp(`(?!(?:${reList}))\\\\(?:[^a-zA-Z()[\\]]|[a-zA-Z*]+)`);
+                let matcher = new RegExp(`${reList}`);
+                if (reList.length == 0)
+                    matcher = new RegExp("(?!)");
+
+                Prism.languages.latex.function.pattern = e;
+                console.log(`Test: ${JSON.stringify(Prism.languages.latex.equation[0].inside["equation-command"])}`);
+                Prism.languages.latex.equation[0].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[0].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+                Prism.languages.latex.equation[1].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[1].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+
+                Prism.languages.latex.tokenhighlight = {
+                    pattern: matcher,
+                    alias: "sometest"
+                };
+
+                console.log(`e: ${e.toString()}`);
+                console.log(`matcher: ${matcher.toString()}`);
+
+                console.log(`LaTeX: ${JSON.stringify(Prism.languages.latex)}`);
+            }
+            setTokenHighlights(["\\\\aaaaa"]);
+        };
+    </script>
+
+    <script>
+
     </script>
 
     {% if page.addInHead %}
@@ -62,7 +119,7 @@
                             <a class="nav-link preview" href="{{ "/uavlatex/materiaal" | relative_url }}">Materiaal</a>
                         {% endif %}
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="display:none;">
                         {% if page.tab == "Scherm" %}
                             <a class="nav-link active disabled" href="#">Scherm <span class="non-visual-context">(huidig)</span></a>
                         {% else %}

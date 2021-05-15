@@ -2,6 +2,7 @@
 layout: uavDefault
 ---
 
+
 <div class="container-fluid page-container">
     <div id="leftside" class="panel-left">
         <div id="sidebarLeft" class="sidebar-left">
@@ -13,12 +14,100 @@ layout: uavDefault
                         <a href="{{ "/uavlatex/materiaal" | relative_url }}">Overzicht</a>
                     {% endif %}
                 </li>
+                <!--
+
+                    Figuren subcaption
+
+                    1. Inleiding
+
+                    --------------
+                    2. Tekstopmaak
+
+                    Kaders
+                    Lijntjes
+                    Speciale symbolen
+                    Transformaties (draaien, schalen, spiegelen, verschuiven)
+                    Lettertype
+                    Glue, breaks, penalty
+
+                    --------------
+                    3. Documentstructuur
+
+                    Index & Listoffigures
+                    Hyperref
+                    Headers en footers
+                    Meer titels
+                    Inhoudstabel fijnafstemming
+
+                    --------------
+                    4. Afbeeldingen
+
+                    Referentie Wikibooks
+                    Vector vs raster graphic
+                    Lijsticoontjes
+
+                    --------------
+                    5. Formules
+
+                    Theorem, lemma and co.
+                    Detexify, CTAN comprehensive list
+                    Matrices
+                    Wiskundegerelateerde environments: de hele parade
+                    Formulenummers
+                    Commath & Mathtools
+                    DeclareMathOperator
+                    Letteroverzicht
+
+                    --------------
+                    6. Bibliografie
+
+                    Lopende-tekstcitaties
+                    Nocite
+
+                    --------------
+                    7. Goed om te weten
+
+
+                    --------------
+                    *. Misc
+
+                    Tabellen
+                    Nummeringen
+
+                    Versiebeheer (git)
+                    Backups
+                    VS Code
+                    Shortcuts (en toetsenbord handigheid)
+                    Biber
+                    Subfiles
+                    Commando's inspecteren, typeout, meaning, the
+                    Counters
+
+                    % Witruimte
+
+                    Beamer
+                -->
                 <li class="sidebar-segment">
                     <span>1. Inleiding</span>
                 </li>
                 <li class="sidebar-segment">
                     <span>2. Tekstopmaak</span>
                 </li>
+                <li>
+                    {% if page.title == "Lijntjes" %}
+                        <a class="active disabled" href="#">Extra: Lijntjes</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/extras/tekstopmaak/lijntjes" | relative_url }}">Extra: Lijntjes</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Speciale tekens" %}
+                        <a class="active disabled" href="#">Extra: Speciale tekens</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/extras/tekstopmaak/specialeTekens" | relative_url }}">Extra: Speciale tekens</a>
+                    {% endif %}
+                </li>
+
                 <li class="sidebar-segment">
                     <span>3. Documentstructuur</span>
                 </li>
@@ -67,12 +156,14 @@ layout: uavDefault
         <div style="display:flex;width:100%;height:100%;">
         <div id="leftFiller" class="left-filler">
         </div>
-        <div id="mainpage" class="mainpage">
-            <div style="text-align:justify;">
-                <p>
-                    {{ content }}
-                </p>
-            </div>
+        {% assign mainpageclass = "" %}
+        {% if page.text-align == "left" %}
+            {% assign mainpageclass = "align-left" %}
+        {% endif %}
+        <!-- {{ page.text-align }} -->
+
+        <div id="mainpage" class="mainpage {{ mainpageclass }}">
+            {{ content }}
         </div>
         <div id="rightFiller" class="right-filler">
         </div>

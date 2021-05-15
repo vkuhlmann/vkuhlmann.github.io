@@ -32,8 +32,8 @@
 
 :root {
     --panel-gap: 10px;
-    --sidebar-left-minwidth: 10ch;
-    --sidebar-left-maxwidth: 30ch;
+    --sidebar-left-minwidth: 25ch;
+    --sidebar-left-maxwidth: 35ch;
     --mainpage-maxwidth: 60em;
 
     // --sidebar-left-minwidth: 200px;
@@ -57,7 +57,7 @@
     padding: 15px;
 }
 
-.mainpage p {
+.mainpage:not(.align-left) p {
     text-align: justify;
 }
 

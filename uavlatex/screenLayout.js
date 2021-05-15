@@ -122,8 +122,9 @@ function tryOpenSocket() {
             statusEl.innerHTML = `<span style="color:red;" onclick="tryOpenSocket()">Disconnected</span>`;
             socket = null;
         }
-    }catch(ex) {
+    } catch(ex) {
         alert(`Error: ${ex}`);
+        statusEl.innerHTML = `<span style="color:red;">Error</span>`;
     }
 }
 
