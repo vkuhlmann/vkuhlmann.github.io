@@ -48,12 +48,17 @@ function onScreenLayoutLoad() {
     let toggleFullscreenEl = document.querySelector("#toggleFullscreen");
     toggleFullscreenEl.addEventListener("click", toggleFullscreen);
 
-    tryOpenSocket();
+    let statusEl = document.querySelector("#socketStatus");
+    statusEl.innerHTML = `<span style="color:blue;" onclick="tryOpenSocket()">Click to connect.</span>`;
+
+    //tryOpenSocket();
 
     let feedIpEl = document.querySelector("#feedIp");
     feedIpEl.addEventListener("input", e => {
+        socket.close();
+        socket = null;
         feedIpEl.style["background-color"] = "hsl(0, 80%, 90%)";
-        let statusEl = document.querySelector("#socketStatus");
+        
         statusEl.innerHTML = `<span style="color:blue;" onclick="tryOpenSocket()">Click to change connection.</span>`;
     });
 
