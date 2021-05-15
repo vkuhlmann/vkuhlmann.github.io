@@ -82,11 +82,51 @@
                             <a href="{{ "/uavlatex/materiaal" | relative_url }}">Overzicht</a>
                         {% endif %}
                     </li>
+                    <li class="sidebar-segment">
+                        <span>1. Inleiding</span>
+                    </li>
+                    <li class="sidebar-segment">
+                        <span>2. Tekstopmaak</span>
+                    </li>
+                    <li class="sidebar-segment">
+                        <span>3. Documentstructuur</span>
+                    </li>
+                    <li class="sidebar-segment">
+                        <span>4. Afbeeldingen</span>
+                    </li>
+
+                    <li class="sidebar-segment">
+                        <span>5. Formules</span>
+                    </li>
                     <li>
                         {% if page.title == "Formulenummers" %}
                             <a class="active disabled" href="#">Extra: Formulenummers</a>    
                         {% else %}
                             <a href="{{ "/uavlatex/extras/formulenummers" | relative_url }}">Extra: Formulenummers</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if page.title == "Matrices" %}
+                            <a class="active disabled" href="#">Extra: Matrices</a>    
+                        {% else %}
+                            <a href="{{ "/uavlatex/extras/matrices" | relative_url }}">Extra: Matrices</a>
+                        {% endif %}
+                    </li>
+
+                    <li class="sidebar-segment">
+                        <span>6. Bibliografie</span>
+                    </li>
+                    <li class="sidebar-segment">
+                        <span>7. Goed om te weten</span>
+                    </li>
+                    <li class="sidebar-segment">
+                        <span>8. Misc</span>
+                    </li>
+                    <li>
+                        {% if page.title == "Tabellen" %}
+                            <a class="active disabled" href="#">Extra: Tabellen</a>    
+                        {% else %}
+                            <a href="{{ "/uavlatex/extras/tabellen" | relative_url }}">Extra: Tabellen</a>
                         {% endif %}
                     </li>
                 </ul>

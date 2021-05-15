@@ -24,6 +24,12 @@
     }
 }
 
+.sidebar-segment > span {
+    font-weight: bold;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
 :root {
     --panel-gap: 10px;
     --sidebar-left-minwidth: 10ch;

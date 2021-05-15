@@ -18,7 +18,7 @@ beforeHighlight = () => {
 };
 </script>
 
-```
+<!-- ```
 \begin{equation}
     \sin^2(\theta) + \cos^2(\theta) = 1
 \end{equation}
@@ -31,9 +31,9 @@ test
     \sin^2(\theta) + \cos^2(\theta) = 1
 \end{equation}
 
-\\(\\sqrt{2}\\).
+\\(\\sqrt{2}\\). -->
 
----
+### Met nummers
 
 ```
 De verdubbelingsformule herschrijven we nu als
@@ -119,17 +119,17 @@ class="latexoutput" />
 
 <script>setTokenHighlights(["\\\\nonumber","\\\\aaaaa"]);</script>
 
+### Individueel niet: `\nonumber`
+
 ```
 De verdubbelingsformule herschrijven we nu als
 \begin{align}
-    \cos(2\theta) &= \cos^2(\theta) - \sin^2(\theta)<span></span>\nonumber\\
-    &= 2\cos^2(\theta)-1.\aaaaa
+    \cos(2\theta) &= \cos^2(\theta) - \sin^2(\theta)\nonumber\\
+    &= 2\cos^2(\theta)-1.
 \end{align}
-
-\aaaaa
 ```
 
-<script>//setTokenHighlights([]);
+<!-- <script>//setTokenHighlights([]);
 </script>
 
 <pre>
@@ -138,12 +138,14 @@ De verdubbelingsformule herschrijven we nu als
     \cos(2\theta) &amp;= \cos^2(\theta) - \sin^2(\theta)<span style="color:red">\nonumber</span>\\
     &amp;= 2\cos^2(\theta)-1.
 \end{align}</code>
-</pre>
+</pre> -->
 
 <img src="{{ "/assets/uavlatex/5_Formules/mathAlignSecondNumbered.svg" | relative_url }}"
 class="latexoutput" />
 
 ---
+
+### Hele block niet: `align*`
 
 ```
 De verdubbelingsformule herschrijven we nu als
@@ -157,6 +159,8 @@ De verdubbelingsformule herschrijven we nu als
 class="latexoutput" />
 
 ---
+
+### Totale controle: `\tag`
 
 ```
 De verdubbelingsformule herschrijven we nu als
