@@ -82,7 +82,7 @@ function tryOpenSocket() {
 
         let feedIpEl = document.querySelector("#feedIp");
         let feedIp = feedIpEl.value;
-        socket = new WebSocket(`ws://${feedIp}`);
+        socket = new WebSocket(`wss://${feedIp}`);
         socket.onopen = e => {
             console.log("[open] Connection established");
             statusEl.innerHTML = `<span style="color:green;">Connected</span>`;
