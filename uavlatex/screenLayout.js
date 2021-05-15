@@ -55,7 +55,8 @@ function onScreenLayoutLoad() {
 
     let feedIpEl = document.querySelector("#feedIp");
     feedIpEl.addEventListener("input", e => {
-        socket.close();
+        if (socket != null)
+            socket.close();
         socket = null;
         feedIpEl.style["background-color"] = "hsl(0, 80%, 90%)";
         
@@ -77,43 +78,52 @@ function tryOpenSocket() {
     let statusEl = document.querySelector("#socketStatus");
 
     statusEl.innerHTML = `<span style="color:gray;">Trying to connect...</span>`;
+    try{
 
-    let feedIpEl = document.querySelector("#feedIp");
-    let feedIp = feedIpEl.value;
-    socket = new WebSocket(`ws://${feedIp}`);
-    socket.onopen = e => {
-        console.log("[open] Connection established");
-        statusEl.innerHTML = `<span style="color:green;">Connected</span>`;
+        let feedIpEl = document.querySelector("#feedIp");
+        let feedIp = feedIpEl.value;
+        socket = new WebSocket(`ws://${feedIp}`);
+        socket.onopen = e => {
+            console.log("[open] Connection established");
+            statusEl.innerHTML = `<span style="color:green;">Connected</span>`;
 
-        if (feedIpEl.value == feedIp)
-            feedIpEl.style["background-color"] = "hsl(108, 80%, 90%)";
-        // if (!hasDataInit)
-        //     dataInit();
-    };
+            if (feedIpEl.value == feedIp)
+                feedIpEl.style["background-color"] = "hsl(108, 80%, 90%)";
+            // if (!hasDataInit)
+            //     dataInit();
+        };
 
-    socket.onmessage = e => {
-        //logEl.textContent += `${e.data}\n`;
-        let oldBlobURL = blobURL;
+        socket.onmessage = e => {
+            //logEl.textContent += `${e.data}\n`;
+            try{
+                let oldBlobURL = blobURL;
 
-        blob = new Blob([e.data], { "type": "image/png" });
-        blobURL = window.URL.createObjectURL(blob);
+                blob = new Blob([e.data], { "type": "image/png" });
+                blobURL = window.URL.createObjectURL(blob);
 
-        screenDest.setAttribute("src", blobURL);
+                screenDest.setAttribute("src", blobURL);
 
-        window.URL.revokeObjectURL(oldBlobURL);
+                if (oldBlobURL != null)
+                    window.URL.revokeObjectURL(oldBlobURL);
 
-        //handleMessage(JSON.parse(e.data));
-    };
+            } catch (ex) {
+                alert(`On message error: ${ex}`);
+            }
+            //handleMessage(JSON.parse(e.data));
+        };
 
-    socket.onerror = (e) => {
-        console.log(`[error] Socket error`);
-        statusEl.innerHTML = `<span style="color:red;" onclick="tryOpenSocket()">Disconnected</span>`;
-    }
+        socket.onerror = (e) => {
+            console.log(`[error] Socket error`);
+            statusEl.innerHTML = `<span style="color:red;" onclick="tryOpenSocket()">Disconnected</span>`;
+        }
 
-    socket.onclose = (e) => {
-        console.log(`[close] Socket closed with code ${e.code}, reason: ${e.reason}`);
-        statusEl.innerHTML = `<span style="color:red;" onclick="tryOpenSocket()">Disconnected</span>`;
-        socket = null;
+        socket.onclose = (e) => {
+            console.log(`[close] Socket closed with code ${e.code}, reason: ${e.reason}`);
+            statusEl.innerHTML = `<span style="color:red;" onclick="tryOpenSocket()">Disconnected</span>`;
+            socket = null;
+        }
+    }catch(ex) {
+        alert(`Error: ${ex}`);
     }
 }
 
