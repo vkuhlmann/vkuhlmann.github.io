@@ -29,6 +29,7 @@ layout: uavDefault
                     Transformaties (draaien, schalen, spiegelen, verschuiven)
                     Lettertype
                     Glue, breaks, penalty
+                    Alignering (flushleft, raggedleft, ...)
 
                     --------------
                     3. Documentstructuur
@@ -57,6 +58,7 @@ layout: uavDefault
                     Commath & Mathtools
                     DeclareMathOperator
                     Letteroverzicht
+                    Fleqn
 
                     --------------
                     6. Bibliografie
@@ -95,6 +97,27 @@ layout: uavDefault
                     <span>2. Tekstopmaak</span>
                 </li>
                 <li>
+                    {% if page.title == "Tekstopmaak" %}
+                        <a class="active disabled" href="#">Overzicht</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/tekstopmaak" | relative_url }}">Overzicht</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Teksteffecten" %}
+                        <a class="active disabled" href="#">Slide: Teksteffecten</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/teksteffecten" | relative_url }}">Slide: Teksteffecten</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Speciale tekens" %}
+                        <a class="active disabled" href="#">Slide: Speciale tekens</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/specialeTekens" | relative_url }}">Slide: Speciale tekens</a>
+                    {% endif %}
+                </li>
+                <li>
                     {% if page.title == "Lijntjes" %}
                         <a class="active disabled" href="#">Extra: Lijntjes</a>    
                     {% else %}
@@ -102,22 +125,100 @@ layout: uavDefault
                     {% endif %}
                 </li>
                 <li>
-                    {% if page.title == "Speciale tekens" %}
-                        <a class="active disabled" href="#">Extra: Speciale tekens</a>    
+                    {% if page.title == "Accenten" %}
+                        <a class="active disabled" href="#">Extra: Accenten</a>    
                     {% else %}
-                        <a href="{{ "/uavlatex/extras/tekstopmaak/specialeTekens" | relative_url }}">Extra: Speciale tekens</a>
+                        <a href="{{ "/uavlatex/extras/tekstopmaak/accenten" | relative_url }}">Extra: Accenten</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Adjustbox" %}
+                        <a class="active disabled" href="#">Extra: Adjustbox</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/extras/tekstopmaak/adjustbox" | relative_url }}">Extra: Adjustbox</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Footnotes" %}
+                        <a class="active disabled" href="#">Extra: Footnotes</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/extras/tekstopmaak/footnotes" | relative_url }}">Extra: Footnotes</a>
                     {% endif %}
                 </li>
 
                 <li class="sidebar-segment">
                     <span>3. Documentstructuur</span>
                 </li>
+                <li>
+                    {% if page.title == "Documentstructuur" %}
+                        <a class="active disabled" href="#">Overzicht</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/documentstructuur" | relative_url }}">Overzicht</a>
+                    {% endif %}
+                </li>
+
                 <li class="sidebar-segment">
                     <span>4. Afbeeldingen</span>
+                </li>
+                <li>
+                    {% if page.title == "Afbeeldingen" %}
+                        <a class="active disabled" href="#">Overzicht</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/afbeeldingen" | relative_url }}">Overzicht</a>
+                    {% endif %}
                 </li>
 
                 <li class="sidebar-segment">
                     <span>5. Formules</span>
+                </li>
+                <li>
+                    {% if page.title == "Formules" %}
+                        <a class="active disabled" href="#">Overzicht</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/formules" | relative_url }}">Overzicht</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Formules basis" %}
+                        <a class="active disabled" href="#">Slide: Formules basis</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/formulesBasis" | relative_url }}">Slide: Formules basis</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Formules symbolen" %}
+                        <a class="active disabled" href="#">Slide: Formules symbolen</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/formulesSymbolen" | relative_url }}">Slide: Formules symbolen</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Formules vectoren" %}
+                        <a class="active disabled" href="#">Slide: Formules vectoren</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/formulesVectoren" | relative_url }}">Slide: Formules vectoren</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Formules integraalrekening" %}
+                        <a class="active disabled" href="#">Slide: Formules integraalrekening</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/formulesIntegraalrekening" | relative_url }}">Slide: Formules integraalrekening</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Formules wiskundige relaties" %}
+                        <a class="active disabled" href="#">Slide: Formules  wiskundige relaties</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/formulesWiskundigeRelaties" | relative_url }}">Slide: Formules wiskundige relaties</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Formules pijltjes en operatoren" %}
+                        <a class="active disabled" href="#">Slide: Formules pijltjes en operatoren</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/formulesPijltjesEnOperatoren" | relative_url }}">Slide: Formules pijltjes en operatoren</a>
+                    {% endif %}
                 </li>
                 <li>
                     {% if page.title == "Formulenummers" %}
@@ -137,11 +238,40 @@ layout: uavDefault
                 <li class="sidebar-segment">
                     <span>6. Bibliografie</span>
                 </li>
+                <li>
+                    {% if page.title == "Bibliografie" %}
+                        <a class="active disabled" href="#">Overzicht</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/bibliografie" | relative_url }}">Overzicht</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Bibliografie citatie commando" %}
+                        <a class="active disabled" href="#">Slide: Bibliografie citatie commando</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/bibliografieCitatieCommando" | relative_url }}">Slide: Bibliografie citatie commando</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if page.title == "Slide Bibliografie overzicht" %}
+                        <a class="active disabled" href="#">Slide: Bibliografie overzicht</a>
+                    {% else %}
+                        <a href="{{ "/uavlatex/slides/bibliografieOverzicht" | relative_url }}">Slide: Bibliografie overzicht</a>
+                    {% endif %}
+                </li>
+
                 <li class="sidebar-segment">
                     <span>7. Goed om te weten</span>
                 </li>
                 <li class="sidebar-segment">
                     <span>8. Misc</span>
+                </li>
+                <li>
+                    {% if page.title == "Visual Studio Code" %}
+                        <a class="active disabled" href="#">Extra: Visual Studio Code</a>    
+                    {% else %}
+                        <a href="{{ "/uavlatex/extras/misc/vscode" | relative_url }}">Extra: Visual Studio Code</a>
+                    {% endif %}
                 </li>
                 <li>
                     {% if page.title == "Tabellen" %}

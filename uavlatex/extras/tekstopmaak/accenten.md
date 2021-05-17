@@ -1,5 +1,5 @@
 ---
-title: "Speciale tekens"
+title: "Accenten"
 layout: latexReferentie
 tab: "Materiaal"
 
@@ -24,6 +24,13 @@ De voorkeursmethode voor accenten in LaTeX is door middel van commando's:
 * `\~n` &ntilde;
 * `\c{c}` &ccedil;
 * `\r{a}` &aring;
+* `\{` {
+* `\}` }
+* `\%` %
+* `\$` $
+* `\_` _
+* `\&` &
+* `\textbackslash` \
 {% endcapture %}
 
 <div class="listtoblocks">

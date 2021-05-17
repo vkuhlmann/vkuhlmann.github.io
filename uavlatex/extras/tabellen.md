@@ -4,17 +4,19 @@ layout: latexReferentie
 tab: "Materiaal"
 ---
 
-Tabellen maak je met de `tabular`-environment. Als je een caption wil kunnen
-plaatsen zoals bij `figure`, plaats je daarrond nog een `table`-environment.
-Verder moet je aangeven wat je kolommen zijn. De tabel in het voorbeeld heeft
-twee gecentreerde kolommen (`c`), en dan een kolom met vaste grootte, `p{2cm}`.
+Tabellen maak je met de `tabular`-environment. Als je een caption wil, net zoals
+bij `figure`, plaats je rond je `tabular`-environment een `table`-environment.
+Die bevat, net zoals `figure` dan je `\caption`.
 
-Je scheidt rijen door middel van een `\\`-sequentie en kolommen binnen een rij
+Na de `\begin{tabular}` moet je aangeven wat je kolommen zijn. De tabel in het
+voorbeeld heeft twee gecentreerde kolommen (`c`), en dan een kolom met vaste
+grootte, `p{2cm}`.
+
+Je scheidt rijen door middel van het `\\`-commando en kolommen binnen een rij
 door middel van het `&`-karakter. De `\toprule`, `\midrule` en `\bottomrule`
 zorgen voor de horizontale strepen. De `\cmidrule` is net zoals `\midrule`, maar
-gaat alleen over de kolommen die je opgeeft. Ten slotte zien we hoe we
-`\multicolumn` kunnen gebruiken om twee cellen tot een gecentreerde cel samen te
-voegen. `\usepackage{booktabs}`
+gaat alleen over de kolommen die je opgeeft. Ten slotte zien we
+`\multicolumn`: je voegt meerdere cellen in dezelfde rij samen. `\usepackage{booktabs}`
 
 ```
 \begin{table}[htbp]

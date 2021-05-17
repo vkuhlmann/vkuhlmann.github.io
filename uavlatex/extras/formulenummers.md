@@ -4,6 +4,20 @@ layout: latexReferentie
 tab: "Materiaal"
 ---
 
+
+### Nummers per paragraaf
+
+Wil je dat vergelijkingnummers per paragraaf lopen? Daarvoor kan je in je
+preamble toevoegen
+```
+\counterwithin{equation}{section}
+```
+
+In paragraaf 3 krijg je dan voor de zevende genummerde vergelijking bijvoorbeeld
+
+<img src="{{ "/assets/uavlatex/5_Formules/equationCounterWithin.svg" | relative_url }}"
+class="latexoutput" />
+
 ### Met nummers
 
 ```

@@ -24,6 +24,12 @@
     }
 }
 
+.sidebar-left {
+    overflow-y: auto;
+    height: calc(100vh - 76px);
+    height: calc(100vh - 100px);
+}
+
 .sidebar-segment > span {
     font-weight: bold;
     display: block;

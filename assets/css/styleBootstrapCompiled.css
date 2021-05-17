@@ -2429,6 +2429,8 @@ textarea.form-control-lg { min-height: calc(1.5em + 1rem + 2px); }
 
 .sidebar-menu > li > a.active { background-color: #3da329; color: #fff; }
 
+.sidebar-left { overflow-y: auto; height: calc(100vh - 76px); height: calc(100vh - 100px); }
+
 .sidebar-segment > span { font-weight: bold; display: block; padding: 0.5rem 1rem; }
 
 :root { --panel-gap: 10px; --sidebar-left-minwidth: 25ch; --sidebar-left-maxwidth: 35ch; --mainpage-maxwidth: 60em; --sidebar-right-minwidth: calc(0px - var(--panel-gap)); --sidebar-right-maxwidth: calc(0px - var(--panel-gap)); --left-filler: 0px; --right-filler: calc(var(--sidebar-left-minwidth) + var(--panel-gap)); }
@@ -2458,6 +2460,8 @@ textarea.form-control-lg { min-height: calc(1.5em + 1rem + 2px); }
 .tokenhighlight { color: green; font-weight: bold; }
 
 .latexoutput { display: block; width: 100%; max-width: 18cm; margin-left: auto; margin-right: auto; }
+
+.fullwidthimage { display: block; width: 100%; max-width: 18cm; margin-left: auto; margin-right: auto; }
 
 code.usepackage, :not(pre) > code.usepackage[class*="language-"] { padding-left: 10px; background: #e8fceb; padding-right: 10px; }
 
