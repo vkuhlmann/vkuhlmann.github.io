@@ -44,7 +44,7 @@ krijgen, met breedte `\linewidth - 20pt`. Omdat het een berekening moet uitvoere
 hebben we daarrond de `\dimexpr ... \relax` nodig.
 
 Met de key `cframe` plaatsen we een gekleurde rand rond onze box. De kleur is
-50\% blauw, en resterend is wit. De rand is 1pt breed, en de afstand van de tekst
+50% blauw, en resterend is wit. De rand is 1pt breed, en de afstand van de tekst
 tot de rand is 6pt. Vervolgens geven we ook een marge mee: de randen van de box
 schuiven we 3pt op langs elke kant.
 
@@ -56,7 +56,7 @@ Want door alle marges en randen, blijft niet de hele regelbreedte meer over.
 ---
 
 Er zijn nog veel meer dingen die je kan doen, zoals je box schalen (`scale=1.2`),
-ondersteboven keren (`scale={1 -1}`), doen alsof het geen breedte heeft (`set width=0pt`).
-Je ziet nu al dat boxen een heel krachtig stuk gereedschap is. En adjustbox
-brengt veel functies samen, het is een soort Zwitsers zakmes.
+ondersteboven keren (`scale={1 -1}`) en doen alsof het geen breedte heeft (`set
+width=0pt`). Je ziet dat boxen een krachtig stuk gereedschap is. En adjustbox
+brengt veel functies samen, waar Zwitsers zakmes.
 
