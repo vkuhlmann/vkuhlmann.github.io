@@ -1,7 +1,7 @@
 ---
 title: "Functions in TI-BASIC: Challenge accepted"
 author: Vincent Kuhlmann
-slug: functions-in
+slug: functions-in-ti
 author_url: https://github.com/yangshun
 author_image_url: /img/VK.png
 tags: [facebook, hello, docusaurus]
@@ -17,10 +17,25 @@ In this article, I want to focus on one hurdle, and how I solved it: functions.
 
 <!--truncate-->
 
-<div class="card" style={{"padding":"8px","margin-bottom":"40px"}}>
+import {TiViewer, Clock} from "../src/components/TiViewer.js"
+
+AA
+
+<TiViewer aa="3">
+  Hey!
+  aa
+{}
+  bb
+</TiViewer>
+
+BB
+
+<Clock />
+
+<div class="card" style={{ padding:"8px", marginBottom:"40px" }}>
 A try-it of the program in Solution 1:
 <tibasic-tryit>
-  <code style={{ "white-space": "pre" }}>
+  <code style={{ whiteSpace: "pre" }}>
     ## BEGIN "setup" yellow
       ClrHome
       
