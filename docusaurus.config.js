@@ -114,4 +114,17 @@ module.exports = {
       },
     ],
   ],
+  plugins: [
+    function myPlugin(context, options) {
+      return {
+        configureWebpack: (config, isServer) => {
+          console.log("Config is");
+          console.log(config);
+          return {
+            //devtool: 'inline-source-map'
+          };
+        }
+      }
+    }
+  ]
 };

@@ -1,10 +1,10 @@
 ---
 title: "Functions in TI-BASIC: Challenge accepted"
 author: Vincent Kuhlmann
-slug: functions-in
-author_url: https://github.com/yangshun
+slug: functions-in-ti-basic
+author_url: https://github.com/vkuhlmann
 author_image_url: /img/VK.png
-tags: [facebook, hello, docusaurus]
+tags: [ti, ti-basic, functions, calculator, programming]
 ---
 
 <!--truncate-->

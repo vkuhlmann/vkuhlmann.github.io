@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import {MDXProvider} from '@mdx-js/react'
 //import styles from './index.module.css';
 import CodeBlock from "../src/components/CodeBlock"
+import OrigCodeBlock from "@theme/CodeBlock";
 
 /* eslint-disable import/no-webpack-loader-syntax */
 import FunctionInTi from "!babel-loader!@mdx-js/loader!../src/components/functions-in-ti.md"
@@ -18,12 +19,7 @@ export default props => {
   //const {siteConfig} = useDocusaurusContext();
   return (
     <MDXProvider components={components}>
-      <>
-      <div>
-        Home!  a
-      </div>
       <FunctionInTi />
-      </>
     </MDXProvider>
   );
   // return (

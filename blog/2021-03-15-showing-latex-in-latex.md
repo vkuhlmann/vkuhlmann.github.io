@@ -1,12 +1,13 @@
 ---
 title: "Showing LaTeX in LaTeX: The good, the bad and the ugly"
 author: Vincent Kuhlmann
-author_url: https://github.com/yangshun
+author_url: https://github.com/vkuhlmann
 author_image_url: /img/VK.png
-tags: [facebook, hello, docusaurus]
+tags: [latex, highlight, verbatim, code]
 slug: showing-latex
 ---
 
+<div>{/*
 // <script>
 // beforeHighlight = () => {
 //     let a = document.querySelectorAll("code");
@@ -18,7 +19,7 @@ slug: showing-latex
 //         b.classList.add("language-latex");
 //     }
 // };
-// </script>
+// </script>*/}</div>
 
 LaTeX is a code-based word processing tool most known for typesetting
 mathematics and its further use in exact sciences, most notably publications.
@@ -30,10 +31,13 @@ tend to fall back to very rudimentary solutions. We can do better!
 We'll explore the good, the bad and the ugly in typesetting LaTeX. Just in
 reverse order, to follow the thought process.
 
+<div>{/*
 ///  <!-- (Level 1 and Level 2). This
 // article explains how to typeset LaTeX code in LaTeX properly (Level 3). -->
+*/}</div>
 
 In this post:
+
 1. [The ugly: Just monospace](#monospace)
 2. [The bad: Verbatim](#verbatim)
 3. [The good: Automatic colors](#colors)
@@ -41,7 +45,7 @@ In this post:
 ## The ugly: Just monospace <span id="monospace"></span>
 
 In constrast to normal text, code if often shown <span
-style={{"font-family" : "monospace"}}> in monospace</span>, i.e. each character has
+style={{fontFamily: "monospace"}}> in monospace</span>, i.e. each character has
 equal width, as it was in the early days of technology. Not just that, it is
 also convenient when raw text is the only formatting you work with; just put
 dashes on the next line, and you've got yourself some 'underlined' text.
@@ -67,6 +71,7 @@ end.
 
 The `\verb` command is for in-line usage. To show multiple lines of code, or to
 give it its own line, use is its block equivalent, the `verbatim`-environment:
+
 ```latex
 And for this see the following code:
 \begin{verbatim}
@@ -77,15 +82,18 @@ And for this see the following code:
 ```
 
 However, the code is actually formatted as
+
 ```plaintext
 \begin{document}
 \maketitle
 \end{document}
 ```
+
 that is, indentation is lost. To fix this, use the
 `Verbatim`-environment from the package `fancyvrb`. Add
 `\usepackage{fancyvrb}` anywhere before your
 `\begin{document}`, and then use
+
 ```
 And for this see the following code:
 \begin{Verbatim}[tabsize=4]
@@ -116,16 +124,17 @@ find at [https://github.com/vkuhlmann/highlight-latex](https://github.com/vkuhlm
 
 For example, if you want a block of highlighted code, it can be as easy as
 adding the package, and writing
+
 ```
 \begin{highlightblock}
     % File: document.tex
     \documentclass[a4paper]{article}
     \usepackage{amsmath}
-    
+
     \begin{document}
         Insert math like $\sqrt{2}$.
         \inAccA\inAccB\inAccC
-        
+
     \end{document}
 \end{highlightblock}
 ```
@@ -145,4 +154,3 @@ page, so I refer you to:
 [https://github.com/vkuhlmann/highlight-latex](https://github.com/vkuhlmann/highlight-latex)
 
 Happy LaTeXing!
-
