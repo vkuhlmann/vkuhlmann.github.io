@@ -1,72 +1,34 @@
 import { TIBasicContext } from "./tibasic-logic.js";
 import { TIBasicLogic } from "./tibasic-functions.js";
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useRef, useContext, useEffect, useCallback } from "react";
 import "!style-loader!css-loader!sass-loader!../scss/ticode.scss";
+import clsx from "clsx";
 import _ from "lodash";
+import ThemeContext from '@theme/ThemeContext';
+import Translate, { translate } from '@docusaurus/Translate';
+import { useEditable } from 'use-editable';
+import Highlight, { defaultProps } from 'prism-react-renderer';
 
-let code = `
-    ClrHome
-    Output(1,1,"Hey!")
-`;
+import Prism from 'prismjs/components/prism-core';
 
-let oldCode = `
-ClrHome
-2->A
-3+A->B
-(B+1)/2->A
-If ((0>2)=0)*4-5
-Output(A,1,B)
-Output((A+1<5)+1,1,"Hey!")
-Output(8,1,remainder(int(3.2),5))
-`;
+//import test from "@theme/hooks/usePrismTheme";
+import codeStyles from "!style-loader!css-loader!sass-loader!./styles.module.css";
 
-let keyTestCode = `
-ClrHome
-0->K
-While K!=105
-getKey->K
-If K
-Output(1,1,K)
-End
-`;
+// const lightCodeTheme = require('prism-react-renderer/themes/github');
+import darkCodeTheme from 'prism-react-renderer/themes/dracula';
+import lightCodeTheme from 'prism-react-renderer/themes/github';
 
-let tibasicTryitBaseContent = document.createElement("template");
-tibasicTryitBaseContent.innerHTML = `
-<link rel="stylesheet" href="/assets/css/style.css">
-<div class="tiBasicSimulator">
-    <div style="display:flex;flex-flow:column nowrap;">
-        <div class="simView" style="flex:0 0 auto;">
-            <span>B</span>
-            <span>C</span>
-            <span>C</span>
-        </div>
-        <div data-id="status" style="white-space:pre;max-width:200px;overflow:auto;">No status</div>
-    </div>
-    <div style="flex:1 0 auto;">
-        <textarea style="width:100%;height:100%;" data-id="codeArea">
-Code wasn't loaded!
-</textarea>
-    </div>
-    <div class="tryitButtons">
-        <button class="button-action" data-id="runButton">Run</button>
-        <button class="button-action" data-id="stopButton">Stop</button>
-        <button class="button-action" data-key="21">2nd</button>
-        <button class="button-action" data-key="22">Mode (Quit)</button>
-        <button class="button-action" data-key="105">Enter</button>
-        <button class="button-action" data-key="95">+</button>
-        <button class="button-action" data-key="85">-</button>
-        <button class="button-action" data-key="102">0</button>
-        <button class="button-action" data-key="25">Up</button>
-        <button class="button-action" data-key="34">Down</button>
-    </div>
-</div>
-`;
+import copy from 'copy-text-to-clipboard';
 
-let tibasicTryitSlots = document.createElement("template");
-tibasicTryitSlots.innerHTML = `
-    <slot></slot>
-`;
+
+Prism.languages.TIBasic = {
+    "function": {
+        pattern: /ClrHome/
+    }
+}
+
+//import codeStyles from '!style-loader!css-loader!@theme/CodeBlock/styles.module.css';
+//import codeStyles from '!style-loader!css-loader!@theme/CodeBlock/styles.module.css';
 
 class CalculatorButton extends React.Component {
     constructor(props) {
@@ -83,6 +45,8 @@ class CalculatorButton extends React.Component {
 }
 
 class CalculatorScreen extends React.Component {
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
 
@@ -92,7 +56,7 @@ class CalculatorScreen extends React.Component {
     }
 
     render() {
-        return (<div className="simView" style={{ "flex": "0 0 auto" }}>
+        return (<div className={clsx("simView", this.context.isDarkTheme && "dark")} style={{ "flex": "0 0 auto" }}>
             {_.times(8, y => {
                 return _.times(16, x => {
                     return (<span key={y * 16 + x}>{this.state.grid[y][x]}</span>);
@@ -106,7 +70,188 @@ class CalculatorScreen extends React.Component {
     }
 }
 
+// Based on source code from @docusaurus/theme-class CodeBlock component
+// Also contains code from https://codesandbox.io/s/use-editable-0l9kc
+// (Which is a SandBox attached to https://github.com/FormidableLabs/use-editable)
+function TIEditor(props) {
+    const [code, setCode] = useState('ClrHome\n\n0->K');
+    const editorRef = useRef(null);
+
+    //useEditable(editorRef, setCode);
+    let context = useContext(ThemeContext);
+
+    let prismTheme = context.isDarkTheme ? darkCodeTheme : lightCodeTheme;
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const [showCopied, setShowCopied] = useState(false);
+    const handleCopyCode = () => {
+        copy(code);
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+    };
+
+    const onEditableChange = useCallback((code) => {
+        let newCode = code.slice(0, -1);
+        console.log(`Setting new code to (${newCode})`);
+        setCode(newCode);
+    }, []);
+
+    useEditable(editorRef, onEditableChange, {
+        disabled: false,
+        indentation: 2
+    });
+
+    let language = "TIBasic";
+    let useDocuCode = false;
+
+    console.log(`Code is ${code}`);
+
+    return (
+        <Highlight
+            {...defaultProps}
+            Prism={Prism}
+            key={String(mounted)}
+            theme={prismTheme}
+            code={code}
+            language={language}>
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                <div className={clsx(useDocuCode && codeStyles.codeBlockContainer)} key="ooooo-1">
+                    {useDocuCode && <div style={style} className={clsx(codeStyles.codeBlockTitle)} key="ooooo-2">
+                        Hey! {JSON.stringify(prismTheme.plain)} !
+                    </div>}
+                    <div className={clsx(useDocuCode && codeStyles.codeBlockContent, language)} key="ooooo-3">
+                        {/* Source: https://github.com/FormidableLabs/use-editable */}
+                        <pre
+                            style={{ style, height: "200px", overflowY: "scroll" }}
+                            className={clsx(className, useDocuCode && [codeStyles.codeBlock, "thin-scrollbar"])}
+                             spellCheck="false" key="ooooo-4"
+                        >
+                            <code className={clsx(useDocuCode && (codeStyles.codeBlockLinesAlt || codeStyles.codeBlockLines))}
+                            key="ooooo-5" ref={editorRef}>
+                                {
+                                    tokens.map((line, i) => {
+                                        console.log(`Line: ${line}, i: ${i}`);
+                                        if (line.length === 1 && line[0].content === '') {
+                                            line[0].content = '\n'; // eslint-disable-line no-param-reassign
+                                        }
+
+                                        const lineProps = getLineProps({
+                                            line,
+                                            key: i,
+                                        });
+
+                                        return (
+                                            <React.Fragment key={`aa-${i}`}>
+                                                <span {...lineProps}>
+                                                    {line
+                                                    .filter((token) => !token.empty)
+                                                    .map((token, key) => (
+                                                        <span
+                                                            key={key}
+                                                            {...getTokenProps({
+                                                                token,
+                                                                key,
+                                                            })}
+                                                        />
+                                                    ))}
+                                                </span>
+                                                {"\n"}
+                                            </React.Fragment>
+                                        );
+                                    })
+                                }
+                            </code>
+                        </pre>
+
+                        {/* Source: @docusaurus/theme-classic */}
+                        <button
+                            type="button"
+                            aria-label={translate({
+                                id: 'theme.CodeBlock.copyButtonAriaLabel',
+                                message: 'Copy code to clipboard',
+                                description: 'The ARIA label for copy code blocks button',
+                            })}
+                            className={clsx(codeStyles.copyButton, 'clean-btn')}
+                            onClick={handleCopyCode}>
+                            {showCopied ? (
+                                <Translate
+                                    id="theme.CodeBlock.copied"
+                                    description="The copied button label on code blocks">
+                                    Copied
+                                </Translate>
+                            ) : (
+                                <Translate
+                                    id="theme.CodeBlock.copy"
+                                    description="The copy button label on code blocks">
+                                    Copy
+                                </Translate>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            )}
+        </Highlight>
+    );
+
+    // return (
+    //     <div className={codeStyles.codeBlockContainer}>
+    //         <div style={prismTheme.plain} className={codeStyles.codeBlockTitle}>
+    //             Hey! {JSON.stringify(prismTheme.plain)} !
+    //         </div>
+    //         <div className={clsx(codeStyles.codeBlockContent)}>
+    //             {/* Source: https://github.com/FormidableLabs/use-editable */}
+    //             <pre
+    //                 style={{ ...prismTheme.plain, whiteSpace: 'pre-wrap', fontFamily: 'monospace',
+    //             height: "200px", overflowY: "scroll" }} className={codeStyles.codeBlock}
+    //                 ref={editorRef} spellCheck="false"
+    //             >
+    //                 <code className={codeStyles.codeBlockLines}>
+    //                     {code.split(/\r?\n/).map((content, i, arr) => (
+    //                         <React.Fragment key={i}>
+    //                             <span className={codeStyles.atLeastLineHeight} style={{ color: `hsl(${((i % 20) * 17) | 0}, 80%, 50%)` }}>
+    //                                 {content}
+    //                             </span>
+    //                             {i < arr.length - 1 ? '\n' : null}
+    //                         </React.Fragment>
+    //                     ))}
+    //                 </code>
+    //             </pre>
+
+    //             {/* Source: @docusaurus/theme-classic */}
+    //             <button
+    //                 type="button"
+    //                 aria-label={translate({
+    //                     id: 'theme.CodeBlock.copyButtonAriaLabel',
+    //                     message: 'Copy code to clipboard',
+    //                     description: 'The ARIA label for copy code blocks button',
+    //                 })}
+    //                 className={clsx(codeStyles.copyButton, 'clean-btn')}
+    //                 onClick={handleCopyCode}>
+    //                 {showCopied ? (
+    //                     <Translate
+    //                     id="theme.CodeBlock.copied"
+    //                     description="The copied button label on code blocks">
+    //                     Copied
+    //                     </Translate>
+    //                 ) : (
+    //                     <Translate
+    //                     id="theme.CodeBlock.copy"
+    //                     description="The copy button label on code blocks">
+    //                     Copy
+    //                     </Translate>
+    //                 )}
+    //             </button>
+    //         </div>
+    //     </div>
+    // );
+}
+
 class TIBasicTryIt extends React.Component {
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props);
 
@@ -122,6 +267,7 @@ class TIBasicTryIt extends React.Component {
         this.runButton = React.createRef();
         this.stopButton = React.createRef();
         this.status = React.createRef();
+        this.codeEdit = React.createRef();
 
         this.state = {
             isRunning: false
@@ -131,56 +277,88 @@ class TIBasicTryIt extends React.Component {
         thecode = thecode.replace(/(^|\n)( |\t)+/g, "\n");
         thecode = thecode.replace(/##[^\n]*\n/g, "");
         thecode = thecode.replace(/^\n/g, "");
-        thecode = thecode.replaceAll("→","->");
-        thecode = thecode.replaceAll("⌊","l");
-        thecode = thecode.replaceAll("≠","!=");
+        thecode = thecode.replaceAll("→", "->");
+        thecode = thecode.replaceAll("⌊", "l");
+        thecode = thecode.replaceAll("≠", "!=");
         thecode = thecode.replaceAll("\xAD", "");
         this.initialCode = thecode;
     }
 
     render() {
         const that = this;
+
+        //let prismTheme = this.context.isDarkTheme ? darkCodeTheme : lightCodeTheme;
+        let prismTheme = darkCodeTheme;
+        console.log("Prismtheme:");
+        console.log(prismTheme);
+
+        console.log("Prismtheme plain color: ");
+        //console.log(prismTheme.plain.color);
+
+        //useEditable(this.codeEdit, a => { });
+
+        /*
+        <div className={codeStyles.codeBlockContainer}>
+            <div style={prismTheme.plain} className={codeStyles.codeBlockTitle}>
+                Hey! {JSON.stringify(prismTheme.plain)} !
+            </div>
+            <div className={clsx(codeStyles.codeBlockContent)}>
+                Source: https://github.com/FormidableLabs/use-editable
+                <pre
+                    style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}
+                    ref={this.codeEdit}
+                >
+                    {this.initialCode.split(/\r?\n/).map((content, i, arr) => (
+                        <React.Fragment key={i}>
+                            <span style={{ color: `hsl(${((i % 20) * 17) | 0}, 80%, 50%)` }}>
+                                {content}
+                            </span>
+                            {i < arr.length - 1 ? '\n' : null}
+                        </React.Fragment>
+                    ))}
+                </pre>
+            </div>
+        </div>
+        */
+
         try {
-            
             return (
-                <div className="card" style={{ padding: "8px", marginBottom: "40px" }}>
-                    {this.props.title ?? "Try-it:"}
-                    {/*
-                    <div ref={this.containerRef} />
-                    <code style={{whiteSpace: "pre"}}>
-                        {this.props.code}
-                    </code> */}
-                    <div className="tiBasicSimulator" style={{}}>
-                        <div style={{ display: "flex", flexFlow: "column nowrap" }}>
-                            <CalculatorScreen ref={this.screen} />
-                            <div dataid="status" style={{
-                                whiteSpace: "pre",
-                                maxWidth: "200px", overflow: "auto"
-                            }} ref={this.status}>No status</div>
-                        </div>
-                        <div style={{ flex: "1 0 auto" }}>
-                            <textarea style={{ width: "100%", height: "100%" }} dataid="codeArea"
-                                defaultValue={this.initialCode} ref={this.codeAreaEl} />
-                        </div>
-                        <div className="tryitButtons">
-                            <CalculatorButton action="run" onClick={() => that.runCode()} ref={this.runButton}
-                            disabled={this.state.isRunning}>Run</CalculatorButton>
-                            <CalculatorButton action="stop" ref={this.stopButton} onClick={() => that.stopCode()} disabled={!this.state.isRunning}>Stop</CalculatorButton>
-                            <CalculatorButton key="21" onClick={() => that.onCalcButtonDown(21)}>2nd</CalculatorButton>
-                            <CalculatorButton key="22" onClick={() => that.onCalcButtonDown(22)}>Mode (Quit)</CalculatorButton>
-                            <CalculatorButton key="105" onClick={() => that.onCalcButtonDown(105)}>Enter</CalculatorButton>
-                            <CalculatorButton key="95" onClick={() => that.onCalcButtonDown(95)}>+</CalculatorButton>
-                            <CalculatorButton key="85" onClick={() => that.onCalcButtonDown(85)}>-</CalculatorButton>
-                            <CalculatorButton key="102" onClick={() => that.onCalcButtonDown(102)}>0</CalculatorButton>
-                            <CalculatorButton key="25" onClick={() => that.onCalcButtonDown(25)}>Up</CalculatorButton>
-                            <CalculatorButton key="34" onClick={() => that.onCalcButtonDown(34)}>Down</CalculatorButton>
+                <>
+                    <TIEditor />
+                    <div className={clsx("card", this.context.isDarkTheme && "dark")} style={{ padding: "8px", marginBottom: "40px" }}>
+                        {this.props.title ?? "Try-it:"}
+                        <div className="tiBasicSimulator" style={{}}>
+                            <div style={{ display: "flex", flexFlow: "column nowrap" }}>
+                                <CalculatorScreen ref={this.screen} />
+                                <div dataid="status" style={{
+                                    whiteSpace: "pre",
+                                    maxWidth: "200px", overflow: "auto"
+                                }} ref={this.status}>No status</div>
+                            </div>
+                            <div style={{ flex: "1 0 auto" }}>
+                                <textarea style={{ width: "100%", height: "100%" }} dataid="codeArea"
+                                    defaultValue={this.initialCode} ref={this.codeAreaEl} />
+                            </div>
+                            <div className="tryitButtons">
+                                <CalculatorButton action="run" onClick={() => that.runCode()} ref={this.runButton}
+                                    disabled={this.state.isRunning}>Run</CalculatorButton>
+                                <CalculatorButton action="stop" ref={this.stopButton} onClick={() => that.stopCode()} disabled={!this.state.isRunning}>Stop</CalculatorButton>
+                                <CalculatorButton key="21" onClick={() => that.onCalcButtonDown(21)}>2nd</CalculatorButton>
+                                <CalculatorButton key="22" onClick={() => that.onCalcButtonDown(22)}>Mode (Quit)</CalculatorButton>
+                                <CalculatorButton key="105" onClick={() => that.onCalcButtonDown(105)}>Enter</CalculatorButton>
+                                <CalculatorButton key="95" onClick={() => that.onCalcButtonDown(95)}>+</CalculatorButton>
+                                <CalculatorButton key="85" onClick={() => that.onCalcButtonDown(85)}>-</CalculatorButton>
+                                <CalculatorButton key="102" onClick={() => that.onCalcButtonDown(102)}>0</CalculatorButton>
+                                <CalculatorButton key="25" onClick={() => that.onCalcButtonDown(25)}>Up</CalculatorButton>
+                                <CalculatorButton key="34" onClick={() => that.onCalcButtonDown(34)}>Down</CalculatorButton>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </>
             );
 
         } catch (error) {
-            <div>{`Error: ${error}`}</div>
+            return (<div>{`Error: ${error}`}</div>);
         }
     }
 
@@ -193,31 +371,12 @@ class TIBasicTryIt extends React.Component {
     }
 
     componentDidMount() {
-        // Using code from https://stackoverflow.com/questions/38192552/react-jsx-append-html-react-object-after-initialization
-        // get initialized component markup
-        //var container = this.containerRef.current;
-        // console.log("Container:");
-        // console.log(container);
-
-        // let el = document.createElement("div");
-        // el.innerHTML = "Hello!";
-
-        //let el = "Test";
-
-        // start a new React render tree with the container and the cards
-        // passed in from above, this is the other side of the portal.
-        //ReactDOM.render(<div>{el}</div>, container);
-
-
-        //this.createScreen();
-        //this.randomizeScreen();
-
         try {
             this.attachContext();
             console.log("Context is");
             console.log(this.tiContext);
             this.tiContext.randomizeScreen();
-        } catch(error) {
+        } catch (error) {
             console.error(`Error mounting component: ${error}`);
         }
     }
@@ -225,13 +384,10 @@ class TIBasicTryIt extends React.Component {
     runCode() {
         let code = this.getCode();
         this.tiContext.SetCode(code);
-        //this.runButton.current.setAttribute("disabled", "disabled");
         this.setState({
             isRunning: true
         });
-        //this.isRunning = true;
         this.currentlyRunning = TIBasicLogic.Run(this.tiContext);
-        //this.stopButtonEl.removeAttribute("disabled", "disabled");
 
         const that = this;
         this.currentlyRunning.then(
@@ -250,27 +406,12 @@ class TIBasicTryIt extends React.Component {
         if (this.tiContext != null)
             return;
         this.tiContext = new TryitGadgetContext(this);
-        // const that = this;
-        // this.runButtonEl.addEventListener("click", () => that.runCode());
-        // this.stopButtonEl.addEventListener("click", () => that.stopCode());
-
-        // for (let keyEl of this.div.querySelectorAll("[data-key]")) {
-        //     if (keyEl.hasAttribute("registered"))
-        //         continue;
-
-        //     let keyNum = keyEl.getAttribute("data-key");
-        //     keyEl.addEventListener("pointerdown", () => that.context.SetKey(+keyNum));
-
-        //     keyEl.setAttribute("registered", "registered");
-        // }
     }
 
     onRunFinished() {
         this.setState({
             isRunning: false
         });
-        //this.runButton.current.removeAttribute("disabled");
-        //this.stopButtonEl.setAttribute("disabled", "disabled");
     }
 
     stopCode() {
