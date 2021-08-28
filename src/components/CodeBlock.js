@@ -18,22 +18,22 @@ export default (props) => {
 
     let codeBlockTitle = props.metastring.match(
         /(^| )title="(?<title>(\\\\|\\"|[^\\"])*?)"( |$)/)?.groups?.title ?? "";
-    codeBlockTitle = codeBlockTitle.replaceAll("\\\"", "\"");
-    codeBlockTitle = codeBlockTitle.replaceAll("\\\\", "\\");
+    codeBlockTitle = codeBlockTitle.replace(/\\\"/g, "\"");
+    codeBlockTitle = codeBlockTitle.replace(/\\\\/g, "\\");
 
     let isTryIt = props.metastring.match(/(^| )tryit( |=true( |$)|$)/) != null;
 
     if (isTryIt) {
-        // // return (
-        // //     <div class="card" style={{padding:"8px", marginBottom:"40px"}}>
-        // //         {codeBlockTitle ?? "Try-it:"}
-        // //         <tibasic-tryit>
-        // //             <code style={{whiteSpace: "pre"}}>
-        // //                 {code}
-        // //             </code>
-        // //         </tibasic-tryit>
-        // //     </div>
-        // // );
+        // return (
+        //     <div class="card" style={{padding:"8px", marginBottom:"40px"}}>
+        //         {codeBlockTitle ?? "Try-it:"}
+        //         <tibasic-tryit>
+        //             <code style={{whiteSpace: "pre"}}>
+        //                 {code}
+        //             </code>
+        //         </tibasic-tryit>
+        //     </div>
+        // );
 
         return (
             <TIBasicTryIt code={code} title={codeBlockTitle} />

@@ -1,6 +1,9 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const MiniCssExtractPlugin = require('@docusaurus/core/node_modules/mini-css-extract-plugin')
+//const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 // const Prism = require("prism-react-renderer/prism");
 
 // require("prismjs/components/prism-latex");
@@ -15,8 +18,8 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favico.ico',
-  organizationName: 'vkuhlmann', // Usually your GitHub org/user name.
-  projectName: 'vkuhlmann.github.io', // Usually your repo name.
+  organizationName: 'vkuhlmann',
+  projectName: 'vkuhlmann.github.io',
   themeConfig: {
     navbar: {
       title: 'vkuhlmann.com',
@@ -118,9 +121,56 @@ module.exports = {
     function myPlugin(context, options) {
       return {
         configureWebpack: (config, isServer) => {
+          let isDevelopment = config.mode === "DEVELOPMENT";
           console.log("Config is");
           console.log(config);
+
+          console.log();
+
           return {
+            // plugins: [
+            //   new MiniCssExtractPlugin({
+            //     filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+            //     chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
+            //   })
+            // ],
+            module: {
+              rules: [
+                {
+                  test: /\.module\.s(a|c)ss$/,
+                  use: [
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        modules: true,
+                        sourceMap: isDevelopment
+                      }
+                    },
+                    {
+                      loader: 'sass-loader',
+                      options: {
+                        sourceMap: isDevelopment
+                      }
+                    }
+                  ]
+                },
+                {
+                  test: /\.s(a|c)ss$/,
+                  exclude: /\.module.(s(a|c)ss)$/,
+                  use: [
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                      loader: 'sass-loader',
+                      options: {
+                        sourceMap: isDevelopment
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
             //devtool: 'inline-source-map'
           };
         }

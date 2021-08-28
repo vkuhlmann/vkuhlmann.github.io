@@ -12,3 +12,6 @@ tags: [ti, ti-basic, functions, calculator, programming]
 import FunctionsIn from "./2021-04-17-functions-in-ti.js"
 
 <FunctionsIn />
+
+Hey!
+
