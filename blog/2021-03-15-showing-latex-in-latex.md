@@ -31,10 +31,7 @@ tend to fall back to very rudimentary solutions. We can do better!
 We'll explore the good, the bad and the ugly in typesetting LaTeX. Just in
 reverse order, to follow the thought process.
 
-<div>{/*
-///  <!-- (Level 1 and Level 2). This
-// article explains how to typeset LaTeX code in LaTeX properly (Level 3). -->
-*/}</div>
+<!--truncate-->
 
 In this post:
 

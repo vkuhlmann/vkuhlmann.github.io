@@ -120,6 +120,28 @@ In this article, I want to focus on one hurdle, and how I solved it: functions.
 ClrHome
 ```
 
+In this post:
+1. [Functions: The need](#theneed)
+2. [Solution 0: Everything in a separate program?](#separateprogram)
+3. [Solution 1: A state machine](#statemachine)
+4. [Solution 2: A redirection center](#redirectioncenter)
+5. [Solution 3: Abusing the call stack](#callstack)
+
+<div style={{ display:"flex", flexFlow: "column nowrap", gap: "10px", borderTop: "3px solid black",
+borderBottom: "3px solid black",paddingTop:"10px",paddingBottom:"10px" }}>
+  <div style={{ display:"flex", width:"100%",flexFlow:"row wrap",gap:"30px" }}>
+    <div style={{ flex:"1 1 200px" }}>
+        <img src="/img/calculator/calculator_countdown_minutes.jpg" alt="CNTDWN <3" 
+          style={{width:"100%"}}/>
+    </div>
+    <div style={{flex:"1 1 200px"}}>
+      <img src="/img/calculator/calculator_countdown_seconds.jpg"
+        alt="CNTDWN <3"
+        style={{width:"100%"}}/>
+    </div>
+  </div>
+  <div style={{ fontSize: "120%" }}>Figure 1: Photo of 'count-down-to-end-of-class'-program running.</div>
+</div>
 
 
 ```latex title="figure.tex test"

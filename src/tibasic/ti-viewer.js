@@ -1,4 +1,12 @@
-"use strict";
+import React, { useState, useRef, useContext, useEffect, useCallback } from "react";
+import clsx from "clsx";
+import _ from "lodash";
+import ThemeContext from '@theme/ThemeContext';
+
+import tiStyles from "../scss/ticode.module.scss";
+
+import darkCodeTheme from 'prism-react-renderer/themes/dracula';
+import lightCodeTheme from 'prism-react-renderer/themes/github';
 
 let TI_VIEWER_MARKCOLORS = {
     yellow: "hsl(54, 90%, 50%)",
@@ -10,27 +18,134 @@ let TI_VIEWER_MARKCOLORS = {
     darkblue: "darkblue",
 }
 
-let tiViewerBaseContent = document.createElement("template");
-tiViewerBaseContent.innerHTML = `
-<link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<div class="tiViewer">
-    <button type="button" class="button-toggle" data-id="showCode">Show code</button>
-    <div class="tiCode" data-id="code">
-        
-    </div>
-</div>
-`;
+// let tiViewerBaseContent = document.createElement("template");
+// tiViewerBaseContent.innerHTML = `
+// <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+// <div class="tiViewer">
+//     <button type="button" class="button-toggle" data-id="showCode">Show code</button>
+//     <div class="tiCode" data-id="code">
 
-let tiViewerSlots = document.createElement("template");
-tiViewerSlots.innerHTML = `
-    <slot></slot>
-`;
+//     </div>
+// </div>
+// `;
+
+// let tiViewerSlots = document.createElement("template");
+// tiViewerSlots.innerHTML = `
+//     <slot></slot>
+// `;
+
+function TIBasicCode(props) {
+    let thecode = props.code;
+
+    thecode = thecode.replace("\r\n", "\n").replace("\r", "");
+    if (thecode[0] == "\n")
+        thecode = thecode.substring(1);
+    while (thecode[thecode.length - 1] == " ")
+        thecode = thecode.substring(0, thecode.length - 1);
+    while (thecode[thecode.length - 1] == "\n")
+        thecode = thecode.substring(0, thecode.length - 1);
+
+    let metastring = props.metastring ?? "";
+
+    let defaultCollapsed = props.collapsed ?? 
+        (metastring.match(/(^| )collapsed( |=true( |$)|$)/) != null);
+
+    let context = useContext(ThemeContext);
+    let [isCollapsed, setCollapsed] = useState(props.collapsed ?? defaultCollapsed);
+
+    const toggleCollapsed = () => {
+        setCollapsed(!isCollapsed);
+    };
+
+    let prismTheme = context.isDarkTheme ? darkCodeTheme : lightCodeTheme;
+
+    let groups = [];
+    let nameToColor = {};
+    const getLineColor = l => {
+        for (let g of groups) {
+            if (l >= g.begin && l < g.end) {
+                return g.color;
+            }
+        }
+        return "hsla(0, 100%, 50%, 0%)";
+    }
+
+    let content = null;
+    let mode = props.mode || "linear";
+
+    switch (mode) {
+        case "linear": {
+            let lines = splitInLines(thecode, groups);
+            produceGroups(groups, nameToColor);
+
+            let lineno = 0;
+            content = (
+                <div>
+                    {lines.map(l => {
+                        lineno += 1;
+                        let style = {
+                            borderLeft: `4px solid ${getLineColor(lineno)}`
+                        };
+                        return (
+                            <span
+                                dataDisplayline={lineno}
+                                key={lineno}
+                                className={clsx(tiStyles.bordercolor)}
+                                style={style} dangerouslySetInnerHTML={{
+                                    __html: l
+                                }}
+                            >
+                            </span>
+                        );
+                    })}
+                </div>
+            );
+
+            break;
+        }
+        case "blocks": {
+
+            break;
+        }
+    }
+
+    return (
+        <div
+            className={clsx(tiStyles["tiViewer"])}
+            style={prismTheme.plain}
+        >
+            <button
+                type="button"
+                className={clsx(
+                    tiStyles["button-toggle"],
+                    isCollapsed && tiStyles["toggled"],
+                    tiStyles.subtile
+                )}
+                onClick={toggleCollapsed}
+            >
+                {(() => {
+                    if (isCollapsed)
+                        return "Show code";
+                    else
+                        return "Hide code"
+                })()}
+            </button>
+            <div className={clsx(tiStyles["tiCode"])}>
+                {!isCollapsed && content}
+                {isCollapsed && <span style={{ fontStyle: "italic" }}>Code collapsed</span> }
+            </div>
+        </div>
+    );
+}
+
+export { TIBasicCode }
+
 
 class TIViewer extends HTMLElement {
     constructor() {
         super();
 
-        var shadow = this.attachShadow({mode: "open"});
+        var shadow = this.attachShadow({ mode: "open" });
         shadow.appendChild(tiViewerSlots.content.cloneNode(true));
         this.div = shadow.querySelector("div");
         this.slotContents = this.shadowRoot.querySelector("slot");
@@ -41,7 +156,7 @@ class TIViewer extends HTMLElement {
 
     connectedCallback() {
         this.slotContents = this.shadowRoot.querySelector("slot");
-        
+
         document.addEventListener("DOMContentLoaded", () => {
             //console.log(`Contents: (${this.slotContents.assignedNodes()})`);
             let nodes = this.slotContents.assignedNodes();
@@ -182,7 +297,7 @@ class TIViewer extends HTMLElement {
     }
 }
 
-customElements.define("ti-viewer", TIViewer);
+//customElements.define("ti-viewer", TIViewer);
 
 let oldcol = {
     darkBlue: "hsl(207, 90%, 20%)"
@@ -333,7 +448,7 @@ function processComment(comm, groups, linenumber) {
     }
 
     let beginRe = /^BEGIN ("(?<name>[^"]*)"( |$))?(?<color>[a-zA-Z0-9_\-*]+)$/;
-    
+
     m = comm.match(beginRe);
     if (m != null) {
         let name = m.groups.name;

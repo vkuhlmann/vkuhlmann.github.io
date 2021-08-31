@@ -25,6 +25,12 @@ under which Bootstrap is distributed. */
     margin: 0px;
 }
 
+.button-toggle.subtile {
+    background-color: hsl(211,100%,17.5%);
+    color: #fff;
+    border-color: hsl(211.2,100%,15%);
+}
+
 
 .button-action:disabled {
     background-color: #ccc;
@@ -53,12 +59,23 @@ under which Bootstrap is distributed. */
     background-color: #23272b;
     border-color: #1d2124;
     text-decoration: none;
+
+    &.subtile {
+        background-color: hsl(211,100%,32.5%);
+        border-color: hsl(211.2,100%,30%);
+    }
 }
 
 .button-toggle.toggled {
     background-color: #0069d9;
     color: #fff;
     border-color: #0062cc;
+}
+
+.button-toggle.toggled.subtile {
+    background-color: hsl(211,100%,27.5%);
+    color: #fff;
+    border-color: hsl(211.2,100%,25%);
 }
 
 .button-toggle.toggled.second-stage {

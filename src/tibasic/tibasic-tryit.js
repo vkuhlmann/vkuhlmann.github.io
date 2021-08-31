@@ -35,7 +35,6 @@ Prism.languages.TIBasic = {
 }
 
 //import codeStyles from '!style-loader!css-loader!@theme/CodeBlock/styles.module.css';
-//import codeStyles from '!style-loader!css-loader!@theme/CodeBlock/styles.module.css';
 
 class CalculatorButton extends React.Component {
     constructor(props) {
@@ -77,16 +76,53 @@ class CalculatorScreen extends React.Component {
     }
 }
 
+function EditorButtons(props) {
+    const [showCopied, setShowCopied] = useState(false);
+    const code = props.code;
+
+    const handleCopyCode = () => {
+        copy(code);
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+    };
+
+    /* Source: @docusaurus/theme-classic */
+    return (
+        <button
+            type="button"
+            aria-label={translate({
+                id: 'theme.CodeBlock.copyButtonAriaLabel',
+                message: 'Copy code to clipboard',
+                description: 'The ARIA label for copy code blocks button',
+            })}
+            className={clsx(codeStyles.copyButton, 'clean-btn')}
+            onClick={handleCopyCode}
+            style={{marginRight: "20px"}}
+            >
+            {showCopied ? (
+                <Translate
+                    id="theme.CodeBlock.copied"
+                    description="The copied button label on code blocks">
+                    Copied
+                </Translate>
+            ) : (
+                <Translate
+                    id="theme.CodeBlock.copy"
+                    description="The copy button label on code blocks">
+                    Copy
+                </Translate>
+            )}
+        </button>
+    );
+}
+
 // Based on source code from @docusaurus/theme-class CodeBlock component
 // Also contains code from https://codesandbox.io/s/use-editable-0l9kc
 // (Which is a SandBox attached to https://github.com/FormidableLabs/use-editable)
 function TIEditor(props) {
-    //return <div>TIEditor</div>;
-
-    const [code, setCode] = useState(props.code ?? 'ClrHome\n\n0->K');
+    const [code, setCode] = useState(props.code ?? "");
     const editorRef = useRef(null);
 
-    //useEditable(editorRef, setCode);
     let context = useContext(ThemeContext);
 
     let prismTheme = context.isDarkTheme ? darkCodeTheme : lightCodeTheme;
@@ -94,13 +130,6 @@ function TIEditor(props) {
     useEffect(() => {
         setMounted(true);
     }, []);
-
-    const [showCopied, setShowCopied] = useState(false);
-    const handleCopyCode = () => {
-        copy(code);
-        setShowCopied(true);
-        setTimeout(() => setShowCopied(false), 2000);
-    };
 
     const onEditableChange = useCallback((code) => {
         let newCode = code.slice(0, -1);
@@ -118,32 +147,6 @@ function TIEditor(props) {
     let language = "TIBasic";
     let useDocuCode = true;
 
-    console.log(`Code is ${code}`);
-
-    // return (
-    //     <Highlight {...defaultProps} Prism={Prism}
-    //         key={String(mounted)}
-    //         theme={prismTheme}
-    //         code={code} language={language ?? "jsx"}
-    //     >
-    //         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-    //             <pre className={className} style={style} ref={editorRef}
-    //                 spellCheck="false">
-    //                 {tokens.map((line, i) => (
-    //                     <React.Fragment key={i}>
-    //                         {line
-    //                             .filter((token) => !token.empty)
-    //                             .map((token, key) => (
-    //                                 <span {...getTokenProps({ token, key })} />
-    //                             ))}
-    //                         {"\n"}
-    //                     </React.Fragment>
-    //                 ))}
-    //             </pre>
-    //         )}
-    //     </Highlight>
-    // );
-
     return (
         <Highlight {...defaultProps} Prism={Prism}
             key={String(mounted)}
@@ -151,213 +154,42 @@ function TIEditor(props) {
             code={code} language={language ?? "jsx"}
         >
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <div className={clsx(useDocuCode && codeStyles.codeBlockContainer)}
-                    style={style}>
-                    {useDocuCode && <div className={clsx(codeStyles.codeBlockTitle)}>
-                        {props.title}
-                    </div>}
+                <div
+                    className={
+                        clsx(useDocuCode && codeStyles.codeBlockContainer)
+                    }
+                    style={style}
+                >
+                    {
+                        useDocuCode &&
+                        <div className={clsx(codeStyles.codeBlockTitle)}>
+                            {props.title}
+                        </div>
+                    }
                     <div className={clsx(useDocuCode && codeStyles.codeBlockContent, language)}>
                         <pre className={className} style={{ ...style, height: "200px", overflowY: "scroll" }}
-                            ref={editorRef}
-                            spellCheck="false">
-                            {tokens.map((line, i) => (
-                                <React.Fragment key={i}>
-                                    {line
-                                        .filter((token) => !token.empty)
-                                        .map((token, key) => (
-                                            <span {...getTokenProps({ token, key })} />
-                                        ))}
-                                    {"\n"}
-                                </React.Fragment>
-                            ))}
-                        </pre>
-
-                        {/* Source: @docusaurus/theme-classic */}
-                        <button
-                            type="button"
-                            aria-label={translate({
-                                id: 'theme.CodeBlock.copyButtonAriaLabel',
-                                message: 'Copy code to clipboard',
-                                description: 'The ARIA label for copy code blocks button',
-                            })}
-                            className={clsx(codeStyles.copyButton, 'clean-btn')}
-                            onClick={handleCopyCode}>
-                            {showCopied ? (
-                                <Translate
-                                    id="theme.CodeBlock.copied"
-                                    description="The copied button label on code blocks">
-                                    Copied
-                                </Translate>
-                            ) : (
-                                <Translate
-                                    id="theme.CodeBlock.copy"
-                                    description="The copy button label on code blocks">
-                                    Copy
-                                </Translate>
-                            )}
-                        </button>
-                    </div>
-                </div>
-            )}
-        </Highlight>
-    );
-
-    //return <Edit code={props.code} language={language} />;
-
-    return (
-        <Highlight
-            {...defaultProps}
-            Prism={Prism}
-            key={String(mounted)}
-            theme={prismTheme}
-            code={code}
-            language={language}>
-            {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <div className={clsx(useDocuCode && codeStyles.codeBlockContainer)}
-                    style={style}>
-                    {useDocuCode && <div className={clsx(codeStyles.codeBlockTitle)}>
-                        {props.title}
-                    </div>}
-                    <div className={clsx(useDocuCode && codeStyles.codeBlockContent, language)}>
-                        {/* Source: https://github.com/FormidableLabs/use-editable */}
-                        <pre
-                            style={{ height: "200px", overflowY: "scroll" }}
-                            className={clsx(false && className, useDocuCode && [codeStyles.codeBlock, "thin-scrollbar"])}
-                            spellCheck="false"
+                            spellCheck="false" ref={editorRef}
                         >
-                            <code
-                                className={clsx(className, useDocuCode && (codeStyles.codeBlockLinesAlt || codeStyles.codeBlockLines))}
-                                ref={editorRef}
-                            >
-                                {
-                                    tokens.map((line, i) => {
-                                        //console.log(`Line: ${line}, i: ${i}`);
-                                        // if (line.length === 1 && line[0].content === '') {
-                                        //     line[0].content = '\n'; // eslint-disable-line no-param-reassign
-                                        //     //line[0].content = "&zwsp;";
-                                        //     //line[0].content = "";
-                                        // }
-
-                                        const lineProps = getLineProps({
-                                            line,
-                                            key: i,
-                                        });
-
-                                        // return (
-                                        //     <React.Fragment key={`aa-${i}`}>
-                                        //         <div key={i} {...lineProps}>
-                                        //             {line.map((token, key) => (
-                                        //                 <span key={key} {...getTokenProps({ token, key })} />
-                                        //             ))}
-                                        //         </div>
-                                        //         {"\n"}
-                                        //     </React.Fragment>
-                                        // );
-
-                                        return (
-                                            <React.Fragment key={`aa-${i}`}>
-                                                {/* <div {...lineProps}> */}
-                                                {line
-                                                    .filter((token) => !token.empty)
-                                                    .map((token, key) => (
-                                                        <span
-                                                            key={`bb-${key}`}
-                                                            {...getTokenProps({
-                                                                token,
-                                                                key,
-                                                            })}
-                                                        />
-                                                    ))}
-                                                {/* </div> */}
-                                                {"\n"}
-                                            </React.Fragment>
-                                        );
-                                    })
-                                }
+                            <code>
+                                {tokens.map((line, i) => (
+                                    <React.Fragment key={`aa-${i}`}>
+                                        {line
+                                            .filter((token) => !token.empty)
+                                            .map((token, key) => (
+                                                <span {...getTokenProps({ token, key })} />
+                                            ))}
+                                        {"\n"}
+                                    </React.Fragment>
+                                ))}
                             </code>
                         </pre>
 
-                        {/* Source: @docusaurus/theme-classic */}
-                        <button
-                            type="button"
-                            aria-label={translate({
-                                id: 'theme.CodeBlock.copyButtonAriaLabel',
-                                message: 'Copy code to clipboard',
-                                description: 'The ARIA label for copy code blocks button',
-                            })}
-                            className={clsx(codeStyles.copyButton, 'clean-btn')}
-                            onClick={handleCopyCode}>
-                            {showCopied ? (
-                                <Translate
-                                    id="theme.CodeBlock.copied"
-                                    description="The copied button label on code blocks">
-                                    Copied
-                                </Translate>
-                            ) : (
-                                <Translate
-                                    id="theme.CodeBlock.copy"
-                                    description="The copy button label on code blocks">
-                                    Copy
-                                </Translate>
-                            )}
-                        </button>
+                        <EditorButtons code={code} />
                     </div>
                 </div>
             )}
         </Highlight>
     );
-
-    // return (
-    //     <div className={codeStyles.codeBlockContainer}>
-    //         <div style={prismTheme.plain} className={codeStyles.codeBlockTitle}>
-    //             Hey! {JSON.stringify(prismTheme.plain)} !
-    //         </div>
-    //         <div className={clsx(codeStyles.codeBlockContent)}>
-    //             {/* Source: https://github.com/FormidableLabs/use-editable */}
-    //             <pre
-    //                 style={{ ...prismTheme.plain, whiteSpace: 'pre-wrap', fontFamily: 'monospace',
-    //             height: "200px", overflowY: "scroll" }} className={codeStyles.codeBlock}
-    //                 ref={editorRef} spellCheck="false"
-    //             >
-    //                 <code className={codeStyles.codeBlockLines}>
-    //                     {code.split(/\r?\n/).map((content, i, arr) => (
-    //                         <React.Fragment key={i}>
-    //                             <span className={codeStyles.atLeastLineHeight} style={{ color: `hsl(${((i % 20) * 17) | 0}, 80%, 50%)` }}>
-    //                                 {content}
-    //                             </span>
-    //                             {i < arr.length - 1 ? '\n' : null}
-    //                         </React.Fragment>
-    //                     ))}
-    //                 </code>
-    //             </pre>
-
-    //             {/* Source: @docusaurus/theme-classic */}
-    //             <button
-    //                 type="button"
-    //                 aria-label={translate({
-    //                     id: 'theme.CodeBlock.copyButtonAriaLabel',
-    //                     message: 'Copy code to clipboard',
-    //                     description: 'The ARIA label for copy code blocks button',
-    //                 })}
-    //                 className={clsx(codeStyles.copyButton, 'clean-btn')}
-    //                 onClick={handleCopyCode}>
-    //                 {showCopied ? (
-    //                     <Translate
-    //                     id="theme.CodeBlock.copied"
-    //                     description="The copied button label on code blocks">
-    //                     Copied
-    //                     </Translate>
-    //                 ) : (
-    //                     <Translate
-    //                     id="theme.CodeBlock.copy"
-    //                     description="The copy button label on code blocks">
-    //                     Copy
-    //                     </Translate>
-    //                 )}
-    //             </button>
-    //         </div>
-    //     </div>
-    // );
 }
 
 export { TIEditor };
@@ -368,11 +200,7 @@ class TIBasicTryIt extends React.Component {
     constructor(props) {
         super(props);
 
-        // this.subelement = document.createElement("div");
-        // this.subelement.innerHTML = "Hello!";
-
         this.containerRef = React.createRef();
-        //this.codeAreaEl = React.createRef();
 
         this.screen = React.createRef();
         this.tiContext = null;
@@ -406,50 +234,15 @@ class TIBasicTryIt extends React.Component {
     }
 
     render() {
-        //return (<div>TIBasicTryIt</div>);
-        //return (<TIEditor title={this.props.title ?? "Try-it:"} code={this.initialCode} />);
-
         const that = this;
-
-        //let prismTheme = this.context.isDarkTheme ? darkCodeTheme : lightCodeTheme;
-        let prismTheme = darkCodeTheme;
-        console.log("Prismtheme:");
-        console.log(prismTheme);
-
-        //useEditable(this.codeEdit, a => { });
-
-        /*
-        <div className={codeStyles.codeBlockContainer}>
-                        <div style={prismTheme.plain} className={codeStyles.codeBlockTitle}>
-                            Hey! {JSON.stringify(prismTheme.plain)} !
-                        </div>
-                        <div className={clsx(codeStyles.codeBlockContent)}>
-                            Source: https://github.com/FormidableLabs/use-editable
-                            <pre
-                                style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}
-                                ref={this.codeEdit}
-                            >
-                                {this.initialCode.split(/\r?\n/).map((content, i, arr) => (
-                                    <React.Fragment key={i}>
-                                        <span style={{ color: `hsl(${((i % 20) * 17) | 0}, 80%, 50%)` }}>
-                                            {content}
-                                        </span>
-                                        {i < arr.length - 1 ? '\n' : null}
-                                    </React.Fragment>
-                                ))}
-                            </pre>
-                        </div>
-                    </div>
-                    */
 
         try {
             return (
-                <>
-                    <TIEditor title={this.props.title ?? "Try-it:"} code={this.initialCode} 
+                <div style={{borderLeft: "2px solid hsl(0, 100%, 30%)", padding: "6px 0px 6px 6px", marginBottom: "5px"}}>
+                    <TIEditor title={this.props.title ?? "Try-it:"} code={this.initialCode}
                         codeChanged={(newCode) => that.editorCodeChanged(newCode)}
                     />
-                    <div className={clsx(tiStyles.card, this.context.isDarkTheme && tiStyles.dark)} style={{ padding: "8px", marginBottom: "40px" }}>
-                        {this.props.title ?? "Try-it:"}
+                    <div className={clsx(tiStyles.card, this.context.isDarkTheme && tiStyles.dark)} style={{ padding: "8px" }}>
                         <div className={clsx(tiStyles.tiBasicSimulator)}>
                             <div style={{ display: "flex", flexFlow: "column nowrap" }}>
                                 <CalculatorScreen ref={this.screen} />
@@ -458,10 +251,6 @@ class TIBasicTryIt extends React.Component {
                                     maxWidth: "200px", overflow: "auto"
                                 }} ref={this.status}>No status</div>
                             </div>
-                            {/* <div style={{ flex: "1 0 auto" }}>
-                                <textarea style={{ width: "100%", height: "100%" }} dataid="codeArea"
-                                    defaultValue={this.initialCode} ref={this.codeAreaEl} />
-                            </div> */}
                             <div className={clsx(tiStyles.tryitButtons)}>
                                 <CalculatorButton action="run" onClick={() => that.runCode()} ref={this.runButton}
                                     disabled={this.state.isRunning}>Run</CalculatorButton>
@@ -477,7 +266,7 @@ class TIBasicTryIt extends React.Component {
                             </div>
                         </div>
                     </div>
-                </>
+                </div>
             );
 
         } catch (error) {
