@@ -132,13 +132,6 @@ import {MDXProvider} from '@mdx-js/react'
 ClrHome
 ```
 
-<!-- In this post:
-1. [Functions: The need](#theneed)
-2. [Solution 0: Everything in a separate program?](#separateprogram)
-3. [Solution 1: A state machine](#statemachine)
-4. [Solution 2: A redirection center](#redirectioncenter)
-5. [Solution 3: Abusing the call stack](#callstack) -->
-
 In this post:
 1. [Functions: The need](#functions-the-need)
 2. [Solution 0: Everything in a separate program?](#solution-0-everything-in-a-separate-program)

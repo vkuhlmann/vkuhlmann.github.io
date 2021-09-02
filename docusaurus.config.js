@@ -35,6 +35,11 @@ module.exports = {
           label: 'Tutorial',
         },
         {
+          to: "/latex",
+          position: "left",
+          label: "LaTeX"
+        },
+        {
           to: '/blog',
           label: 'Blog',
           position: 'left'
@@ -102,6 +107,8 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          // path: "product",
+          // routeBasePath: "product",
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/vkuhlmann/vkuhlmann.github.io/edit/main/',
@@ -118,6 +125,15 @@ module.exports = {
     ],
   ],
   plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'latex',
+        path: './latex',
+        routeBasePath: '/latex',
+        //sidebarPath: require.resolve('./sidebarsLaTeX.js')
+      },
+    ],
     function myPlugin(context, options) {
       return {
         configureWebpack: (config, isServer) => {
