@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>vkuhlmann.com Blog</title>
+        <link>https://vkuhlmann.com/blog</link>
+        <description>vkuhlmann.com Blog</description>
+        <lastBuildDate>Sat, 17 Apr 2021 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Functions in TI-BASIC: Challenge accepted]]></title>
+            <link>https://vkuhlmann.com/blog/functions-in-ti-basic</link>
+            <guid>functions-in-ti-basic</guid>
+            <pubDate>Sat, 17 Apr 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[At high school, I loved to toy around with my TI-84 Plus calculator. It was the]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Showing LaTeX in LaTeX: The good, the bad and the ugly]]></title>
+            <link>https://vkuhlmann.com/blog/showing-latex</link>
+            <guid>showing-latex</guid>
+            <pubDate>Mon, 15 Mar 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[{/*]]></description>
+        </item>
+    </channel>
+</rss>

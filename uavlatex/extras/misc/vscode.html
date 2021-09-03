@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2021 Vincent Kuhlmann
+-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Visual Studio Code | U.A.V. LaTeX-cursus</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/assets/css/styleBootstrapCompiled.css">
+
+    <script src="/lib/popper.min.js"></script>
+    <script src="/uavlatex/layout.js"></script>
+
+    <script>
+        let beforeHighlight = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (beforeHighlight != null) {
+                beforeHighlight();
+            }
+        });
+
+        beforeHighlight = () => {
+            let a = document.querySelectorAll("code");
+            for (let b of a) {
+                if (b.className.includes("language-"))
+                    continue;
+                if (b.classList.contains("verb"))
+                    continue;
+                b.classList.add("language-latex");
+                let trimmedText = b.innerText.trim();
+
+                if (!trimmedText.includes("\n")
+                && trimmedText.startsWith("\\usepackage")) {
+                    b.classList.add("usepackage");
+                }
+            }
+
+            window.setTokenHighlights = (list) => {
+                let reList = "";
+                for (let it of list) {
+                    if (reList.length > 0)
+                        reList += "|";
+                    reList += `(?:${it})`;
+                }
+
+                let e = new RegExp(`(?!(?:${reList}))\\\\(?:[^a-zA-Z()[\\]]|[a-zA-Z*]+)`);
+                let matcher = new RegExp(`${reList}`);
+                if (reList.length == 0)
+                    matcher = new RegExp("(?!)");
+
+                Prism.languages.latex.function.pattern = e;
+                console.log(`Test: ${JSON.stringify(Prism.languages.latex.equation[0].inside["equation-command"])}`);
+                Prism.languages.latex.equation[0].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[0].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+                Prism.languages.latex.equation[1].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[1].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+
+                Prism.languages.latex.tokenhighlight = {
+                    pattern: matcher,
+                    alias: "sometest"
+                };
+
+                console.log(`e: ${e.toString()}`);
+                console.log(`matcher: ${matcher.toString()}`);
+
+                console.log(`LaTeX: ${JSON.stringify(Prism.languages.latex)}`);
+            }
+            setTokenHighlights(["\\\\aaaaa"]);
+        };
+    </script>
+
+    <script>
+
+    </script>
+
+    
+
+    <script id="mathjax" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="/lib/prism/prism.js"></script>
+
+    <link href="/lib/prism/prism.css" rel="stylesheet" />
+    <!-- <script src="layout.js"></script> -->
+    <!-- <script src="/lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./">U.A.V. LaTeX-cursus <span style="font-size:70%;font-style: italic;">&ensp;d.d. 17 mei 2021</span></a>
+
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
+                    <li class="nav-item">
+                        
+                            <a class="nav-link" href="/uavlatex">Home</a>
+                        
+                    </li>
+                    <li class="nav-item">
+                        
+                            <a class="nav-link active disabled" href="#">Materiaal <span class="non-visual-context">(huidig)</span></a>
+                        
+                    </li>
+                    <li class="nav-item" style="display:none;">
+                        
+                            <a class="nav-link preview" href="/uavlatex/scherm">Scherm</a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid page-container">
+    <div id="leftside" class="panel-left">
+        <div id="sidebarLeft" class="sidebar-left">
+            <ul class="sidebar-menu">
+                <li>
+                    
+                        <a href="/uavlatex/materiaal">Overzicht</a>
+                    
+                </li>
+                <!--
+
+                    Figuren subcaption
+
+                    1. Inleiding
+
+                    --------------
+                    2. Tekstopmaak
+
+                    Kaders
+                    Lijntjes
+                    Speciale symbolen
+                    Transformaties (draaien, schalen, spiegelen, verschuiven)
+                    Lettertype
+                    Glue, breaks, penalty
+                    Alignering (flushleft, raggedleft, ...)
+
+                    --------------
+                    3. Documentstructuur
+
+                    Index & Listoffigures
+                    Hyperref
+                    Headers en footers
+                    Meer titels
+                    Inhoudstabel fijnafstemming
+
+                    --------------
+                    4. Afbeeldingen
+
+                    Referentie Wikibooks
+                    Vector vs raster graphic
+                    Lijsticoontjes
+
+                    --------------
+                    5. Formules
+
+                    Theorem, lemma and co.
+                    Detexify, CTAN comprehensive list
+                    Matrices
+                    Wiskundegerelateerde environments: de hele parade
+                    Formulenummers
+                    Commath & Mathtools
+                    DeclareMathOperator
+                    Letteroverzicht
+                    Fleqn
+
+                    --------------
+                    6. Bibliografie
+
+                    Lopende-tekstcitaties
+                    Nocite
+
+                    --------------
+                    7. Goed om te weten
+
+
+                    --------------
+                    *. Misc
+
+                    Tabellen
+                    Nummeringen
+
+                    Versiebeheer (git)
+                    Backups
+                    VS Code
+                    Shortcuts (en toetsenbord handigheid)
+                    Biber
+                    Subfiles
+                    Commando's inspecteren, typeout, meaning, the
+                    Counters
+                    LaTeX snippets
+
+                    % Witruimte
+
+                    Beamer
+                -->
+                <li class="sidebar-segment">
+                    <span>1. Inleiding</span>
+                </li>
+                <li class="sidebar-segment">
+                    <span>2. Tekstopmaak</span>
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/tekstopmaak">Overzicht</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/teksteffecten">Slide: Teksteffecten</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/specialeTekens">Slide: Speciale tekens</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/tekstopmaak/lijntjes">Extra: Lijntjes</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/tekstopmaak/accenten">Extra: Accenten</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/tekstopmaak/adjustbox">Extra: Adjustbox</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/tekstopmaak/footnotes">Extra: Footnotes</a>
+                    
+                </li>
+
+                <li class="sidebar-segment">
+                    <span>3. Documentstructuur</span>
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/documentstructuur">Overzicht</a>
+                    
+                </li>
+
+                <li class="sidebar-segment">
+                    <span>4. Afbeeldingen</span>
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/afbeeldingen">Overzicht</a>
+                    
+                </li>
+
+                <li class="sidebar-segment">
+                    <span>5. Formules</span>
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/formules">Overzicht</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/formulesBasis">Slide: Formules basis</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/formulesSymbolen">Slide: Formules symbolen</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/formulesVectoren">Slide: Formules vectoren</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/formulesIntegraalrekening">Slide: Formules integraalrekening</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/formulesWiskundigeRelaties">Slide: Formules wiskundige relaties</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/formulesPijltjesEnOperatoren">Slide: Formules pijltjes en operatoren</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/formulenummers">Extra: Formulenummers</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/matrices">Extra: Matrices</a>
+                    
+                </li>
+
+                <li class="sidebar-segment">
+                    <span>6. Bibliografie</span>
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/bibliografie">Overzicht</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/bibliografieCitatieCommando">Slide: Bibliografie citatie commando</a>
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/slides/bibliografieOverzicht">Slide: Bibliografie overzicht</a>
+                    
+                </li>
+
+                <li class="sidebar-segment">
+                    <span>7. Goed om te weten</span>
+                </li>
+                <li class="sidebar-segment">
+                    <span>8. Misc</span>
+                </li>
+                <li>
+                    
+                        <a class="active disabled" href="#">Extra: Visual Studio Code</a>    
+                    
+                </li>
+                <li>
+                    
+                        <a href="/uavlatex/extras/tabellen">Extra: Tabellen</a>
+                    
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-center" style="display:block;">
+        <div style="display:flex;width:100%;height:100%;">
+        <div id="leftFiller" class="left-filler">
+        </div>
+        
+        
+        <!-- justify -->
+
+        <div id="mainpage" class="mainpage ">
+            <p>Je kan LaTeX schrijven met Visual Studio Code. De figuur hieronder toont hoe het
+er dan uitziet. Klik erop om het te bekijken in een apart tabblad.
+<a href="/assets/uavlatex/Misc/VisualStudioCodeDemo.png" target="_blank">
+<img src="/assets/uavlatex/Misc/VisualStudioCodeDemo.png" class="fullwidthimage" />
+</a></p>
+
+<p>Download Visual Studio Code: <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a>.</p>
+
+<p>Visual Studio Code is de editor: die verzorgt alles wat je ziet. Om de <code>.tex</code>
+code om te zetten in een <code>.pdf</code>-bestand, heb je een hulpprogramma nodig. Dat is
+MiKTeX of TeX Live. Het volgende stukje ook te vinden op <a href="http://a-es2.nl/texnicie" target="_blank">a-es2.nl/texnicie</a>:</p>
+
+<ul>
+  <li>Windows: <a href="https://miktex.org/download" target="_blank">MiKTeX</a> (alternatief: <a href="https://www.tug.org/texlive/acquire-netinstall.html" target="_blank">TeX Live</a>)</li>
+  <li>Mac: <a href="https://miktex.org/download" target="_blank">MiKTeX</a> (alternatief: <a href="https://tug.org/mactex/mactex-download.html" target="_blank">MacTeX</a>)</li>
+  <li>Linux: <a href="https://www.tug.org/texlive/acquire-netinstall.html" target="_blank">TeX Live</a> (alternatief: <a href="https://miktex.org/download" target="_blank">MiKTeX</a>)<br />
+Op Debian kan je bijvoorbeeld doen
+<code>sudo apt-get install texlive-full</code>.</li>
+</ul>
+
+<p>De distributies verschillen niet veel van elkaar. MiKTeX kan - tenminste met
+TeXstudio packages automatisch installeren, waar TeX Live dat niet kan (met
+standaardinstellingen downloadt TeX Live alle packages, dit kost enkele
+gigabytes opslag). TeX Live gaat wel wat beter via de command line, wat een
+belangrijke pre is op Linux.</p>
+
+<hr />
+
+<p>De installatie kan even duren. Ondertussen kan je alvast in Visual Studio Code
+rondkijken.</p>
+
+<p>In Visual Studio Code moet je de extensie ‘LaTeX Workshop’ installeren. In het
+menu links (Activity bar), klik op ‘Extensions’, of gebruik de shortcut
+<code>Ctrl+Shift+X</code>. Zoek en installeer de extensie. Deze extensie voegt de
+LaTeX-specifieke onderdelen toe aan Visual Studio Code.</p>
+
+<p>Installatieproblemen? Herstart je computer, en als dat niet werkt, vraag het
+mij.</p>
+
+<p>Klik op <code>File &gt; Open Folder</code> en kies een nieuwe map in je computer. Maak een
+nieuw bestand aan <code>File &gt; New File</code>, en paste daarin dit simpele document:</p>
+
+<pre><code>\documentclass[a4paper]{article}
+
+\title{De titel}
+\begin{document}
+    \maketitle
+
+    Hallo!
+\end{document}
+</code></pre>
+
+<p>Sla op (<code>Ctrl+S</code>) onder de naam <code>document.tex</code> (of iets anders wat eindigt op
+<code>.tex</code>). Je ziet dat er nu in het linker menu (Activity bar) een icoontje met
+‘TeX’ verschijnt. In dit menu, klik eerst op <code>Build LaTeX project</code>, en
+vervolgens op <code>View LaTeX project</code>. Als het goed is zou je de PDF nu te zien
+moeten krijgen.</p>
+
+<p>Je ziet dat er naast je <code>document.tex</code> nu een <code>document.pdf</code> in je map zit,
+maar ook een <code>.aux</code>, <code>.log</code>, <code>.synctex.gz</code> en mogelijk meer hulpbestanden. Deze
+hulpbestanden mag je negeren.</p>
+
+<p><strong>Yeey! Het is gelukt!</strong></p>
+
+
+        </div>
+        <div id="rightFiller" class="right-filler">
+        </div>
+        </div>
+    </div>
+    <!-- <div style="flex:1 1 60em;display:flex;">
+        <div id="mainpage" class="mainpage" style="flex:0 1 60em;min-width:20ch;padding:15px;">
+            <div style="text-align:justify;">
+                <p>
+                    Some text
+                </p>
+            </div>
+        </div>
+        <div id="siderbarRight" class="siderbar-right right-filler"
+            style="flex:1 0 0px;max-width:10ch;max-width:calc(10ch + 10px);">
+
+        </div>
+    </div> -->
+    <div id="rightside" class="panel-right">
+    </div>
+</div>
+
+
+</body>
+
+</html>
