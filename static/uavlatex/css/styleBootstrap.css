@@ -1,0 +1,59 @@
+@use "inputs.scss";
+.simView, .simView.align-justify { background-color: #eee; font-family: 'Consolas', 'Courier New', monospace; display: grid; width: 200px; grid-template-columns: repeat(16, 12px); grid-template-rows: repeat(8, 16px); padding: 5px; }
+
+.simView span, .simView.align-justify span { line-height: 16px; text-align: center; }
+
+.tiBasicSimulator { font-family: 'Consolas', 'Courier New', monospace; display: flex; flex-flow: row; width: 100%; gap: 10px; }
+
+.tiBasicSimulator * { box-sizing: border-box; }
+
+.tryitButtons { display: flex; flex-flow: row wrap; flex: 1 1 2cm; gap: 5px; align-content: flex-start; }
+
+.tiCode { font-family: 'Consolas', 'Courier New', monospace; display: flex; max-height: 400px; max-height: none; padding-bottom: 10px; overflow: auto; gap: 0px; padding: 8px; flex-flow: row wrap; align-content: flex-start; }
+
+.tiCode.ti-blocks { justify-content: center; }
+
+ti-viewer.overwide:not(.collapsed) { display: block; position: relative; width: calc(max(100%, 70vw)); margin-left: calc((100% - MAX(100%, 70vw))/2); }
+
+.tiViewer.overwide:not(.collapsed) { position: relative; width: calc(max(100%, 70vw)); margin-left: calc((100% - MAX(100%, 70vw))/2); }
+
+.tiViewer { margin-bottom: 10px; }
+
+.pseudoCode { font-family: 'Consolas', 'Courier New', monospace; display: flex; flex-flow: column nowrap; padding: 8px; }
+
+.pseudoCode > span { padding-left: 3px; }
+
+.tiCode > div, .tiCode > span { position: relative; display: flex; flex-flow: column nowrap; margin: 0px; }
+
+.tiCode.ti-blocks > div > span, .tiCode.ti-blocks > span > span { padding: 15px; padding-left: 8px; display: flex; flex-flow: column nowrap; margin: 0px; }
+
+.bordercolor { padding-left: 3px; }
+
+.tiCode.ti-blocks > span > .fr { border-left: 2px solid black; border-right: 2px solid black; position: absolute; left: 0px; top: 50%; top: 5%; width: 100%; height: 90%; width: calc(100% - 2px); z-index: -1; display: none; }
+
+.tiCode.ti-blocks > span > .fr-horiz { border-top: 5px solid black; position: absolute; left: 50%; left: calc(50% - 2.5px); top: 0px; width: 5px; height: 100%; height: calc(100% - 5px); z-index: -1; }
+
+/* Contains CSS based on Bootstrap styles. See LICENSE.txt for the license
+under which Bootstrap is distributed. */
+/* Based on Bootstrap .btn* styles */
+.button-action, .button-toggle { border: 0.9px solid #343a40; color: #fff; font-weight: 400; text-align: center; vertical-align: middle; user-select: none; background-color: #343a40; padding: .375rem .75rem; font-size: 1rem; line-height: 1.5; border-radius: .25rem; outline: none; -webkit-transition: background-color 200ms ease; -ms-transition: background-color 200ms ease; transition: background-color 200ms ease, color 200ms ease; -webkit-appearance: button; margin: 0px; }
+
+.button-action:disabled { background-color: #ccc; }
+
+.button-action:focus:not(:disabled), .button-toggle:focus:not(:disabled) { outline: 0 none black; }
+
+.button-action::-moz-focus-inner, .button-toggle::-moz-focus-inner { border: 0; }
+
+.button-action:not(:disabled):not(.disabled), .button-toggle:not(:disabled):not(.disabled) { cursor: pointer; }
+
+.button-action:hover:not(:disabled), .button-toggle:hover:not(.toggled):not(:disabled) { /*color: #0069d9;*/ /*color: hsl(211, 100%, 25%);*/ color: #fff; background-color: #23272b; border-color: #1d2124; text-decoration: none; }
+
+.button-toggle.toggled { background-color: #0069d9; color: #fff; border-color: #0062cc; }
+
+.button-toggle.toggled.second-stage { background-color: #218838; color: #fff; border-color: #218838; }
+
+.hide, .tiViewer.minimal [data-id="showCode"], .tiViewer.collapsed > .tiCode { display: none !important; }
+
+.card, .tiViewer { position: relative; display: flex; flex-direction: column; min-width: 0; word-wrap: break-word; background-color: #fff; background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem; }
+
+/*# sourceMappingURL=styleBootstrap.css.map */
