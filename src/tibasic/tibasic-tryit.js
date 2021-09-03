@@ -225,8 +225,8 @@ class TIBasicTryIt extends React.Component {
         this.initialCode = thecode;
         this.thecode = thecode;
 
-        console.log("TI-styles:");
-        console.log(tiStyles);
+        // console.log("TI-styles:");
+        // console.log(tiStyles);
     }
 
     editorCodeChanged(newCode) {

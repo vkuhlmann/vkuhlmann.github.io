@@ -141,161 +141,161 @@ function TIBasicCode(props) {
 export { TIBasicCode }
 
 
-class TIViewer extends HTMLElement {
-    constructor() {
-        super();
+// class TIViewer extends HTMLElement {
+//     constructor() {
+//         super();
 
-        var shadow = this.attachShadow({ mode: "open" });
-        shadow.appendChild(tiViewerSlots.content.cloneNode(true));
-        this.div = shadow.querySelector("div");
-        this.slotContents = this.shadowRoot.querySelector("slot");
+//         var shadow = this.attachShadow({ mode: "open" });
+//         shadow.appendChild(tiViewerSlots.content.cloneNode(true));
+//         this.div = shadow.querySelector("div");
+//         this.slotContents = this.shadowRoot.querySelector("slot");
 
-        this.listenersCodeProcessed = [];
-        this.iscodeprocessed = false;;
-    }
+//         this.listenersCodeProcessed = [];
+//         this.iscodeprocessed = false;;
+//     }
 
-    connectedCallback() {
-        this.slotContents = this.shadowRoot.querySelector("slot");
+//     connectedCallback() {
+//         this.slotContents = this.shadowRoot.querySelector("slot");
 
-        document.addEventListener("DOMContentLoaded", () => {
-            //console.log(`Contents: (${this.slotContents.assignedNodes()})`);
-            let nodes = this.slotContents.assignedNodes();
-            let thecode = null;
-            for (let n of nodes) {
-                //console.log(`Nodename ${n.nodeName}`);
-                if (n.nodeName.toLowerCase() == "code") {
-                    thecode = n.innerText;
-                }
-            }
-            while (this.shadowRoot.firstChild) {
-                this.shadowRoot.removeChild(this.shadowRoot.firstChild);
-            }
+//         document.addEventListener("DOMContentLoaded", () => {
+//             //console.log(`Contents: (${this.slotContents.assignedNodes()})`);
+//             let nodes = this.slotContents.assignedNodes();
+//             let thecode = null;
+//             for (let n of nodes) {
+//                 //console.log(`Nodename ${n.nodeName}`);
+//                 if (n.nodeName.toLowerCase() == "code") {
+//                     thecode = n.innerText;
+//                 }
+//             }
+//             while (this.shadowRoot.firstChild) {
+//                 this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+//             }
 
-            this.shadowRoot.appendChild(tiViewerBaseContent.content.cloneNode(true));
-            this.div = this.shadowRoot.querySelector("div");
-            this.codeTarget = this.shadowRoot.querySelector("[data-id=\"code\"]");
+//             this.shadowRoot.appendChild(tiViewerBaseContent.content.cloneNode(true));
+//             this.div = this.shadowRoot.querySelector("div");
+//             this.codeTarget = this.shadowRoot.querySelector("[data-id=\"code\"]");
 
-            thecode = thecode.replace("\r\n", "\n").replace("\r", "");
-            if (thecode[0] == "\n")
-                thecode = thecode.substring(1);
-            while (thecode[thecode.length - 1] == " ")
-                thecode = thecode.substring(0, thecode.length - 1);
-            while (thecode[thecode.length - 1] == "\n")
-                thecode = thecode.substring(0, thecode.length - 1);
-            //console.log(`Code: (${thecode})`);
+//             thecode = thecode.replace("\r\n", "\n").replace("\r", "");
+//             if (thecode[0] == "\n")
+//                 thecode = thecode.substring(1);
+//             while (thecode[thecode.length - 1] == " ")
+//                 thecode = thecode.substring(0, thecode.length - 1);
+//             while (thecode[thecode.length - 1] == "\n")
+//                 thecode = thecode.substring(0, thecode.length - 1);
+//             //console.log(`Code: (${thecode})`);
 
-            this.dataFormatCode(thecode);
+//             this.dataFormatCode(thecode);
 
-            if (this.classList.contains("overwide")) {
-                this.div.classList.add("overwide");
-                this.classList.remove("overwide");
-            }
+//             if (this.classList.contains("overwide")) {
+//                 this.div.classList.add("overwide");
+//                 this.classList.remove("overwide");
+//             }
 
-            if (this.classList.contains("minimal")) {
-                this.div.classList.add("minimal");
-                this.classList.remove("minimal");
-            }
+//             if (this.classList.contains("minimal")) {
+//                 this.div.classList.add("minimal");
+//                 this.classList.remove("minimal");
+//             }
 
-            this.collapseCode = new ToggleButton(this.div.querySelector("[data-id=\"showCode\"]"));
-            this.collapseCode.onToggle = () => {
-                //this.codeTarget.classList.add("hide");
-                this.div.classList.remove("collapsed");
-                this.collapseCode.el.innerHTML = "Hide code";
-            };
+//             this.collapseCode = new ToggleButton(this.div.querySelector("[data-id=\"showCode\"]"));
+//             this.collapseCode.onToggle = () => {
+//                 //this.codeTarget.classList.add("hide");
+//                 this.div.classList.remove("collapsed");
+//                 this.collapseCode.el.innerHTML = "Hide code";
+//             };
 
-            this.collapseCode.onUntoggle = () => {
-                //this.codeTarget.classList.remove("hide");
-                this.div.classList.add("collapsed");
-                this.collapseCode.el.innerHTML = "Show code";
-            };
+//             this.collapseCode.onUntoggle = () => {
+//                 //this.codeTarget.classList.remove("hide");
+//                 this.div.classList.add("collapsed");
+//                 this.collapseCode.el.innerHTML = "Show code";
+//             };
 
-            this.collapseCode.toggle();
-            if (this.hasAttribute("collapsed"))
-                this.collapseCode.untoggle();
-            else
-                this.collapseCode.toggle();
+//             this.collapseCode.toggle();
+//             if (this.hasAttribute("collapsed"))
+//                 this.collapseCode.untoggle();
+//             else
+//                 this.collapseCode.toggle();
 
 
-            for (let list of this.listenersCodeProcessed) {
-                this.whenCodeProcessed(list);
-            }
+//             for (let list of this.listenersCodeProcessed) {
+//                 this.whenCodeProcessed(list);
+//             }
 
-        });
+//         });
 
-    }
+//     }
 
-    dataFormatCode(code) {
-        this.dataCode = code;
-        this.dataGroups = [];
+//     dataFormatCode(code) {
+//         this.dataCode = code;
+//         this.dataGroups = [];
 
-        let mode = this.getAttribute("mode") || "blocks";
+//         let mode = this.getAttribute("mode") || "blocks";
 
-        if (mode == "linear") {
-            this.createLinear(code);
-        } else if (mode == "blocks") {
-            this.createBlocks(code);
-        }
-    }
+//         if (mode == "linear") {
+//             this.createLinear(code);
+//         } else if (mode == "blocks") {
+//             this.createBlocks(code);
+//         }
+//     }
 
-    createBlocks(code) {
-        let groups = [];
-        createTIBlocks(code, this.codeTarget, groups);
-        //console.log(`Groups is (${JSON.stringify(groups)})`);
+//     createBlocks(code) {
+//         let groups = [];
+//         createTIBlocks(code, this.codeTarget, groups);
+//         //console.log(`Groups is (${JSON.stringify(groups)})`);
 
-        this.iscodeprocessed = true;
+//         this.iscodeprocessed = true;
 
-        let nameToColor = {};
-        produceGroups(groups, nameToColor);
+//         let nameToColor = {};
+//         produceGroups(groups, nameToColor);
 
-        updateColors(this.div, l => {
-            for (let g of groups) {
-                if (l >= g.begin && l < g.end) {
-                    return g.color;
-                }
-            }
-            return "hsla(0, 100%, 50%, 0%)";
-        });
-        this.dataGroups = groups;
-    }
+//         updateColors(this.div, l => {
+//             for (let g of groups) {
+//                 if (l >= g.begin && l < g.end) {
+//                     return g.color;
+//                 }
+//             }
+//             return "hsla(0, 100%, 50%, 0%)";
+//         });
+//         this.dataGroups = groups;
+//     }
 
-    createLinear(code) {
-        let groups = [];
-        createTILinear(code, this.codeTarget, groups);
-        //console.log()
+//     createLinear(code) {
+//         let groups = [];
+//         createTILinear(code, this.codeTarget, groups);
+//         //console.log()
 
-        this.iscodeprocessed = true;
-        let nameToColor = {};
-        produceGroups(groups, nameToColor);
+//         this.iscodeprocessed = true;
+//         let nameToColor = {};
+//         produceGroups(groups, nameToColor);
 
-        updateColors(this.div, l => {
-            for (let g of groups) {
-                if (l >= g.begin && l < g.end) {
-                    return g.color;
-                }
-            }
-            return "hsla(0, 100%, 50%, 0%)";
-        });
-        this.dataGroups = groups;
-    }
+//         updateColors(this.div, l => {
+//             for (let g of groups) {
+//                 if (l >= g.begin && l < g.end) {
+//                     return g.color;
+//                 }
+//             }
+//             return "hsla(0, 100%, 50%, 0%)";
+//         });
+//         this.dataGroups = groups;
+//     }
 
-    whenCodeProcessed(func) {
-        if (this.iscodeprocessed) {
-            console.log("Executing listener.");
-            func();
-            return;
-        }
+//     whenCodeProcessed(func) {
+//         if (this.iscodeprocessed) {
+//             console.log("Executing listener.");
+//             func();
+//             return;
+//         }
 
-        this.listenersCodeProcessed.push(func);
-    }
+//         this.listenersCodeProcessed.push(func);
+//     }
 
-    disconnectedCallback() {
+//     disconnectedCallback() {
 
-    }
+//     }
 
-    attributeChangedCallback() {
+//     attributeChangedCallback() {
 
-    }
-}
+//     }
+// }
 
 //customElements.define("ti-viewer", TIViewer);
 

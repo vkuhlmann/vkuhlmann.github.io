@@ -11,14 +11,15 @@ const MiniCssExtractPlugin = require('@docusaurus/core/node_modules/mini-css-ext
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'vkuhlmann',
-  tagline: 'Personal website',
+  title: 'vkuhlmann.com',
+  tagline: 'Personal website of Vincent Kuhlmann',
   url: 'https://vkuhlmann.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favico.ico',
   organizationName: 'vkuhlmann',
+  trailingSlash: false,
   projectName: 'vkuhlmann.github.io',
   themeConfig: {
     navbar: {
@@ -28,12 +29,12 @@ module.exports = {
         src: 'img/VK.png',
       },
       items: [
-        {
-          type: 'doc',
-          docId: 'intro',
-          position: 'left',
-          label: 'Tutorial',
-        },
+        // {
+        //   type: 'doc',
+        //   docId: 'intro',
+        //   position: 'left',
+        //   label: 'Tutorial',
+        // },
         {
           to: "/latex",
           position: "left",
@@ -45,6 +46,11 @@ module.exports = {
           position: 'left'
         },
         {
+          to: '/projects',
+          label: 'Projects',
+          position: 'left'
+        },
+        {
           href: 'https://github.com/vkuhlmann',
           label: 'GitHub',
           position: 'right',
@@ -53,48 +59,48 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Vincent Kuhlmann. Built with Docusaurus.`,
+      // links: [
+      //   {
+      //     title: 'Docs',
+      //     items: [
+      //       {
+      //         label: 'Tutorial',
+      //         to: '/docs/intro',
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: 'Community',
+      //     items: [
+      //       {
+      //         label: 'Stack Overflow',
+      //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+      //       },
+      //       {
+      //         label: 'Discord',
+      //         href: 'https://discordapp.com/invite/docusaurus',
+      //       },
+      //       {
+      //         label: 'Twitter',
+      //         href: 'https://twitter.com/docusaurus',
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: 'More',
+      //     items: [
+      //       {
+      //         label: 'Blog',
+      //         to: '/blog',
+      //       },
+      //       {
+      //         label: 'GitHub',
+      //         href: 'https://github.com/facebook/docusaurus',
+      //       },
+      //     ],
+      //   },
+      // ],
+      copyright: `© ${new Date().getFullYear()} Vincent Kuhlmann`,
     },
     prism: {
       theme: lightCodeTheme,
@@ -106,17 +112,18 @@ module.exports = {
     [
       '@docusaurus/preset-classic',
       {
-        docs: {
-          // path: "product",
-          // routeBasePath: "product",
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/vkuhlmann/vkuhlmann.github.io/edit/main/',
-        },
+        // docs: {
+        //   // path: "product",
+        //   // routeBasePath: "product",
+        //   sidebarPath: require.resolve('./sidebars.js'),
+        //   editUrl:
+        //     'https://github.com/vkuhlmann/vkuhlmann.github.io/edit/main/',
+        // },
+        docs: false,
         blog: {
           showReadingTime: true,
-          editUrl:
-            'https://github.com/vkuhlmann/vkuhlmann.github.io/edit/main/',
+          // editUrl:
+          //   'https://github.com/vkuhlmann/vkuhlmann.github.io/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -132,6 +139,21 @@ module.exports = {
         path: './latex',
         routeBasePath: '/latex',
         //sidebarPath: require.resolve('./sidebarsLaTeX.js')
+      },
+    ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        // Based on example configuration shown at
+        // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-client-redirects
+        // fromExtensions: ['html', 'htm'],
+        // toExtensions: ['exe', 'zip'],
+        redirects: [{ to: '/latex/configuration/installation', from: '/latex/installation', },],
+        // createRedirects: function (existingPath) {
+        //   if (existingPath === '/docs/newDocPath2') {
+        //     return ['/docs/oldDocPath2'];
+        //   }
+        // },
       },
     ],
     function myPlugin(context, options) {
