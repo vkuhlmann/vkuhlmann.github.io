@@ -146,7 +146,7 @@ module.exports = {
       {
         // Based on example configuration shown at
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-client-redirects
-        // fromExtensions: ['html', 'htm'],
+        // fromExtensions: ['html'],
         // toExtensions: ['exe', 'zip'],
         redirects: [{ to: '/latex/configuration/installation', from: '/latex/installation', },],
         // createRedirects: function (existingPath) {
