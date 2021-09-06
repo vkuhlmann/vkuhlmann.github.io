@@ -1,5 +1,11 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
+//const lightCodeTheme = require('prism-react-renderer/themes/github');
+//const lightCodeTheme = require('prism-react-renderer/themes/dracula');
+//const lightCodeTheme = require('./src/theme/prism/prism-coy');
+const lightCodeTheme = require('./src/theme/prism/prism-oldsite');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+
+console.log("lightCodeTheme is");
+console.log(lightCodeTheme.styles[7]);
 
 const MiniCssExtractPlugin = require('@docusaurus/core/node_modules/mini-css-extract-plugin')
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -100,7 +106,7 @@ module.exports = {
       //     ],
       //   },
       // ],
-      copyright: `© ${new Date().getFullYear()} Vincent Kuhlmann`,
+      copyright: `Copyright (c) ${new Date().getFullYear()} Vincent Kuhlmann`,
     },
     prism: {
       theme: lightCodeTheme,

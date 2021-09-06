@@ -1,0 +1,8 @@
+{
+    "name": "@site/src/theme/prism/prism-oldsite",
+    "private": true,
+    "sideEffects": false,
+    "main": "index.cjs.js",
+    "module": "index.js",
+    "license": "MIT"
+}

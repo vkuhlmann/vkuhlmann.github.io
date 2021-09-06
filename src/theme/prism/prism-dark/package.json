@@ -1,0 +1,8 @@
+{
+    "name": "prism-dark",
+    "private": true,
+    "sideEffects": false,
+    "main": "index.cjs.js",
+    "module": "index.cjs.js",
+    "license": "Unknown"
+}

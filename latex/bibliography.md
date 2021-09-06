@@ -1,8 +1,13 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 
 # Bibliography
+
+<!--truncate-->
+
+import CodeInline from "../src/components/CodeInline.js";
+import DocsImage from "../src/components/DocsImage.js";
 
 <DocsImage src="/assets/latex/bibliography/snippetReferences.svg" pad />
 
@@ -19,10 +24,6 @@ patience and endurance to figure everything out yourself.
 :::
 
 
-<!--truncate-->
-
-import CodeInline from "../src/components/CodeInline.js";
-import DocsImage from "../src/components/DocsImage.js";
 
 ## Introduction
 

@@ -44,7 +44,7 @@ might help, else ask for help.
 Select `File > Open Folder` and choose a new directory on your computer. Next,
 create a file (`File > New File`) and paste the following rudimentary document:
 
-```
+```latex
 \documentclass[a4paper]{article}
 
 \title{De titel}
