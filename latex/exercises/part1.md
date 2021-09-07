@@ -104,3 +104,7 @@ language to `french`. For nicer french quotes, add
 \usepackage{lmodern}
 ```
 to your preamble.
+
+### Hyperref
+
+Go to the package manual of hyperref and see what you can do with it.

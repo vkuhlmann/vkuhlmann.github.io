@@ -18,6 +18,12 @@ Publisher: James Yu
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 ```
 
+To open `settings.json`, open the Command Palette (`Ctrl+Shift+P`), type
+`settings.json` and hit enter. This is a JSON file, and fragments shown below
+should be placed before the final closing brace of the file. You might need to
+add a comma after the last option specified, and make sure there isn't a comma
+right before the final closing brace.
+
 ## Compile on F5
 
 By default the `.tex` file is compiled on every save, but I prefer to retain

@@ -46,7 +46,7 @@ Required: <CodeInline code="\usepackage{booktabs}"/>
 
 ---
 
-Sometimes you need fixed with for your table. You can use `tabularx` from the
+Sometimes you need a fixed width for your table. You can use `tabularx` from the
 package <CodeInline code="\usepackage{tabularx}"/>. The difference is the column
 specifiers are preceded by a different argument: the table width.
 
