@@ -74,5 +74,5 @@ stretched equally until the table has the appropriate width.
 
 ---
 
-[Meer over tabellen op Wikibooks](https://en.wikibooks.org/wiki/LaTeX/Tables)
+[More about tables on Wikibooks](https://en.wikibooks.org/wiki/LaTeX/Tables)
 

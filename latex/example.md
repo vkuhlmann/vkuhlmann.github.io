@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Example
+# Example of a good preamble setup
 
 ```latex
 \documentclass[a4paper]{article}

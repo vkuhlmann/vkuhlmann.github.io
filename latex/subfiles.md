@@ -11,6 +11,7 @@ and saves on compilation time, as you can compile each part individually.
 <!--truncate-->
 
 import CodeInline from "../src/components/CodeInline.js";
+import DocsImage from "../src/components/DocsImage.js";
 
 Say we split a large thesis into one file for each section. Our file structure
 could look like
