@@ -28,6 +28,11 @@ module.exports = {
   trailingSlash: false,
   projectName: 'vkuhlmann.github.io',
   themeConfig: {
+    // googleAnalytics: {
+    //   trackingID: 'G-3L9YD1ZX4M',
+    //   // Optional fields.
+    //   anonymizeIP: true,
+    // },
     navbar: {
       title: 'vkuhlmann.com',
       logo: {
@@ -145,7 +150,7 @@ module.exports = {
         path: './latex',
         routeBasePath: '/latex',
         //sidebarPath: require.resolve('./sidebarsLaTeX.js')
-      },
+      }
     ],
     [
       '@docusaurus/plugin-client-redirects',
@@ -161,6 +166,14 @@ module.exports = {
         //   }
         // },
       },
+    ],
+    [
+      "./plugin-google-analytics-modified",
+      {
+      trackingID: 'G-3L9YD1ZX4M',
+      // Optional fields.
+      anonymizeIP: true,
+      }
     ],
     function myPlugin(context, options) {
       return {
