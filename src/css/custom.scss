@@ -1,0 +1,91 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+ @use "sass:color";
+
+ $base-color: #AD141E;
+ $test: color.scale($base-color, $lightness: -10%);
+
+ $color-primary: hsla(120, 100%, 28%, 1);
+ $color-primary: hsla(120, 68%, 45%, 1);
+ $color-primary: hsla(0, 68%, 45%, 1);
+ $color-primary-dark: color.scale($color-primary, $lightness: -10%);
+ $color-primary-darker: color.scale($color-primary, $lightness: -15%);
+ $color-primary-darkest: color.scale($color-primary, $lightness: -30%);
+
+ $color-primary-light: color.scale($color-primary, $lightness: 15%);
+ $color-primary-lighter: color.scale($color-primary, $lightness: 30%);
+ $color-primary-lightest: color.scale($color-primary, $lightness: 50%);
+
+ $color-primary-contrast-background: color.scale($color-primary, $lightness: 90%);
+ $color-primary-contrast-foreground: color.scale($color-primary, $lightness: -70%);
+
+ $color-primary-contrast-background-dark: color.scale($color-primary, $lightness: -90%);
+ $color-primary-contrast-foreground-dark: color.scale($color-primary, $lightness: 70%);
+
+//  @debug color.change(#6b717f, $red: 100);
+
+/* You can override the default Infima variables here. */
+:root {
+  // --ifm-color-primary: #25c2a0;
+  // --ifm-color-primary-dark: #{rgb(33, 175, 144)};
+  // --ifm-color-primary-darker: #{rgb(31, 165, 136)};
+  // --ifm-color-primary-darkest: #{rgb(26, 136, 112)};
+  // --ifm-color-primary-light: #{rgb(70, 203, 174)};
+  // --ifm-color-primary-lighter: #{rgb(102, 212, 189)};
+  // --ifm-color-primary-lightest: #{rgb(146, 224, 208)};
+
+  // --ifm-color-primary: #ff5e00;
+  // --ifm-color-primary: #ff0000;
+
+  // --ifm-color-primary: #bd0000;
+
+  // --ifm-color-primary: #8f0000;
+
+
+  --ifm-color-primary: #{$color-primary};
+  --ifm-color-primary-dark: #{$color-primary-dark};
+  --ifm-color-primary-darker: #{$color-primary-darker};
+  --ifm-color-primary-darkest: #{$color-primary-darkest};
+  --ifm-color-primary-light: #{$color-primary-light};
+  --ifm-color-primary-lighter: #{$color-primary-lighter};
+  --ifm-color-primary-lightest: #{$color-primary-lightest};
+
+  --ifm-color-primary-contrast-background: #{$color-primary-contrast-background};
+  --ifm-color-primary-contrast-foreground: #{$color-primary-contrast-foreground};
+
+  // --ifm-color-primary-contrast-background: var(--ifm-color-primary-lightest);
+
+  --ifm-code-font-size: 95%;
+
+  --theme-ui-colors-background: var(--ifm-background-color);
+  --theme-ui-colors-text: var(--ifm-font-color-base);
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme="dark"] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] {
+  --ifm-color-primary-contrast-background: #{$color-primary-contrast-background-dark};
+  --ifm-color-primary-contrast-foreground: #{$color-primary-contrast-foreground-dark};
+}
+
+.imgCanvas {
+  background-color: hsl(0, 0%, 90%);
+}
+
+.sometest {
+  color: color.scale(#000000, $lightness: 30%)
+}

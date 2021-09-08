@@ -24,7 +24,7 @@ module.exports = function (context) {
   //const {trackingID, anonymizeIP} = googleAnalytics;
 
   const anonymizeIP = false;
-  const trackingID = "G-3L9YD1ZX4M";
+  const trackingID = "UA-206863837-1";//"G-3L9YD1ZX4M";
 
   if (!trackingID) {
     throw new Error(
