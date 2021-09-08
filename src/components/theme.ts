@@ -23,6 +23,10 @@ export const theme = {
         boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
         outline: 'none',
       },
+      "&:disabled": {
+        backgroundColor: "disabledBackground",
+        color: "disabledForeground"
+      }
     },
     select: {
       borderColor: 'gray',
@@ -77,7 +81,9 @@ export const darkTheme = {
     highlight: "var(--ifm-color-primary-contrast-background)",
     gray: "#777777",
     accent: "#660099",
-    darken: "rgba(0, 0, 0, 0.25)"
+    darken: "rgba(0, 0, 0, 0.25)",
+    disabledBackground: "hsl(0, 0%, 20%)",
+    disabledForeground: "hsl(0, 0%, 50%)"
   }
 }
 
@@ -95,6 +101,8 @@ export const lightTheme = {
     highlight: "var(--ifm-color-primary-contrast-background)",
     gray: "#777777",
     accent: "#660099",
-    darken: "rgba(0, 0, 0, 0.25)"
+    darken: "rgba(0, 0, 0, 0.25)",
+    disabledBackground: "hsl(0, 0%, 90%)",
+    disabledForeground: "hsl(0, 0%, 80%)"
   }
 }

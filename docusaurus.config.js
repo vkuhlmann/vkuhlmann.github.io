@@ -137,7 +137,7 @@ module.exports = {
           //   'https://github.com/vkuhlmann/vkuhlmann.github.io/edit/main/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.scss'),
+          customCss: require.resolve('./src/scss/custom.scss'),
         },
       },
     ],

@@ -10,76 +10,192 @@ import DocusaurusThemeContext from '@theme/ThemeContext';
 import { darkTheme, lightTheme } from "./theme"
 //import styles from "../scss/ticode.module.scss";
 
+import _ from "lodash";
+
+import texWorkshopDefaults from "../vscodeconfig/workshopDefaults.module.json";
+import {parse as jsoncParse, parseTree as jsoncParseTree, findNodeAtLocation as
+    jsoncFindNodeAtLocation,
+    modify as jsoncModify } from "jsonc-parser";
+
 // import { Checkbox, Button, Label, Textarea, Box } from '@theme-ui/components';
 import {
     Label,
     Input,
-    Select,
     Textarea,
-    Radio,
     Checkbox,
-    Slider,
     Box,
     Flex,
     Button,
     ThemeProvider
-  } from 'theme-ui'
+} from 'theme-ui';
 
 // import { useTheme as useThemeEmotion, ThemeProvider, withTheme as withThemeEmotion } from '@emotion/react'
 // import theme from '@rebass/preset'
 
-// import Button from "./themeui/Button"
+const SETTING_TOOLS = "latex-workshop.latex.tools";
+const SETTING_RECIPES = "latex-workshop.latex.recipes";
 
+const configSetPdflatexFullpath = (obj, fullPath) => {
+    // let tools = obj[SETTING_TOOLS] ?? texWorkshopDefaults[SETTING_TOOLS];
+    
+    // let res = _.find(tools, tool => tool.name == "pdflatex");
+    // res.command = fullPath;
 
-// const Button = (props) => {
-//     return (
-//         <button className={clsx(styles["button-action"])} onClick={props.onClick} {...props}>
-//             {props.children}
-//         </button>
-//     );
-// }
+    // obj["latex-workshop.latex.tools"] = tools;
+    // return obj;
+
+    let toolsPath = `['${SETTING_TOOLS}']`;
+    toolsPath = [SETTING_TOOLS];
+
+    let rootNode = jsoncParseTree(obj);
+
+    let toolsNode = jsoncFindNodeAtLocation(rootNode, toolsPath);
+    console.log("Toolsnode is");
+    console.log(toolsNode);
+    if (toolsNode == null) {
+        toolsNode = texWorkshopDefaults[SETTING_TOOLS];
+        let edits = jsoncModify(obj, toolsPath, toolsNode, {});
+        console.log("Edits are");
+        console.log(edits);
+    }
+
+    console.log("Object is");
+    console.log(obj);
+
+};
+
 
 export default (props) => {
     let context = useContext(DocusaurusThemeContext);
 
     let theme = context.isDarkTheme ? darkTheme : lightTheme;
+    const [doPdflatexFull, setDoPdflatexFull] = useState(false);
+    const [doPdflatexRecipe, setDoPdflatexRecipe] = useState(false);
+    const [statusMsg, setStatusMsg] = useState(false);
+
+    const [pdflatexfullpath, setPdflatexfullpath] = useState("D:\\Programs\\TeX\\pdflatex.exe");
+
+    //let pdflatexfullpath = useRef();
+    let currConfig = useRef();
+    let newConfig = useRef();
+
+    const onCheckChange = e => {
+        // if (e.checked) {
+        // }
+
+        setDoPdflatexFull(!doPdflatexFull);
+        let cancel = false;
+
+        // if (pdflatexfullpath.current) {
+        //     if (e.checked) {
+        //         pdflatexfullpath.current.setAttribute("disabled", "disabled");
+        //     } else {
+        //         pdflatexfullpath.current.removeAttribute("disabled");
+        //     }
+        //     // pdflatexfullpath.current.disabled = !e.checked;
+        // }
+
+        if (cancel) {
+            let target = e.target;
+
+            setTimeout(function() {
+                target.checked = doPdflatexFull;
+            }, 0);
+
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+
+    let pdflatexFullDisabledStyles = {
+        ...(!doPdflatexFull && {
+            //backgroundColor: "var(--theme-ui-colors-disabledBackground)",
+            color: "var(--theme-ui-colors-disabledForeground)",
+        })
+    };
+
+    const generateUnsafe = () => {
+        setStatusMsg(false);
+        if (newConfig.current)
+            newConfig.current.value = "";
+
+        let el = currConfig.current;
+        if (!el)
+            throw "Can't find textarea!";
+
+        let val = el.value;
+        if (val.length == 0)
+            throw "You need to provide your current config.json first!";
+
+        // let obj = null;
+        // try {
+        //     //obj = JSON.parse(val);
+        //     ///obj = jsoncParse(val);
+        //     obj = jsoncParseTree(val);
+        // } catch(ex) {
+        //     throw `Can't parse the config.json. Have you copied the file completely?
+        //     Details: ${ex}`;
+        // }
+
+        let obj = val;
+
+        if (doPdflatexFull)
+            obj = configSetPdflatexFullpath(obj, pdflatexfullpath) ?? obj;
+        
+        //newConfig.current.value = JSON.stringify(obj, null, 4);
+
+
+    };
+
+    const generate = () => {
+        setStatusMsg();
+        try {
+            generateUnsafe();
+        } catch(err) {
+            setStatusMsg(`${err}`);
+            throw err;
+        }
+    };
 
     return (
         <ThemeProvider theme={theme}>
-        <Box as="form" onSubmit={(e) => e.preventDefault()}>
-            <Label htmlFor="username">Username</Label>
-            <Input name="username" id="username" mb={3} />
-            <Label htmlFor="password">Password</Label>
-            <Input type="password" name="password" id="password" mb={3} />
-            <Box>
-                <Label mb={3}>
-                    <Checkbox />
-                    Remember me
-                </Label>
+            <Box as="form" onSubmit={(e) => e.preventDefault()}>
+                <Label htmlFor="currConfig">Current <code>settings.json</code></Label>
+                <Textarea name="currConfig" id="currConfig" rows={6} mb={3}
+                    ref={currConfig} />
+                <Box>
+                    <Label mb={3}>
+                        <Checkbox onChange={onCheckChange} checked={doPdflatexFull} />
+                        <Box>
+                            Set pdflatex to full path
+                        </Box>
+                    </Label>
+                    <Box ml={40} sx={pdflatexFullDisabledStyles}>
+                        <Label htmlFor="pdflatexfullpath">Full path to pdflatex</Label>
+                        <Input name="pdflatexfullpath" id="pdflatexfullpath" mb={3} 
+                         disabled={!doPdflatexFull} value={pdflatexfullpath}
+                         onChange={e => setPdflatexfullpath(e.target.value)} />
+                    </Box>
+                </Box>
+                <Box>
+                    <Label mb={3}>
+                        <Checkbox onChange={e => setDoPdflatexRecipe(e.checked)} checked={doPdflatexRecipe} />
+                        <Box>
+                            Add pdflatex-only recipe
+                        </Box>
+                    </Label>
+                </Box>
+                {statusMsg && (
+                    <p style={{color: "red"}}>{statusMsg.replace(/\r/g, "").split("\n").map((line, index) => 
+                        (<React.Fragment key={index}>
+                            {line}<br/>
+                        </React.Fragment>)
+                    )}</p>
+                )}
+                <Button theme={theme} mb={10} onClick={generate}>Generate</Button>
+
+                <Textarea name="newConfig" id="newConfig" ref={newConfig} rows={6} mb={3} />
             </Box>
-            <Label htmlFor="sound">Sound</Label>
-            <Select name="sound" id="sound" mb={3}>
-                <option>Beep</option>
-                <option>Boop</option>
-                <option>Blip</option>
-            </Select>
-            <Label htmlFor="comment">Comment</Label>
-            <Textarea name="comment" id="comment" rows={6} mb={3} />
-            <Flex mb={3} theme={theme}>
-                <Label theme={theme}>
-                    <Radio name="letter" /> Alpha
-                </Label>
-                <Label theme={theme}>
-                    <Radio name="letter" /> Bravo
-                </Label>
-                <Label theme={theme}>
-                    <Radio name="letter" /> Charlie
-                </Label>
-            </Flex>
-            <Label  theme={theme}>Slider</Label>
-            <Slider mb={3} theme={theme} />
-            <Button theme={theme}>Submit</Button>
-        </Box>
         </ThemeProvider>
     );
 
