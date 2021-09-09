@@ -10,6 +10,8 @@ import VSCodeConfigWizard from "../../src/components/VSCodeConfigWizard"
 
 <VSCodeConfigWizard /> -->
 
+import ShowEmail from "../../src/components/ShowEmail"
+
 ## Common errors
 
 When installing VS Code, you might encounter some hurdles trying to compile
@@ -48,7 +50,8 @@ which fixes the settings for everything to work again. Follow these steps:
 3. Generate new settings, and save them to the `settings.json`.
 4. Restart VS Code.
 5. If it's still not working, contact me. If it is working, I would love to hear
-   it helped!
+   if it helped!  
+   <ShowEmail/>
 
 
 ## Opening settings.json

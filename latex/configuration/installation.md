@@ -4,6 +4,8 @@ sidebar_position: 3
 
 # Installation
 
+** Toubles compiling? See [FIXING VS CODE](/latex/configuration/fixingVSCode) **
+
 LaTeX can be written in Visual Studio Code. See the image below for an impression.
 Clicking it opens the image in a new tab.
 
