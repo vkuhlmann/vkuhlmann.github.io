@@ -62,6 +62,12 @@ export const theme = {
       bg: 'gray',
     },
   },
+  alerts: {
+    danger: {
+      color: "white",
+      bg: "darkred"
+    }
+  }
 }
 
 export const darkTheme = {

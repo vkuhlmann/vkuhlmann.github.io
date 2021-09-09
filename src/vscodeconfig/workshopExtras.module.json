@@ -1,0 +1,74 @@
+{
+    "tools": {
+        "pdflatexDirs": {
+            "name": "pdflatexDirs",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-aux-directory=auxdir",
+                "-output-directory=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        "lualatexDirs": {
+            "name": "lualatexDirs",
+            "command": "lualatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-aux-directory=auxdir",
+                "-output-directory=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        }
+    },
+    "recipes": {
+        "pdflatexDirs": {
+            "name": "pdflatexDirs",
+            "tools": [
+                "pdflatexDirs"
+            ]
+        }
+    },
+    "latex-workshop.latex.tools": [
+        {
+            "name": "lualatexDirs",
+            "command": "lualatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-aux-directory=auxdir",
+                "-output-directory=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatexDirs",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-aux-directory=auxdir",
+                "-output-directory=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdflatexDirs",
+            "tools": [
+                "pdflatexDirs"
+            ]
+        }
+    ]
+}

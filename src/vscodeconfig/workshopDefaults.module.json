@@ -1,12 +1,6 @@
 {
     "latex-workshop.latex.recipes": [
         {
-            "name": "pdflatexDirs",
-            "tools": [
-                "pdflatexDirs"
-            ]
-        },
-        {
             "name": "pdflatex",
             "tools": [
                 "pdflatex"
@@ -136,32 +130,6 @@
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "%DOC%"
-            ],
-            "env": {}
-        },
-        {
-            "name": "lualatexDirs",
-            "command": "lualatex",
-            "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "-aux-directory=auxdir",
-                "-output-directory=%OUTDIR%",
-                "%DOC%"
-            ],
-            "env": {}
-        },
-        {
-            "name": "pdflatexDirs",
-            "command": "pdflatex",
-            "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "-aux-directory=auxdir",
-                "-output-directory=%OUTDIR%",
                 "%DOC%"
             ],
             "env": {}

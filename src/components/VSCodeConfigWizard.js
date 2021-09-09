@@ -5,23 +5,14 @@ import clsx from "clsx";
 
 import DocusaurusThemeContext from '@theme/ThemeContext';
 
-// import { Button, Checkbox, Label, Textarea, ThemeProvider } from 'theme-ui'
-// // import { Button, Checkbox, Label, Textarea } from 'rebass'
 import { darkTheme, lightTheme } from "./theme"
-//import styles from "../scss/ticode.module.scss";
 
 import _ from "lodash";
 
 import texWorkshopDefaults from "../vscodeconfig/workshopDefaults.module.json";
-// import {parse as jsoncParse, parseTree as jsoncParseTree, findNodeAtLocation as
-//     jsoncFindNodeAtLocation,
-//     modify as jsoncModify,
-//     getNodeValue as jsoncGetNodeValue
-//  } from "jsonc-parser";
-
+import texWorkshopExtras from "../vscodeconfig/workshopExtras.module.json";
 import * as jsonc from "jsonc-parser";
 
-// import { Checkbox, Button, Label, Textarea, Box } from '@theme-ui/components';
 import {
     Label,
     Input,
@@ -30,16 +21,15 @@ import {
     Box,
     Flex,
     Button,
-    ThemeProvider
+    ThemeProvider,
+    Alert
 } from 'theme-ui';
-
-// import { useTheme as useThemeEmotion, ThemeProvider, withTheme as withThemeEmotion } from '@emotion/react'
-// import theme from '@rebass/preset'
 
 const SETTING_TOOLS = "latex-workshop.latex.tools";
 const SETTING_RECIPES = "latex-workshop.latex.recipes";
 
 const TOOLS_PATH = [SETTING_TOOLS];
+const RECIPES_PATH = [SETTING_RECIPES];
 
 
 let jsoncFormatting = {
@@ -52,8 +42,11 @@ let jsoncFormatting = {
 const getDefaultTools = () => {
     return texWorkshopDefaults[SETTING_TOOLS];
 };
+const getDefaultRecipes = () => {
+    return texWorkshopDefaults[SETTING_RECIPES];
+};
 
-const ensureTools = ({obj}) => {
+const ensureTools = ({ obj }) => {
     let parseErrors = [];
     let toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj, parseErrors), TOOLS_PATH);
     if (toolsNode == null) {
@@ -62,10 +55,26 @@ const ensureTools = ({obj}) => {
         let edits = jsonc.modify(obj, TOOLS_PATH, toolsNode, jsoncFormatting);
         obj = jsonc.applyEdits(obj, edits);
     }
-    return {obj, parseErrors};
+    return { obj, parseErrors };
 };
 
+const ensureRecipes = ({ obj }) => {
+    let parseErrors = [];
+    let recipesNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj, parseErrors), RECIPES_PATH);
+    if (recipesNode == null) {
+        recipesNode = getDefaultRecipes();
+
+        let edits = jsonc.modify(obj, RECIPES_PATH, recipesNode, jsoncFormatting);
+        obj = jsonc.applyEdits(obj, edits);
+    }
+    return { obj, parseErrors };
+};
+
+
 const ensureTool = (obj, toolName) => {
+    let parseErrors;
+    ({ obj, parseErrors } = ensureTools({ obj }));
+
     let defaultValue = _.find(getDefaultTools(),
         tool => tool.name === toolName);
 
@@ -88,10 +97,10 @@ const ensureTool = (obj, toolName) => {
 };
 
 
-const updateTool = ({obj, toolPredicate, toolUpdate}) => {
+const updateTool = ({ obj, toolPredicate, toolUpdate }) => {
     let toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj), TOOLS_PATH);
     let tools = jsonc.getNodeValue(toolsNode);
-    if (typeof(toolPredicate) == "string" || toolPredicate instanceof String) {
+    if (typeof (toolPredicate) == "string" || toolPredicate instanceof String) {
         let toolName = toolPredicate;
         toolPredicate = tool => tool.name == toolName;
         console.log("Converted predicate");
@@ -102,9 +111,9 @@ const updateTool = ({obj, toolPredicate, toolUpdate}) => {
     let index = _.findIndex(tools, toolPredicate);
     console.log(`Update tool found index ${index}`);
     if (index == -1)
-        return {obj, found: false};
+        return { obj, found: false };
 
-    const {newValue, path} = toolUpdate(tools[index]);
+    const { newValue, path } = toolUpdate(tools[index]);
 
     toolsNode = null;
     obj = jsonc.applyEdits(obj,
@@ -112,104 +121,95 @@ const updateTool = ({obj, toolPredicate, toolUpdate}) => {
             newValue, {}
         )
     );
-    return {obj, found: false};
+    return { obj, found: false };
 };
 
-const updateToolCommand = ({obj, toolPredicate, command}) => {
-    return updateTool({obj, toolPredicate, toolUpdate: origVal => {
-        console.log(`Changing command from ${origVal.command} to ` +
-        `${command}`);
-        return {
-            newValue: command,
-            path: ["command"]
-        };
-    }});
+const updateToolCommand = ({ obj, toolName, command }) => {
+    return updateTool({
+        obj, toolPredicate: toolName, toolUpdate: origVal => {
+            console.log(`Changing command from ${origVal.command} to ` +
+                `${command}`);
+            return {
+                newValue: command,
+                path: ["command"]
+            };
+        }
+    });
 };
 
-// const configSetPdflatexFullpath = (obj, fullPath, biberPath) => {
-//     // let tools = obj[SETTING_TOOLS] ?? texWorkshopDefaults[SETTING_TOOLS];
+const ensureToolWithCommand = ({ obj, toolName, command }) => {
+    let parseErrors;
+    ({ obj, parseErrors } = ensureTools({ obj }));
 
-//     // let res = _.find(tools, tool => tool.name == "pdflatex");
-//     // res.command = fullPath;
+    let modified = false;
+    ({ obj, modified } = ensureTool(obj, toolName));
+    console.log(`Updating ${toolName} command to ${command}`);
+    ({ obj } = updateToolCommand({ obj, toolName, command }));
+    return { obj, parseErrors, wasToolAdded: modified };
+};
 
-//     // obj["latex-workshop.latex.tools"] = tools;
-//     // return obj;
+const ensureRecipe = ({ obj, recipeName }) => {
+    let parseErrors;
+    ({ obj, parseErrors } = ensureRecipes({ obj }));
 
-//     let toolsPath = [SETTING_TOOLS];
+    let defaultValue = _.find(getDefaultRecipes(),
+        recipe => recipe.name === recipeName);
 
-//     let errors = [];
+    if (defaultValue == null)
+        throw `Can't ensure recipe ${recipeName}, no default value provided!`;
 
-//     console.log("Errors is");
-//     console.log(errors);
+    let recipesNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj), RECIPES_PATH);
+    let recipes = jsonc.getNodeValue(recipesNode);
 
-//     let toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj, errors), toolsPath);
-//     if (toolsNode == null) {
-//         toolsNode = texWorkshopDefaults[SETTING_TOOLS];
+    let index = _.findIndex(recipes, recipe => recipe.name === recipeName);
+    if (index == -1) {
+        obj = jsonc.applyEdits(obj, jsonc.modify(
+            obj, [...RECIPES_PATH, 0], defaultValue,
+            { ...jsoncFormatting, isArrayInsertion: true }
+        ));
+        return { obj, modified: true, parseErrors };
+    } else {
+        return { obj, modified: false, parseErrors };
+    }
+}
 
-//         let edits = jsonc.modify(obj, toolsPath, toolsNode, jsoncFormatting);
-//         obj = jsonc.applyEdits(obj, edits);
-//         toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj, errors), toolsPath);
-//     }
+const addPdflatexDirs = ({obj}) => {
+    ({obj} = ensureRecipes({obj}));
+    ({obj} = ensureTools({obj}));
 
-//     const ensureTool = (obj, toolName) => {
-//         let defaultValue = _.find(texWorkshopDefaults[SETTING_TOOLS],
-//             tool => tool.name === toolName);
+    let toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj), TOOLS_PATH);
+    let tools = jsonc.getNodeValue(toolsNode);
 
-//         if (defaultValue == null)
-//             throw `Can't ensure tool ${toolName}, no default value provided!`;
+    let index = _.findIndex(tools, tool => tool.name === "pdflatexDirs");
+    if (index == -1) {
+        obj = jsonc.applyEdits(obj, jsonc.modify(
+            obj, [...TOOLS_PATH, 0], texWorkshopExtras.tools.pdflatexDirs,
+            { ...jsoncFormatting, isArrayInsertion: true }
+        ));
+    }
 
-//         let toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj, errors),
-//             toolsPath);
+    let recipesNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj), RECIPES_PATH);
+    let recipes = jsonc.getNodeValue(recipesNode);
 
-//         let tools = jsonc.getNodeValue(toolsNode);
-//         let index = _.findIndex(tools, tool => tool.name === toolName);
-//         if (index == -1) {
-//             obj = jsonc.applyEdits(obj, jsonc.modify(
-//                 obj, [...toolsPath, 0], defaultValue,
-//                 { ...jsoncFormatting, isArrayInsertion: true }
-//             ));
-//             return { obj, modified: true };
-//         } else {
-//             return { obj, modified: false };
-//         }
-//     };
+    index = _.findIndex(recipes, recipe => recipe.name === "pdflatexDirs");
+    if (index == -1) {
+        obj = jsonc.applyEdits(obj, jsonc.modify(
+            obj, [...RECIPES_PATH, 0], texWorkshopExtras.recipes.pdflatexDirs,
+            { ...jsoncFormatting, isArrayInsertion: true }
+        ));
+    }
 
-//     const updateToolCommand = (obj, toolName, newValue) => {
-//         let toolsNode = jsonc.findNodeAtLocation(jsonc.parseTree(obj, errors), toolsPath);
-//         let tools = jsonc.getNodeValue(toolsNode);
-//         let index = _.findIndex(tools, tool => tool.name == toolName);
-//         console.log(`Previous ${toolName} cmd: ${tools[index].command}`);
-
-//         toolsNode = null;
-//         obj = jsonc.applyEdits(obj,
-//             jsonc.modify(obj, [...toolsPath, index, "command"],
-//                 newValue, {}
-//             )
-//         );
-//         return obj;
-//     }
-
-//     obj = ensureTool(obj, "pdflatex").obj;
-//     obj = updateToolCommand(obj, "pdflatex", fullPath);
-
-//     if (biberPath != null) {
-//         obj = ensureTool(obj, "biber").obj;
-//         obj = updateToolCommand(obj, "biber", biberPath);
-//     }
-
-//     console.log("Object is");
-//     console.log(jsonc.parseTree(obj, errors));
-//     return obj;
-// };
-
+    return {obj};
+};
 
 export default (props) => {
     let context = useContext(DocusaurusThemeContext);
 
     let theme = context.isDarkTheme ? darkTheme : lightTheme;
     const [doPdflatexFull, setDoPdflatexFull] = useState(false);
-    const [doPdflatexRecipe, setDoPdflatexRecipe] = useState(false);
+    const [doPdflatexRecipe, setDoPdflatexRecipe] = useState(true);
     const [doSetBiberPath, setDoSetBiberPath] = useState(true);
+    const [doPdflatexDirs, setDoPdflatexDirs] = useState(false);
 
     const [statusMsg, setStatusMsg] = useState(false);
 
@@ -220,20 +220,8 @@ export default (props) => {
     let newConfig = useRef();
 
     const onCheckChange = e => {
-        // if (e.checked) {
-        // }
-
         setDoPdflatexFull(!doPdflatexFull);
         let cancel = false;
-
-        // if (pdflatexfullpath.current) {
-        //     if (e.checked) {
-        //         pdflatexfullpath.current.setAttribute("disabled", "disabled");
-        //     } else {
-        //         pdflatexfullpath.current.removeAttribute("disabled");
-        //     }
-        //     // pdflatexfullpath.current.disabled = !e.checked;
-        // }
 
         if (cancel) {
             let target = e.target;
@@ -267,42 +255,26 @@ export default (props) => {
         if (val.length == 0)
             throw "You need to provide your current config.json first!";
 
-        // let obj = null;
-        // try {
-        //     //obj = JSON.parse(val);
-        //     ///obj = jsoncParse(val);
-        //     obj = jsoncParseTree(val);
-        // } catch(ex) {
-        //     throw `Can't parse the config.json. Have you copied the file completely?
-        //     Details: ${ex}`;
-        // }
-
         let obj = val;
 
         if (doPdflatexFull) {
-            ({obj} = ensureTools({obj}));
-            let modified = false;
-            ({obj, modified} = ensureTool(obj, "pdflatex"));
-            if (modified) {
-                console.log(`Added default pdflatex`);
+            if (pdflatexfullpath == null || pdflatexfullpath.length < 2) {
+                throw "Please provide the full path to pdflatex!";
             }
-            ({obj} = updateToolCommand({obj, toolPredicate: "pdflatex", command: pdflatexfullpath}));
 
-            //obj = configSetPdflatexFullpath(obj, pdflatexfullpath, doSetBiberPath ? biberPath : null) ?? obj;
+            ({ obj } = ensureToolWithCommand({ obj, toolName: "pdflatex", command: pdflatexfullpath }));
+
+            if (doSetBiberPath && biberPath != null)
+                ({ obj } = ensureToolWithCommand({ obj, toolName: "biber", command: biberPath }));
         }
 
-        if (doPdflatexFull && doSetBiberPath && biberPath != null) {
-            ({obj} = ensureTools({obj}));
-            let modified = false;
-            ({obj, modified} = ensureTool(obj, "biber"));
-            if (modified) {
-                console.log(`Added default biber`);
-            }
-            ({obj} = updateToolCommand({obj, toolPredicate: "biber", command: biberPath}));
-        }
+        if (doPdflatexRecipe)
+            ({ obj } = ensureRecipe({ obj, recipeName: "pdflatex" }));
+
+        if (doPdflatexDirs)
+            ({obj} = addPdflatexDirs({obj}));
 
         newConfig.current.value = obj;
-        //newConfig.current.value = JSON.stringify(obj, null, 4);
     };
 
     const generate = () => {
@@ -334,7 +306,7 @@ export default (props) => {
         if (e.key == "Backspace") {
             let val = e.target.value;
             if (e.target.selectionStart == e.target.selectionEnd) {
-                let lineStart = val.lastIndexOf("\n", e.target.selectionStart) + 1;
+                let lineStart = val.lastIndexOf("\n", e.target.selectionStart - 1) + 1;
                 let termination = val.substring(lineStart,
                     e.target.selectionStart);
                 console.log(`Termination is (${termination})`);
@@ -399,9 +371,19 @@ export default (props) => {
                 </Box>
                 <Box>
                     <Label mb={3}>
-                        <Checkbox onChange={e => setDoPdflatexRecipe(e.checked)} checked={doPdflatexRecipe} />
+                        <Checkbox onChange={e => setDoPdflatexRecipe(e.target.checked)} checked={doPdflatexRecipe} />
                         <Box>
                             Add pdflatex-only recipe
+                        </Box>
+                    </Label>
+                </Box>
+                <Box>
+                    <Label mb={3}>
+                        <Checkbox onChange={e => setDoPdflatexDirs(e.target.checked)} checked={doPdflatexDirs} />
+                        <Box>
+                            Add pdflatex with auxiliary files in a separate
+                            directory. I call this pdflatexDirs, and I find this
+                            quite useful. (MiKTeX only)
                         </Box>
                     </Label>
                 </Box>
@@ -414,6 +396,11 @@ export default (props) => {
                 )}
                 <Button theme={theme} mb={10} onClick={generate}>Generate</Button>
 
+                <Alert variant="danger" mb={2}>
+                    Make sure to back-up your previous settings.json before replacing
+                    it with the one below! I can't guarantee this wizard is flawless!
+                </Alert>
+                <Label htmlFor="currConfig" mb={1}>New <code>settings.json</code></Label>
                 <Textarea name="newConfig" id="newConfig" ref={newConfig} rows={6} mb={3} />
             </Box>
         </ThemeProvider>
