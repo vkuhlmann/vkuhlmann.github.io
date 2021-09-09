@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvkuhlmann_www=self.webpackChunkvkuhlmann_www||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Functions in TI-BASIC: Challenge accepted","permalink":"/blog/functions-in-ti-basic"},{"title":"Showing LaTeX in LaTeX: The good, the bad and the ugly","permalink":"/blog/showing-latex"}]}')}}]);
