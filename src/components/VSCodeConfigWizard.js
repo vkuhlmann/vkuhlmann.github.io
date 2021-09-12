@@ -334,7 +334,7 @@ export default (props) => {
     return (
         <ThemeProvider theme={theme}>
             <Box as="form" onSubmit={(e) => e.preventDefault()}>
-                <Label htmlFor="currConfig" mb={1}>Current <code>settings.json</code></Label>
+                <Label htmlFor="currConfig" mb={1}><span>Current <code>settings.json</code></span></Label>
                 <Textarea name="currConfig" id="currConfig" rows={6} mb={3}
                     ref={currConfig} onKeyDown={currConfigKeyDown} />
                 <Box>
@@ -381,9 +381,10 @@ export default (props) => {
                     <Label mb={3}>
                         <Checkbox onChange={e => setDoPdflatexDirs(e.target.checked)} checked={doPdflatexDirs} />
                         <Box>
-                            Add pdflatex with auxiliary files in a separate
-                            directory. I call this pdflatexDirs, and I find this
-                            quite useful. (MiKTeX only)
+                            Add pdflatex variation where auxiliary files are put
+                            in a different directory to reduce clutter. I call
+                            this pdflatexDirs, and I find this quite useful.
+                            (MiKTeX only)
                         </Box>
                     </Label>
                 </Box>
@@ -400,7 +401,7 @@ export default (props) => {
                     Make sure to back-up your previous settings.json before replacing
                     it with the one below! I can't guarantee this wizard is flawless!
                 </Alert>
-                <Label htmlFor="currConfig" mb={1}>New <code>settings.json</code></Label>
+                <Label htmlFor="currConfig" mb={1}><span>New <code>settings.json</code></span></Label>
                 <Textarea name="newConfig" id="newConfig" ref={newConfig} rows={6} mb={3} />
             </Box>
         </ThemeProvider>

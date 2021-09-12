@@ -160,6 +160,7 @@ module.exports = {
         // fromExtensions: ['html'],
         // toExtensions: ['exe', 'zip'],
         redirects: [{ to: '/latex/configuration/installation', from: '/latex/installation', },],
+        redirects: [{ to: '/latex/configuration/installation', from: '/latex/install', },],
         // createRedirects: function (existingPath) {
         //   if (existingPath === '/docs/newDocPath2') {
         //     return ['/docs/oldDocPath2'];
@@ -169,11 +170,7 @@ module.exports = {
     ],
     [
       "./plugin-google-analytics-modified",
-      {
-      trackingID: 'G-3L9YD1ZX4M',
-      // Optional fields.
-      anonymizeIP: true,
-      }
+      {}
     ],
     function myPlugin(context, options) {
       return {
