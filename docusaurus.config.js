@@ -159,8 +159,10 @@ module.exports = {
         // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-client-redirects
         // fromExtensions: ['html'],
         // toExtensions: ['exe', 'zip'],
-        redirects: [{ to: '/latex/configuration/installation', from: '/latex/installation', },],
-        redirects: [{ to: '/latex/configuration/installation', from: '/latex/install', },],
+        redirects: [
+          { to: '/latex/configuration/installation', from: '/latex/install' },
+          { to: '/latex/configuration/installation', from: '/latex/installation' }
+        ]
         // createRedirects: function (existingPath) {
         //   if (existingPath === '/docs/newDocPath2') {
         //     return ['/docs/oldDocPath2'];
