@@ -27,15 +27,15 @@ Download Visual Studio Code: <a href="https://code.visualstudio.com/" target="_b
 Visual Studio Code is the editor: it's mostly concerned with presenting the
 code in a nice manner. To produce a `.pdf` file from a `.tex` file, we need
 another program too. This is the compiler, which is part of a distribution.
-Refer to the following snippet of text taken from [a-es2.nl/texnicie](http://a-es2.nl/texnicie) to see which distribution you need to install:
+Refer to the following snippet taken from [a-es2.nl/texnicie](http://a-es2.nl/texnicie) to see which distribution you need to install:
 
 * Windows: [MiKTeX](https://miktex.org/download) (alternative: [TeX Live](https://www.tug.org/texlive/acquire-netinstall.html))
 * Mac: [MacTeX](https://tug.org/mactex/mactex-download.html) (alternative: [MiKTeX](https://miktex.org/download))
-* Linux: [TeX Live](https://www.tug.org/texlive/acquire-netinstall.html)! (alternative: [MiKTeX](https://miktex.org/download))<br/>
+* Linux: [TeX Live](https://www.tug.org/texlive/acquire-netinstall.html) (alternative: [MiKTeX](https://miktex.org/download))<br/>
   On Debian you can do
   `sudo apt-get install texlive-full`.
 
-The distributions don't differ much from eachother. On Windows, MiKTeX can
+The distributions don't differ much from each other. On Windows, MiKTeX can
 install packages automatically, TeX Live can't. TeX Live rather chooses to install
 all or most packages, which takes a couple of gigabytes of storage. TeX Live is
 however better integrated with the command line, if you plan on using that.
