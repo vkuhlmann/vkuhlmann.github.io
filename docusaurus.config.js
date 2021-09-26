@@ -143,6 +143,127 @@ module.exports = {
     ],
   ],
   plugins: [
+    function myPlugin(context, options) {
+      return {
+        configureWebpack: (config, isServer) => {
+          let isDevelopment = config.mode === "DEVELOPMENT";
+          // console.log("Config is");
+          // console.log(config);
+
+          // console.log();
+          // //console.log(config.module.rules);
+          // for (let rule of config.module.rules) {
+          //   console.log(rule);
+          //   console.log(rule.use && rule.use[0]);
+          // }
+
+          for (let rule of config.module.rules) {
+            if (rule.test != null && "aa.pdf".match(rule.test)) {
+              console.log("Sabotaging");
+              console.log(rule);
+              rule.use[0].options.name = "assets/myexperiment/[name].[ext]";
+            }
+          }
+
+          let newRules = [
+            {
+              test: /\.module\.s(a|c)ss$/,
+              use: [
+                isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true,
+                    sourceMap: isDevelopment
+                  }
+                },
+                {
+                  loader: 'sass-loader',
+                  options: {
+                    sourceMap: isDevelopment
+                  }
+                }
+              ]
+            },
+            {
+              test: /\.s(a|c)ss$/,
+              exclude: /\.module.(s(a|c)ss)$/,
+              use: [
+                isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader',
+                {
+                  loader: 'sass-loader',
+                  options: {
+                    sourceMap: isDevelopment
+                  }
+                }
+              ]
+            },
+            // {
+            //   test: /\.(png|jpg|svg|pdf|zip|txt)$/,
+            //   type: "asset/resource",
+            //   generator: {
+            //     filename: "[path]test/[name][hash:7][ext]"
+            //   }
+            // }
+            {
+              test: /\.(pdf)$/,
+              use: [
+                {
+                  loader: "@file-loader/dist/cjs.js",
+                  options: {
+                    name: "assets/files/test/[names].[ext]"
+                  }
+                }
+              ]
+              // type: "asset/resource",
+              // generator: {
+              //   filename: "[path]test/[name][ext]"
+              // }
+
+            }
+          ];
+
+          config.module.rules.splice(0, 0, ...newRules);
+
+          return {
+            // plugins: [
+            //   new MiniCssExtractPlugin({
+            //     filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+            //     chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
+            //   })
+            // ],
+            mergeStrategy: {"*": "preprend"},
+            module: {
+              //rules: newRules
+            }
+            //devtool: 'inline-source-map'
+          };
+        }
+      }
+    },
+    [
+      function printLog() {
+        return {
+          configureWebpack: (config, isServer) => {
+            console.log("Config is");
+            console.log(config);
+
+            console.log();
+            //console.log(config.module.rules);
+            for (let rule of config.module.rules) {
+              console.log(rule);
+              console.log(rule.use && rule.use[0]);
+            }
+
+            return {};
+          }
+        }
+      },
+      {
+        id: "printLog"
+      }
+    ],
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -173,64 +294,6 @@ module.exports = {
     [
       "./plugin-google-analytics-modified",
       {}
-    ],
-    function myPlugin(context, options) {
-      return {
-        configureWebpack: (config, isServer) => {
-          let isDevelopment = config.mode === "DEVELOPMENT";
-          console.log("Config is");
-          console.log(config);
-
-          console.log();
-
-          return {
-            // plugins: [
-            //   new MiniCssExtractPlugin({
-            //     filename: isDevelopment ? '[name].css' : '[name].[hash].css',
-            //     chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
-            //   })
-            // ],
-            module: {
-              rules: [
-                {
-                  test: /\.module\.s(a|c)ss$/,
-                  use: [
-                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    {
-                      loader: 'css-loader',
-                      options: {
-                        modules: true,
-                        sourceMap: isDevelopment
-                      }
-                    },
-                    {
-                      loader: 'sass-loader',
-                      options: {
-                        sourceMap: isDevelopment
-                      }
-                    }
-                  ]
-                },
-                {
-                  test: /\.s(a|c)ss$/,
-                  exclude: /\.module.(s(a|c)ss)$/,
-                  use: [
-                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                      loader: 'sass-loader',
-                      options: {
-                        sourceMap: isDevelopment
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-            //devtool: 'inline-source-map'
-          };
-        }
-      }
-    }
+    ]
   ]
 };

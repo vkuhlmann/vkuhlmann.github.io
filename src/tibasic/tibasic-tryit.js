@@ -25,8 +25,8 @@ import copy from 'copy-text-to-clipboard';
 import Edit from "./Edit";
 
 //const codeStyles = {};
-console.log("TI-styles:");
-console.log(tiStyles);
+// console.log("TI-styles:");
+// console.log(tiStyles);
 
 Prism.languages.TIBasic = {
     "function": {

@@ -19,23 +19,41 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=James-Y
 ```
 
 To open `settings.json`, open the Command Palette (`Ctrl+Shift+P`), type
-`settings.json` and hit enter. This is a JSON file, and fragments shown below
-should be placed before the final closing brace of the file. You might need to
-add a comma after the last option specified, and make sure there isn't a comma
-right before the final closing brace.
+`settings.json` and hit enter. Fragments below should be added to this file.
+Keep care to adhere to the required JSON (or actually JSONC) format:
+
+Wrong:
+```json
+{
+    "theoldsettings": "aaa"
+    "something": "I pasted in"
+}
+```
+
+Correct:
+```json
+{
+    "theoldsettings": "aaa",
+    "something": "I pasted in"
+}
+```
+
+VS Code uses JSONC which is JSON allowing for comments, but it is also benevolent
+in allowing small mistakes, like when you added a comma too much.
 
 ## Compile on F5
 
-By default the `.tex` file is compiled on every save, but I prefer to retain
-better control over it. Therefore in the `settings.json` I add
+By default the `.tex` file is compiled on every save, but I prefer to instruct
+compilation with a different shortcut. For this, in the `settings.json` I add
 
 ```json
 "latex-workshop.latex.autoBuild.run": "never",
 "latex-workshop.latex.rootFile.useSubFile": true,
 "latex-workshop.latex.rootFile.doNotPrompt": true,
 ```
+The last two lines concern a compilation reference when using [Subfiles](/latex/subfiles).
 
-Then in `keybindings.json` I add
+Then in `keybindings.json` (open in the same way as `settings.json`), I add
 ```json
 {
     "key": "F5",
@@ -53,18 +71,24 @@ With `F7` you now see the result of the last compilation.
 
 ## Create environment
 
+In LaTeX, you often need environments, like an `align` environment. The
+following code allows you to do this quickly, by performing on your
+keyboard `Ctrl+E a l i g n tab`, and it places you within the align, ready to
+type your equation.
+
 The LaTeX workshop comes with a `wrap-env` function, which you can bind to F5
 by adding in the `keybindings.json` this code
 ```json
 {
     "key": "Ctrl+E",
-    "when": "resourceExtname == .tex && false",
+    "when": "resourceExtname == .tex",
     "command": "latex-workshop.wrap-env"
 },
 ```
 
-But it doesn't work too great for me. Instead I use a snippet for starting an
-environment. In the `keybindings.json` add
+But it doesn't work too great for me, I started the environment on the line
+after the cursor, but I want it at the cursor itself. For this, I use a snippet
+instead. In the `keybindings.json` add
 ```json
 {
     "key": "Ctrl+E",
@@ -77,7 +101,7 @@ environment. In the `keybindings.json` add
 },
 ```
 
-Now open the Command Palette (`Ctrl+Shift+P`), type `snippet` and select
+Now open the Command Palette (`Ctrl+Shift+P`), type `snippet`, select
 `Preferences: Configure User Snippets`, choose `LaTeX`, and change the file's
 contents to
 ```json
@@ -101,6 +125,8 @@ contents to
 ```
 
 ## Math inline
+
+Add to `keybindings.json`
 
 ```json
 {
@@ -188,10 +214,11 @@ example
 
 ## Other optimizations
 
-Relying on Word Wrap to present everything nicely, so you don't need to scroll
-horizontally endlessly isn't that great in my opinion. I use the `Rewrap`
-package, which binds to `Alt+Q` to provide a rewrapping of the paragraph with
-actual newline characters.
+People often write their paragraph on one line. While word wrap shows the text
+spread over multiple lines, I prefer to not rely on this technique, and
+spread the text over actual lines. For this, I use the `Rewrap` package.
+I select the text I want to rewrap, and press `Alt+Q` to execute Rewrap's
+functionality.
 
 ```
 Name: Rewrap
@@ -219,8 +246,9 @@ Works well with settings like
 "rewrap.wholeComment": false,
 ```
 
-
-And in my `settings.json` I've also added for switching between VS Code tabs
+Lastly, in my `settings.json`, I've also made it that `Ctrl+Tab` and `Ctrl+Shift+Tab`
+switch between VS Code tabs in the order they are shown in. By default they
+switch between tabs in an order based on how recently you used the tab.
 ```json
 {
     "key": "Ctrl+Tab",

@@ -9,7 +9,7 @@ import ThemeContext from '@theme/ThemeContext';
 export default (props) => {
     const {src} = props;
     let padding = "0px";
-    console.log(`Pad parameter is ${props.pad}`);
+    //console.log(`Pad parameter is ${props.pad}`);
     if (props.pad) {
         padding = "15px";
     }

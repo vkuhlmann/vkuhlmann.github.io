@@ -60,8 +60,9 @@ export default props => {
 
     return (
         <ThemeProvider theme={theme}>
-            <span>E-mail: </span>
+            {!props.inline && (<span>E-mail: </span>)}
             {contents}
+            {props.endwithdot && <span style={{userSelect: "none"}}>.</span>}
         </ThemeProvider>
     );
 };

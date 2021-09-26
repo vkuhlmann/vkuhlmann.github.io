@@ -20,7 +20,8 @@ LaTeX. There are two frequent problems:
 1. LaTeX fatal error: spawn pdflatex ENOENT
    
    Cause: VS Code can't locate the compiler (TeXLive, MiKTeX or MacTeX).  
-   Try restarting your computer, this might solve the problem!
+   Try closing VS Code and restarting your computer, this might solve the
+   problem!
 
 2. Perl not found
 

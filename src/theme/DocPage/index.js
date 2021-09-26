@@ -21,8 +21,8 @@ import styles from './styles.module.css';
 import {ThemeClassNames, docVersionSearchTag} from '@docusaurus/theme-common';
 
 function DocPageContent({currentDocRoute, versionMetadata, children}) {
-  console.log(`DocPageContent children are`);
-  console.log(children);
+  // console.log(`DocPageContent children are`);
+  // console.log(children);
   //children = [...children];//[children[0], children[1]];
 
   const {isClient} = useDocusaurusContext();

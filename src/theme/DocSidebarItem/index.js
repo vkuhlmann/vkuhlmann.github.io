@@ -102,8 +102,8 @@ function DocSidebarItemCategory({item, onItemClick, activePath, ...props}) {
     setCollapsed,
   });
 
-  console.log(`For ${label}, entrance is`);
-  console.log(entrance);
+  // console.log(`For ${label}, entrance is`);
+  // console.log(entrance);
   let Clickable = React.a;
   if (entrance != null) {
     Clickable = Link;
