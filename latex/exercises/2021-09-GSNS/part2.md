@@ -4,8 +4,8 @@ sidebar_position: 2
 
 # Exercises of part 2
 
-import CodeInline from "../../src/components/CodeInline.js";
-import DocsImage from "../../src/components/DocsImage.js";
+import CodeInline from "../../../src/components/CodeInline.js";
+import DocsImage from "../../../src/components/DocsImage.js";
 
 ### Figure environment
 

@@ -4,8 +4,8 @@ sidebar_position: 1
 
 # Exercises of part 1
 
-import CodeInline from "../../src/components/CodeInline.js";
-import DocsImage from "../../src/components/DocsImage.js";
+import CodeInline from "../../../src/components/CodeInline.js";
+import DocsImage from "../../../src/components/DocsImage.js";
 
 ### First document
 

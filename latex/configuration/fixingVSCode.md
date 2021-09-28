@@ -125,9 +125,10 @@ path to `pdflatex`.
 
 In VS Code, right-click your `document.tex`, and select `Copy Path`.
 
-Right-click the Start button and select 'Windows Powershell'. Type `cd "`, and
-press `Ctrl+V` to paste the path we just got in VS Code. Remove the
-`\document.tex` at the end, type `"` to close the quotes, and hit enter.
+Right-click the Windows Start menu on the bottom-left of the screen and select
+'Windows Powershell'. Type `cd "`, and press `Ctrl+V` to paste the path we just
+got in VS Code. Remove the `\document.tex` at the end, type `"` to close the
+quotes, and hit enter.
 
 Now type `pdflatex document` and hit enter. Right-click your `document.tex` in
 VS Code, and select `Reveal in File Explorer`. You should now see there is a

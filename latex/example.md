@@ -15,6 +15,7 @@ sidebar_position: 3
 \usepackage{parskip}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage[english]{babel}
 \usepackage[bookmarksnumbered]{hyperref}
 
 \newtheorem{theorem}{Theorem}[section]

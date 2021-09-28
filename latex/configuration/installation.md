@@ -61,7 +61,9 @@ might help, else ask for help. For help outside a LaTeX course, send a mail to <
 ---
 
 The installation can take some time. In the meantime you can already have a
-look inside Visual Studio Code.
+look inside Visual Studio Code. Some of the steps below should be doable while
+the distribution isn't installed yet. However, if you want to play on the safe
+side, wait for the distribution to be installed before proceeding.
 
 In Visual Studio Code you need to install the extension 'LaTeX Workshop'. In the
 menu on the left (called 'the Activity bar'), select 'Extensions'.
