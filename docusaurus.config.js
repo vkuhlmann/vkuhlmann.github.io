@@ -200,6 +200,10 @@ module.exports = {
               ]
             },
             // {
+            //   test: /\.txt$/,
+            //   use: "raw-loader"
+            // },
+            // {
             //   test: /\.(png|jpg|svg|pdf|zip|txt)$/,
             //   type: "asset/resource",
             //   generator: {

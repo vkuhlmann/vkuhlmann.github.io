@@ -24,7 +24,7 @@ Het voorbeeld: [LaTeX_Week1_Voorbeeld.pdf](https://www.a-eskwadraat.nl/Verenigin
 
 ---
 
-## Extra's
+## Extra oefeningen
 
 ### Kleurtjes
 
@@ -47,8 +47,7 @@ Probeer de volgende teksteffecten uit:
 
 ### Accolades
 
-Bij superscript en subscript kan je zowel accolades als geen accolades
-gebruiken. Probeer hetzelfde voor andere commando's, zoals <CodeInline
-code="\underline Test"/> vs <CodeInline code="\underline{Test}"/> en <CodeInline
-code="\section Titel"/> vs <CodeInline code="\section{Titel}"/>. Wat doen
-accolades dus in LaTeX?
+Bij superscript en subscript kan je met accolades gebruiken, maar ook zonder.
+Probeer hetzelfde voor andere commando's, zoals <CodeInline code="\underline Test"/>
+vs <CodeInline code="\underline{Test}"/> en <CodeInline code="\section Titel"/>
+vs <CodeInline code="\section{Titel}"/>. Wat doen accolades dus in LaTeX?

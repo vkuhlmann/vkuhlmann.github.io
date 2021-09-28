@@ -1,0 +1,27 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.54cm]{geometry}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{commath,mathtools}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[english]{babel}
+\usepackage[bookmarksnumbered]{hyperref}
+
+\title{My document}
+\author{Me}
+\date{September 2021}
+
+\setcounter{secnumdepth}{2}
+
+\begin{document}
+    \maketitle
+
+    \tableofcontents
+    \section{Introduction}
+
+    Hello everyone!
+\end{document}
