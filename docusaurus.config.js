@@ -286,7 +286,8 @@ module.exports = {
         // toExtensions: ['exe', 'zip'],
         redirects: [
           { to: '/latex/configuration/installation', from: '/latex/install' },
-          { to: '/latex/configuration/installation', from: '/latex/installation' }
+          { to: '/latex/configuration/installation', from: '/latex/installation' },
+          { to: "/latex/vakidioot/code1", from: "/go/cea539" }
         ]
         // createRedirects: function (existingPath) {
         //   if (existingPath === '/docs/newDocPath2') {
