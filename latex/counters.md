@@ -103,5 +103,46 @@ If you now use
 
 then 2.1 becomes (2)a and 5.3 becomes (5)c.
 
+## Counterwithin
+
+We just saw how you can change a number's formatting using <CodeInline code="\renewcommand"/>.
+You could use this for example to preprend the equation number with the current `section`-number. That
+results in
+
+<DocsImage src="/assets/latex/counters/counterwithin-equation.svg" pad />
+
+But after a <CodeInline code="\section"/>, the equation number just continues, so the next
+equation would be `(3.20)` instead of `(3.1)`. As we have seen, <CodeInline code="\refstepcounter"/>
+can perform automatic number resets, like it does for `subsection`-numbers. To enable the
+same feature for equations, we need to specify <CodeInline code="\counterwithin*{equation}{section}" />.
+
+You can also use <CodeInline code="\counterwithin" /> (without the star), which
+does everything automatically:
+
+```latex
+\counterwithin{equation}{section}
+% is equivalent to:
+\counterwithin*{equation}{section}
+\renewcommand\theequation
+{\thesection.\arabic{equation}}
+```
+
+To remove a counter from the reset list, you can use \hll|\counterwithout*|.
+Without the star, the formatting itself will also be reset.
+
+## Available counters
+
+To list the counters which are by default defined, add the following code into
+your document:
+
+```latex
+{\makeatletter
+\def\@elt #1{#1; }
+\cl@@ckpt}
+```
+
+It will print something like
+
+page; equation; enumi; enumii; enumiii; enumiv; footnote; mpfootnote; part; section; subsection;subsubsection; paragraph; subparagraph; figure; table; parentequation
 
 ## More to be added later
