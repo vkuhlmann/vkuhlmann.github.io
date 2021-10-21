@@ -127,7 +127,7 @@ does everything automatically:
 {\thesection.\arabic{equation}}
 ```
 
-To remove a counter from the reset list, you can use \hll|\counterwithout*|.
+To remove a counter from the reset list, you can use <CodeInline code="\counterwithout*"/>.
 Without the star, the formatting itself will also be reset.
 
 ## Available counters
