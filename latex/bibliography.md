@@ -19,7 +19,7 @@ one by one. However, you need them all before you can generate an output.
 Additionally, in contrast to Overleaf, most installations aren't configured to
 trigger `biber` (explained later) automatically. This article hasn't been yet
 completed to tell how to do this for VS Code. You will probably need some
-patience and endurance to figure everything out yourself.
+patience and endurance to figure that out yourself.
 
 :::
 
@@ -36,6 +36,9 @@ We see a penguin in Figure~\ref{fig:penguin}.
     \caption{A cute penguin. This a photo from the internet.}\label{fig:penguin}
 \end{figure}
 ```
+
+A similar system exists for referring to bibliography entries, but it is a bit
+more involved.
 
 :::info
 
@@ -59,8 +62,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing. We see a penguin in Figure
 
 :::
 
-A similar system exists for referring to bibliography entries, but it is a bit
-more involved.
+
 
 ## Cite command
 
