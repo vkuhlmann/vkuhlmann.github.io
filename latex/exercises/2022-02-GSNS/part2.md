@@ -7,6 +7,10 @@ sidebar_position: 2
 import CodeInline from "../../../src/components/CodeInline.js";
 import DocsImage from "../../../src/components/DocsImage.js";
 
+<p><b><span>Slides: </span>
+<a href="/assets/latex/presentation-2022-02-GSNS_Handout.pdf" target="_blank">presentation-2022-02-GSNS_Handout.pdf</a>
+</b></p>
+
 ### Figure environment
 
 Find a nice image on the internet and put it in the same directory as your
@@ -32,13 +36,15 @@ Reference material:
 
 ### Formulas
 
-Create the normal distribution density function.
+Add the
+[normal distribution density function](https://en.wikipedia.org/wiki/Normal_distribution)
+to your document.
 
 ### Subfigure
 
 Try the subfigure example from the slides.
 
-### Maths
+### Mathematics
 
 Go to the slides about the math commands, try them out and try to remember some.
 You can also investigate what LaTeX commands you need for the math symbols

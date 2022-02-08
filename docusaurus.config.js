@@ -4,8 +4,8 @@
 const lightCodeTheme = require('./src/theme/prism/prism-oldsite');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-console.log("lightCodeTheme is");
-console.log(lightCodeTheme.styles[7]);
+// console.log("lightCodeTheme is");
+// console.log(lightCodeTheme.styles[7]);
 
 const MiniCssExtractPlugin = require('@docusaurus/core/node_modules/mini-css-extract-plugin')
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -157,13 +157,13 @@ module.exports = {
           //   console.log(rule.use && rule.use[0]);
           // }
 
-          for (let rule of config.module.rules) {
-            if (rule.test != null && "aa.pdf".match(rule.test)) {
-              console.log("Sabotaging");
-              console.log(rule);
-              rule.use[0].options.name = "assets/myexperiment/[name].[ext]";
-            }
-          }
+          // for (let rule of config.module.rules) {
+          //   if (rule.test != null && "aa.pdf".match(rule.test)) {
+          //     console.log("Sabotaging");
+          //     console.log(rule);
+          //     rule.use[0].options.name = "assets/myexperiment/[name].[ext]";
+          //   }
+          // }
 
           let newRules = [
             {
@@ -251,14 +251,14 @@ module.exports = {
         return {
           configureWebpack: (config, isServer) => {
             console.log("Config is");
-            console.log(config);
+            // console.log(config);
 
-            console.log();
-            //console.log(config.module.rules);
-            for (let rule of config.module.rules) {
-              console.log(rule);
-              console.log(rule.use && rule.use[0]);
-            }
+            // console.log();
+            // //console.log(config.module.rules);
+            // for (let rule of config.module.rules) {
+            //   console.log(rule);
+            //   console.log(rule.use && rule.use[0]);
+            // }
 
             return {};
           }

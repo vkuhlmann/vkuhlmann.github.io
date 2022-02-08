@@ -144,5 +144,3 @@ your document:
 It will print something like
 
 page; equation; enumi; enumii; enumiii; enumiv; footnote; mpfootnote; part; section; subsection;subsubsection; paragraph; subparagraph; figure; table; parentequation
-
-## More to be added later

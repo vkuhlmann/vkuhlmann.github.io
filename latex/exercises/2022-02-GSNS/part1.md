@@ -7,6 +7,10 @@ sidebar_position: 1
 import CodeInline from "../../../src/components/CodeInline.js";
 import DocsImage from "../../../src/components/DocsImage.js";
 
+<p><b><span>Slides: </span>
+<a href="/assets/latex/presentation-2022-02-GSNS_Handout.pdf" target="_blank">presentation-2022-02-GSNS_Handout.pdf</a>
+</b></p>
+
 ### First document
 
 Create a document with a title and a first line of text. Set the author to be
@@ -14,14 +18,14 @@ your name.
 
 ### Headings
 
-Create headings at different depths, and create a table of contents for it.
-The table of contents should be on its own page, or on be on a page with just
-the title.
+Create headings at different depths, and create a table of contents for it. The
+table of contents should be on its own page.
 
 ### Page margins
 
 Set the left and right margins to be 2.54 cm, and the top and bottom margins
-to be both 4 cm. (Just as exercise, might look ugly.)
+to be both 4 cm. (Just as exercise, might look ugly.) Don't forget to set the
+page size to A4!
 
 ### Use fancyhdr
 
@@ -82,9 +86,12 @@ Specifically, I used their `\definecolor` for `indigo(dye)`.
 <DocsImage src="/assets/latex/rainbow_scratch68.svg" />
 
 Note you need a new `\textcolor` for each letter, and that `\textcolor` is defined
-by `\usepackage{xcolor}`. The code can become very unreadable by putting everything
-on a single line, instead try to put each `\textcolor...` on a separate line.
-But avoid getting spaces between the letters!
+by `\usepackage{xcolor}`. The code can become very unreadable if all code is on
+a single line, instead put each `\textcolor...` on a separate line.
+
+When you put each `\textcolor...` on a seperate line, spaces will appear between
+the rainbow letters. Read on this page how to avoid these spaces: <a href="../../whitespace" target="_blank">Whitespace</a>.
+
 
 ### Quotes
 
@@ -108,3 +115,5 @@ to your preamble.
 ### Hyperref
 
 Go to the package manual of hyperref and see what you can do with it.
+
+Next: <a href="/latex/exercises/2022-02-GSNS/part2">Part 2</a>
