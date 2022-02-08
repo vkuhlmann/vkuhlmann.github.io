@@ -11,7 +11,7 @@ import ShowEmail from "../../src/components/ShowEmail"
 Visual Studio Code (or VS Code) is a modern, open-source[*](https://github.com/microsoft/vscode/wiki/Differences-between-the-repository-and-Visual-Studio-Code)
 code editor with
 extension support, and is developed by Microsoft, together with a community.
-There is an extension which adds the LaTeX-specific features, meaning we use
+There is an extension which adds the LaTeX-specific features, meaning we can use
 this beautiful editor for writing LaTeX code!
 
 <!-- (Open-source details:
@@ -77,25 +77,25 @@ create a file (`File > New File`) and paste the following rudimentary document:
 ```latex
 \documentclass[a4paper]{article}
 
-\title{De titel}
+\title{The title}
 \begin{document}
     \maketitle
 
-    Hallo!
+    Hello!
 \end{document}
 ```
 
-Save (`Ctrl+S`) the file with name `document.tex` (or something else ending in
+Save the file (`Ctrl+S`) with name `document.tex` (or something else ending in
 `.tex`). In the left menu (the Activity bar), an icon appears with the text
 'TeX'. In this menu, click on `Build LaTeX project`, or expand the menu and
-select a specific Recipe. Wait till compilation is done.
+select a specific recipe. Wait till compilation is done.
 
 ![Screenshot of VS Code statusbar while compiling](/assets/latex/VSCodeStatusbarCompiling.png)
 
 ![Screenshot of VS Code statusbar after succesful compilation](/assets/latex/VSCodeStatusbarCompiled.png)
 
 If you don't get a success, have a look at [FIXING VS CODE](/latex/configuration/fixingVSCode).
-If you get the success checkmark, click the `View LaTeX project` button.
+If you get the success checkmark, click the `View LaTeX PDF` button.
 
 Now change something in your `.tex` and press `Ctrl+S` or `Command+S` to save.
 With the default settings, LaTeX workshop should automatically compile your
