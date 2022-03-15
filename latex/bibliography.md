@@ -66,10 +66,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing. We see a penguin in Figure
 
 ## Cite command
 
-The <CodeInline code="\ref{}"/> command can't be used for citing source. Instead
+The <CodeInline code="\ref{}"/> command is not used for citing sources. Instead
 we use a <CodeInline code="\cite{}"/> command. When the bibliography style is
 set to `numeric`, this shows a number between square braces. The bibliography is
-in alphabetic order by default, and the numbers are therefore assigned in this order.
+in alphabetic order by default, and the numbers are therefore assigned in this
+order.
 
 The necessary configurations to use the <CodeInline code="\cite{}"/> command are
 presented in the next sections. See the following table to see which variations

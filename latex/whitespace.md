@@ -17,7 +17,7 @@ Per bullet point:
 the amount or the type of whitespace, LaTeX converts it to one space.
 * To force 4 spaces, we can use the `\ `-command (backslash followed by a
   space).
-* There are other commands more convenient for a bit of horizontal space, like
+* There are other commands more convenient for a bit of horizontal space, like&nbsp;
   <CodeInline code="\quad" />, <CodeInline code="\qquad" /> and <CodeInline
   code="\;" />. Sometimes they are useful in mathematics mode: to separate
   symbols which are otherwise to tight to each other, or to seperate two

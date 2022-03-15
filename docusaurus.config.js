@@ -240,6 +240,10 @@ module.exports = {
             mergeStrategy: {"*": "preprend"},
             module: {
               //rules: newRules
+              // watchOptions: {
+              //   ignored: /node_modules|\.docusaurus|build/,
+              //   poll: 1000,
+              // }
             }
             //devtool: 'inline-source-map'
           };

@@ -6,5 +6,10 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: "development"
+  mode: "development",
+  watchOptions: {
+    ignored: /node_modules|\.docusaurus|build/,
+    poll: 1000,
+  },
+  testNotARealOption: "yes"
 };

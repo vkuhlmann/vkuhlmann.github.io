@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# FIXING VS CODE
+# VS Code problems troubleshoot
 
 <!-- ## Wizard
 

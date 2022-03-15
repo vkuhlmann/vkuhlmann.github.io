@@ -6,7 +6,9 @@ sidebar_position: 3
 
 import ShowEmail from "../../src/components/ShowEmail"
 
-** Toubles compiling? See [FIXING VS CODE](/latex/configuration/fixingVSCode) **
+Toubles compiling? See [VS Code problems troubleshooting](/latex/configuration/fixingVSCode).
+
+## VS Code
 
 Visual Studio Code (or VS Code) is a modern, open-source[*](https://github.com/microsoft/vscode/wiki/Differences-between-the-repository-and-Visual-Studio-Code)
 code editor with
@@ -18,11 +20,13 @@ this beautiful editor for writing LaTeX code!
 [VS Code repository on GitHub](https://github.com/microsoft/vscode),
 [Differences between the repository and VS Code](https://github.com/microsoft/vscode/wiki/Differences-between-the-repository-and-Visual-Studio-Code)) -->
 
-See the image below for an impression. Clicking it opens the image in a new tab.
+See the image below for an impression. [Open image in new tab.](/img/latex/VisualStudioCodeDemo.png)
 
 [![Screenshot of writing LaTeX in Visual Studio Code](/img/latex/VisualStudioCodeDemo.png)](/img/latex/VisualStudioCodeDemo.png)
 
-Download Visual Studio Code: <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a>.
+** Download and install Visual Studio Code: <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a>. **
+
+## Distribution
 
 Visual Studio Code is the editor: it's mostly concerned with presenting the
 code in a nice manner. To produce a `.pdf` file from a `.tex` file, we need
@@ -40,25 +44,44 @@ install packages automatically, TeX Live can't. TeX Live rather chooses to insta
 all or most packages, which takes a couple of gigabytes of storage. TeX Live is
 however better integrated with the command line, if you plan on using that.
 
-:::warning
+The distribution might take a lot of time to install. The other required parts
+will be faster.
 
-LaTeX Workshop (see below) compiles your `.tex` by default with `latexmk` (a
-program shipped by each distribution), which needs Perl installed on your
-computer. On Windows, Perl isn't installed by default, and only TeX Live comes
-bundled with it. If you want to use MiKTeX, you can configure VS Code to use
-`pdflatex` instead of `latexmk` (`latexmk` adds only marginal features on top of
-the original `pdflatex`). Instructions for this are at [FIXING VS
-CODE](/latex/configuration/fixingVSCode). Or you can install Perl from
-https://strawberryperl.com.
+** Download and install MiKTeX, MacTeX or TeX Live, depending on your operating
+system or preference. **
 
-For more on `latexmk`: https://mg.readthedocs.io/latexmk.html
-
-:::
+---
 
 Encountering installation problems? Restarting your computer and trying again
 might help, else ask for help. For help outside a LaTeX course, send a mail to <ShowEmail inline endwithdot />
 
----
+## Perl (Windows only)
+
+On Mac and Linux, Perl is installed by default. You can skip this step.
+
+<!-- :::warning -->
+
+LaTeX Workshop (see below) compiles your `.tex` by default with `latexmk` (a
+program shipped by each distribution), which needs Perl installed on your
+computer. On Windows, Perl isn't installed by default, and only TeX Live comes
+bundled with it.
+
+The script `latexmk` improves the user experience for compiling multiple times
+or with a bibliography. You can install Perl from https://strawberryperl.com.
+
+Alternatively, you can instruct the `LaTeX Worskhop`-extension to use `pdflatex`
+for compiling instead. Instructions for this are at [FIXING VS
+CODE](/latex/configuration/fixingVSCode).
+
+For more on `latexmk`: https://mg.readthedocs.io/latexmk.html
+
+** Download and install Strawberry Perl if you are on Windows: https://strawberryperl.com. **
+
+<!-- ::: -->
+<!-- 
+--- -->
+
+## LaTeX Workshop
 
 The installation can take some time. In the meantime you can already have a
 look inside Visual Studio Code. Some of the steps below should be doable while
@@ -70,6 +93,10 @@ menu on the left (called 'the Activity bar'), select 'Extensions'.
 Alternatively, use the shortcut `Ctrl+Shift+X` to open the menu. Search and
 install the extension. This mainly adds code syntax highlighting for LaTeX to
 VS Code, as well as a set of tools necessary for compiling the code into a PDF.
+
+** Install the 'LaTeX Workshop' extension in VS Code. **
+
+## Testing your installation
 
 Select `File > Open Folder` and choose a new directory on your computer. Next,
 create a file (`File > New File`) and paste the following rudimentary document:
@@ -97,6 +124,13 @@ select a specific recipe. Wait till compilation is done.
 If you don't get a success, have a look at [FIXING VS CODE](/latex/configuration/fixingVSCode).
 If you get the success checkmark, click the `View LaTeX PDF` button.
 
+---
+
+Encountering installation problems? Restarting your computer and trying again
+might help, else ask for help. For help outside a LaTeX course, send a mail to <ShowEmail inline endwithdot />
+
+---
+
 Now change something in your `.tex` and press `Ctrl+S` or `Command+S` to save.
 With the default settings, LaTeX workshop should automatically compile your
 file again, and the PDF viewer should refresh automatically after that compilation.
@@ -108,4 +142,5 @@ ignore them. If you want, you can harmlessly remove them by selecting
 `Clean up auxiliary files` in the `Build LaTeX project` menu.
 
 The installation is now complete.
+
 

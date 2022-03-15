@@ -20,7 +20,8 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=James-Y
 
 To open `settings.json`, open the Command Palette (`Ctrl+Shift+P`), type
 `settings.json` and hit enter. Fragments below should be added to this file.
-Keep care to adhere to the required JSON (or actually JSONC) format:
+Keep care to adhere to the required JSON (or actually JSONC) format, like
+separating different key-value pairs with a comma:
 
 Wrong:
 ```json
@@ -39,7 +40,7 @@ Correct:
 ```
 
 VS Code uses JSONC which is JSON allowing for comments, but it is also benevolent
-in allowing small mistakes, like when you added a comma too much.
+in allowing small mistakes, like superfluous comma's.
 
 ## Compile on F5
 
@@ -73,7 +74,7 @@ With `F7` you now see the result of the last compilation.
 
 In LaTeX, you often need environments, like an `align` environment. The
 following code allows you to do this quickly, by performing on your
-keyboard `Ctrl+E a l i g n tab`, and it places you within the align, ready to
+keyboard `Ctrl+E`, typing `align` and entering `Tab`, and it places you within the align, ready to
 type your equation.
 
 The LaTeX workshop comes with a `wrap-env` function, which you can bind to F5

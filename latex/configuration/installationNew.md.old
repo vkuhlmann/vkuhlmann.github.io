@@ -1,0 +1,9 @@
+---
+sidebar_position: 3
+---
+
+# Installation (new)
+
+import InstallationSelect from "../../src/components/InstallationSelect"
+
+<InstallationSelect />
