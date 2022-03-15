@@ -57,7 +57,8 @@ might help, else ask for help. For help outside a LaTeX course, send a mail to <
 
 ## Perl (Windows only)
 
-On Mac and Linux, Perl is installed by default. You can skip this step.
+On Mac and Linux, Perl is installed by default. Non-Windows users can skip this
+step.
 
 <!-- :::warning -->
 

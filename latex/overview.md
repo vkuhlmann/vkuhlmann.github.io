@@ -5,14 +5,18 @@ slug: /
 
 # Overview
 
-Select one of the subjects in the left menu. (On mobile tap top left overflow
-menu button.) For installation instructions, go to
+Select one of the subjects in the left menu. (On mobile tap the overflow menu
+button on the top-left of the page.) For installation instructions, go to
 [vkuhlmann.com/latex/installation](/latex/configuration/installation).
 
 ## UAV (March 2022)
 
 <p><b><span>Slides: </span>
 <a href="/assets/latex/presentation-2022-03-UAV_Handout.pdf" target="_blank">presentation-2022-03-UAV_Handout.pdf</a>
+</b></p>
+
+<p><b><span>Exercises: </span>
+<a href="/assets/latex/exercises-2022-03-UAV.pdf" target="_blank">exercises-2022-03-UAV.pdf</a>
 </b></p>
 
 ## GSNS (February 2022)
