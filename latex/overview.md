@@ -19,6 +19,10 @@ button on the top-left of the page.) For installation instructions, go to
 <a href="/assets/latex/exercises-2022-03-UAV.pdf" target="_blank">exercises-2022-03-UAV.pdf</a>
 </b></p>
 
+<p><b><span>Exercise solutions: </span>
+<a href="/assets/latex/eindopdracht.tex" target="_blank">eindopdracht.tex</a>
+</b></p>
+
 ## GSNS (February 2022)
 
 <p><b><span>Slides: </span>
