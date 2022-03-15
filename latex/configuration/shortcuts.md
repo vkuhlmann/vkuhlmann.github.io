@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 ---
 
 # Shortcuts
@@ -44,8 +44,9 @@ in allowing small mistakes, like superfluous comma's.
 
 ## Compile on F5
 
-By default the `.tex` file is compiled on every save, but I prefer to instruct
-compilation with a different shortcut. For this, in the `settings.json` I add
+By default the `.tex` file is compiled on every save, but I prefer to turn that
+off and instruct compilation with a shortcut. For this, in the `settings.json` I
+add
 
 ```json
 "latex-workshop.latex.autoBuild.run": "never",
@@ -87,9 +88,9 @@ by adding in the `keybindings.json` this code
 },
 ```
 
-But it doesn't work too great for me, I started the environment on the line
-after the cursor, but I want it at the cursor itself. For this, I use a snippet
-instead. In the `keybindings.json` add
+That function creates the environment on a new line however, while I prefer to
+insert environments at the line my cursor is. To have more control, I use
+a snippet instead. In the `keybindings.json` add
 ```json
 {
     "key": "Ctrl+E",
@@ -247,7 +248,7 @@ Works well with settings like
 "rewrap.wholeComment": false,
 ```
 
-Lastly, in my `settings.json`, I've also made it that `Ctrl+Tab` and `Ctrl+Shift+Tab`
+Lastly, in my `settings.json`, I have also made it that `Ctrl+Tab` and `Ctrl+Shift+Tab`
 switch between VS Code tabs in the order they are shown in. By default they
 switch between tabs in an order based on how recently you used the tab.
 ```json

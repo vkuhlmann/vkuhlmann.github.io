@@ -8,6 +8,7 @@ sidebar_position: 6
 
 import CodeInline from "../src/components/CodeInline.js";
 import DocsImage from "../src/components/DocsImage.js";
+import ShowEmail from "../src/components/ShowEmail";
 
 <DocsImage src="/assets/latex/bibliography/snippetReferences.svg" pad />
 
@@ -16,10 +17,14 @@ import DocsImage from "../src/components/DocsImage.js";
 This documentation page describes the several components of using bibliographies
 one by one. However, you need them all before you can generate an output.
 
-Additionally, in contrast to Overleaf, most installations aren't configured to
-trigger `biber` (explained later) automatically. This article hasn't been yet
+Additionally, in contrast to Overleaf, most installations are not configured to
+trigger `biber` (explained later) automatically. This article has not been yet
 completed to tell how to do this for VS Code. You will probably need some
 patience and endurance to figure that out yourself.
+
+Some installation do not automatically trigger `biber` (explained later).
+Installations that do are Overleaf and VS Code when using `latexmk`. For other
+installations, ask me. For help outside a LaTeX course, send a mail to <ShowEmail inline endwithdot />
 
 :::
 
@@ -205,7 +210,7 @@ This sets the page number for the `References` section to be the page number at
 which that command executes. This might however be off, for example because the
 command is issued before the <CodeInline code="\printbibliography"/>, and only
 the typesetting of the `References` header initiates the new page. At the time
-of writing, I don't have the time to destillate a general solution to this
+of writing, I do not have the time to destillate a general solution to this
 problem.
 
 ## Bib fields

@@ -1,11 +1,11 @@
 ---
-sidebar_position: 5
+sidebar_position: 3
 ---
 
 # Always: Back-up!
 
-Your laptop's hard drive can fail for any of several reasons. If you haven't
-backed up your files, it's possible you'll never see them again. In the case
+Your computer's hard drive can fail for any of several reasons. If you have not
+backed up your files, you might have lost them permanently. In the case
 of a thesis for example, this can be a very frustrating event.
 
 Preferably you back up your files by copying them to one or more external

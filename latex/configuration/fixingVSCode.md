@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 4
 ---
 
-# VS Code problems troubleshoot
+# VS Code problems troubleshooting
 
 <!-- ## Wizard
 
@@ -19,39 +19,39 @@ LaTeX. There are two frequent problems:
 
 1. LaTeX fatal error: spawn pdflatex ENOENT
    
-   Cause: VS Code can't locate the compiler (TeXLive, MiKTeX or MacTeX).  
+   Cause: VS Code cannot locate the compiler (TeXLive, MiKTeX or MacTeX).  
    Try closing VS Code and restarting your computer, this might solve the
    problem!
 
 2. Perl not found
 
    Cause: LaTeX Workshop assumes an installation with TeXLive or MacTeX. This
-   installs Perl by default, while MiKTeX doesn't. Perl is required by
+   installs Perl by default, while MiKTeX does not. Perl is required by
    `latexmk`, which compiles the code on each change by default. Instead we can
    trigger `pdflatex` for each compilation, which I prefer over automatic
    compilation.
 
 ## Fixing using the wizard
 
-For this reason, I've made a <a href="./configwizard" target="_blank">Config wizard</a>
+For this reason, I have made a <a href="./configwizard" target="_blank">Config wizard</a>
 which fixes the settings for everything to work again. Follow these steps:
 
 1. Open `settings.json`. See [Opening settings.json](#opening-settingsjson)
    below.
 2. Select the desired options.
 
-   Check "Add pdflatex-only recipe". You need it if you've installed MiKTeX as
-   compiler, or if you're getting the error 'Perl not found'. But adding it
+   Check "Add pdflatex-only recipe". You need it if you have installed MiKTeX as
+   compiler, or if you are getting the error 'Perl not found'. But adding it
    never hurts.
 
-   If you're experiencing `LaTeX fatal error: spawn pdflatex ENOENT`, check
+   If you are experiencing `LaTeX fatal error: spawn pdflatex ENOENT`, check
    `Set pdflatex to full path`. See [Getting path to pdflatex](#getting-path-to-pdflatex)
    below for obtaining the "Full path to pdflatex".
 
 3. Generate new settings, and save them to the `settings.json`.
 4. Restart VS Code.
-5. If it's still not working, contact me. If it is working, I would love to hear
-   if it helped!  
+5. If it is still not working, contact me. If it is working, I would love to
+   hear if it helped!  
    <ShowEmail/>
 
 
@@ -72,7 +72,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="windows">
 
 Press `Start+R`, type `cmd` and hit enter. Type `pdflatex -version` and press
-enter. If this gives an error telling the command doesn't exist, there is a problem
+enter. If this gives an error telling the command does not exist, there is a problem
 which your distribution. You can try uninstalling it and installing a different
 distribution, or contact me. Else, proceed.
 
@@ -83,7 +83,7 @@ path to `pdflatex`.
 <TabItem value="mac">
 
 Open the app called `Terminal`. Type `pdflatex -version` and press enter.
-If this gives an error telling the command doesn't exist, there is a problem
+If this gives an error telling the command does not exist, there is a problem
 which your distribution. You can try uninstalling it and installing a different
 distribution, or contact me. Else, proceed.
 
@@ -104,7 +104,7 @@ Studio Code. Does it work now? -->
 <TabItem value="linux">
 
 Open `Terminal`. Type `pdflatex -version` and press enter. If this gives an
-error telling the command doesn't exist, there is a problem which your
+error telling the command does not exist, there is a problem which your
 distribution. You can try uninstalling it and installing a different
 distribution, or contact me. Else, proceed.
 

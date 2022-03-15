@@ -1,10 +1,10 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 # Installation
 
-import ShowEmail from "../../src/components/ShowEmail"
+import ShowEmail from "../../src/components/ShowEmail";
 
 Toubles compiling? See [VS Code problems troubleshooting](/latex/configuration/fixingVSCode).
 
@@ -28,7 +28,7 @@ See the image below for an impression. [Open image in new tab.](/img/latex/Visua
 
 ## Distribution
 
-Visual Studio Code is the editor: it's mostly concerned with presenting the
+Visual Studio Code is the editor: it is mostly concerned with presenting the
 code in a nice manner. To produce a `.pdf` file from a `.tex` file, we need
 another program too. This is the compiler, which is part of a distribution.
 Refer to the following snippet taken from [a-es2.nl/texnicie](http://a-es2.nl/texnicie) to see which distribution you need to install:
@@ -39,8 +39,8 @@ Refer to the following snippet taken from [a-es2.nl/texnicie](http://a-es2.nl/te
   On Debian you can do
   `sudo apt-get install texlive-full`.
 
-The distributions don't differ much from each other. On Windows, MiKTeX can
-install packages automatically, TeX Live can't. TeX Live rather chooses to install
+The distributions do not differ much from each other. On Windows, MiKTeX can
+install packages automatically, TeX Live cannot. TeX Live rather chooses to install
 all or most packages, which takes a couple of gigabytes of storage. TeX Live is
 however better integrated with the command line, if you plan on using that.
 
@@ -48,7 +48,7 @@ The distribution might take a lot of time to install. The other required parts
 will be faster.
 
 ** Download and install MiKTeX, MacTeX or TeX Live, depending on your operating
-system or preference. **
+system and preference. **
 
 ---
 
@@ -63,15 +63,14 @@ On Mac and Linux, Perl is installed by default. You can skip this step.
 
 LaTeX Workshop (see below) compiles your `.tex` by default with `latexmk` (a
 program shipped by each distribution), which needs Perl installed on your
-computer. On Windows, Perl isn't installed by default, and only TeX Live comes
+computer. On Windows, Perl is not installed by default, and only TeX Live comes
 bundled with it.
 
 The script `latexmk` improves the user experience for compiling multiple times
 or with a bibliography. You can install Perl from https://strawberryperl.com.
 
 Alternatively, you can instruct the `LaTeX Worskhop`-extension to use `pdflatex`
-for compiling instead. Instructions for this are at [FIXING VS
-CODE](/latex/configuration/fixingVSCode).
+for compiling instead. Instructions for this are at [VS Code problems troubleshooting](/latex/configuration/fixingVSCode).
 
 For more on `latexmk`: https://mg.readthedocs.io/latexmk.html
 
@@ -85,7 +84,7 @@ For more on `latexmk`: https://mg.readthedocs.io/latexmk.html
 
 The installation can take some time. In the meantime you can already have a
 look inside Visual Studio Code. Some of the steps below should be doable while
-the distribution isn't installed yet. However, if you want to play on the safe
+the distribution is not installed yet. However, if you want to play on the safe
 side, wait for the distribution to be installed before proceeding.
 
 In Visual Studio Code you need to install the extension 'LaTeX Workshop'. In the
@@ -121,7 +120,7 @@ select a specific recipe. Wait till compilation is done.
 
 ![Screenshot of VS Code statusbar after succesful compilation](/assets/latex/VSCodeStatusbarCompiled.png)
 
-If you don't get a success, have a look at [FIXING VS CODE](/latex/configuration/fixingVSCode).
+If you do not get a success, have a look at [VS Code problems troubleshooting](/latex/configuration/fixingVSCode).
 If you get the success checkmark, click the `View LaTeX PDF` button.
 
 ---
