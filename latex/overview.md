@@ -5,10 +5,15 @@ slug: /
 
 # Overview
 
-** Toubles compiling? See [FIXING VS CODE](/latex/configuration/fixingVSCode) **
-
-Select one of the subjects in the menu. For installation instructions, go to
+Select one of the subjects in the left menu. (On mobile tap top left overflow
+menu button.) For installation instructions, go to
 [vkuhlmann.com/latex/installation](/latex/configuration/installation).
+
+## UAV (March 2022)
+
+<p><b><span>Slides: </span>
+<a href="/assets/latex/presentation-2022-03-UAV_Handout.pdf" target="_blank">presentation-2022-03-UAV_Handout.pdf</a>
+</b></p>
 
 ## GSNS (February 2022)
 
