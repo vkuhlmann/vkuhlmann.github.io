@@ -28,10 +28,16 @@ export default props => {
     const [contents, setContents] = useState(<span>Not available</span>);
 
     const generateEmail = () => {
-        console.log("Styles is");
-        console.log(styles);
+        // console.log("Styles is");
+        // console.log(styles);
 
-        let monospaceStyle = {fontFamily: "'Courier New', Courier, monospace"};
+        let monospaceStyle = {
+            //fontFamily: "'Courier New', Courier, monospace",
+            // BEGIN Source: Docusaurus with Prism
+            fontFamily: 'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            // END Source
+            //fontWeight: "bold"
+        };
 
         return (<>
         <span style={monospaceStyle}>
