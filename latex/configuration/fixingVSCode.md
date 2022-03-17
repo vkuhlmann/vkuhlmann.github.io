@@ -14,8 +14,8 @@ import ShowEmail from "../../src/components/ShowEmail"
 
 ## Common errors
 
-When installing VS Code, you might encounter some hurdles trying to compile
-LaTeX. There are two frequent problems:
+When setting up VS Code with LaTeX, you might encounter some hurdles trying to
+compile. There are two frequent problems:
 
 1. LaTeX fatal error: spawn pdflatex ENOENT
    
@@ -25,11 +25,12 @@ LaTeX. There are two frequent problems:
 
 2. Perl not found
 
-   Cause: LaTeX Workshop assumes an installation with TeXLive or MacTeX. This
-   installs Perl by default, while MiKTeX does not. Perl is required by
-   `latexmk`, which compiles the code on each change by default. Instead we can
-   trigger `pdflatex` for each compilation, which I prefer over automatic
-   compilation.
+   Cause: LaTeX Workshop assumes Perl is installed. This is not automatically
+   the case for Windows users when using MiKTeX. Perl is required by
+   `latexmk`, which compiles the code on each change by default.
+   Have a look at the installation page for instructions on how to install
+   Perl. Alternatively, the next section shows you how to trigger `pdflatex`
+   instead of `latexmk` for each compilation. This does not require Perl.
 
 ## Fixing using the wizard
 
