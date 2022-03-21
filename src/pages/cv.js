@@ -9,6 +9,7 @@ import ShowEmail from "../components/ShowEmail";
 import _ from "lodash";
 import MaterialTable from "material-table";
 import {Grid, Box} from "theme-ui";
+import Timeline from '../components/Timeline';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -58,8 +59,8 @@ export default function Home() {
     .value()
     ;
 
-  console.log("Personal details:");
-  console.log(personalDetails);
+  // console.log("Personal details:");
+  // console.log(personalDetails);
 
   return (
     <Layout
@@ -85,11 +86,11 @@ export default function Home() {
 
             <div style={{maxWidth: "100%", marginBottom: "30px"}}>
             <Grid gap={"0px 20px"} columns={[2, "auto 1fr"]}>
-              {_.map(personalDetails, entry => (
-                <>
+              {_.map(personalDetails, (entry, index) => (
+                <React.Fragment key={index}>
                   <Box><strong>{entry.header}:</strong></Box>
                   <Box>{entry.value}</Box>
-                </>
+                </React.Fragment>
               ))}
             </Grid>
             </div>
@@ -115,6 +116,8 @@ export default function Home() {
                 no plans of doing internships or part-time working during my
                 master.
             </p>
+
+            <Timeline />
 
             <h2>About me</h2>
             <p>
