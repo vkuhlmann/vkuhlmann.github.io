@@ -10,6 +10,10 @@ import _ from "lodash";
 import MaterialTable from "material-table";
 import {Grid, Box} from "theme-ui";
 import Timeline from '../components/Timeline';
+import Experiences from "../components/Experiences";
+import Experience from "../components/Experience";
+
+import CVData from "./cv.json";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -97,7 +101,7 @@ export default function Home() {
             {/* Student at Utrecht University. Mathematics and Physics. Hobbyist development experience: 10+ years (C++, C#, Python, Javascript, Java, ...) */}
 
             <h2>Education and experiences</h2>
-            <ul>
+            {/* <ul>
                 <li>September 2018 - Present*: Bachelor of science Mathematics at Utrecht University.</li>
                 <li>September 2018 - Present*: Bachelor of science Physics at Utrecht University.</li>
                 <li>September 2018 - Present*: Bachelor of science minor Computer Science at Utrecht University.</li>
@@ -106,6 +110,27 @@ export default function Home() {
                 <li>September 2021 - December 2021: Dutch Teacher and Secretary at Dutch Language Committee of ESN Utrecht.</li>
                 <li>September 2012 - June 2018: High school at Sint-Jan Berchmanscollege Brussels.</li>
             </ul>
+            <p>
+                * Graduation expected in summer of 2022.
+            </p> */}
+
+            <Experiences>
+              {/* <Experience 
+                from="2018-09" to="present*"
+                title="Bachelor of science Mathematics"
+                organization="Utrecht University"
+              /> */}
+              {
+                _(CVData.experiences).map((exp, index) => (
+                  <Experience entry={exp}
+                    from={exp.from}
+                    to={exp.to}
+                    title={exp.title}
+                    organization={exp.organization}
+                  />
+                )).value()
+              }
+            </Experiences>
             <p>
                 * Graduation expected in summer of 2022.
             </p>
@@ -117,7 +142,7 @@ export default function Home() {
                 master.
             </p>
 
-            <Timeline />
+            {/* <Timeline /> */}
 
             <h2>About me</h2>
             <p>
