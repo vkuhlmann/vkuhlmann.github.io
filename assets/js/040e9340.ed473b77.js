@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkvkuhlmann_www=self.webpackChunkvkuhlmann_www||[]).push([[1961],{5171:function(h){h.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"highlight","name":"highlight","count":1,"permalink":"/blog/tags/highlight"}')}}]);
