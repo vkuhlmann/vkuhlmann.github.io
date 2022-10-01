@@ -218,13 +218,13 @@ export default function Home() {
                 </li>
                 <li>
                   Interested to learn or already basic understanding:
-                  PHP, Assembly, F#, R.
+                  Lua, Perl, PHP, Assembly, F#, R.
                 </li>
               </ul>
 
               <p>
                 <strong>Experience developing with:</strong>{' '}
-                Linux, Amazon Web Services, Sqlite3 databases.
+                Linux, Amazon Web Services, Sqlite3 databases, DirectX.
               </p>
               <p>
                 <strong>Experience developing for:</strong>{' '}
