@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvkuhlmann_www=self.webpackChunkvkuhlmann_www||[]).push([[8209],{25467:function(n,e){e.Z={heroBanner:"heroBanner_1ZBZ",buttons:"buttons_irzW"}},23677:function(n,e,u){u.r(e),u.d(e,{default:function(){return r}});var t=u(67294);u(69930),u(80033),u(25467);function r(){return t.createElement("div",null,"Home!  a")}}}]);

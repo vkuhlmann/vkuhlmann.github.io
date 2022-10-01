@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="Docusaurus v2.0.0-beta.4">
+<link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="vkuhlmann.com Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="vkuhlmann.com Blog Atom Feed">
+<link rel="preconnect" href="https://www.google-analytics.com">
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-206863837-1",{storeGac:!1,storage:"none",clientId:"d13d635e-6f05-47fd-b0d9-8e936a60a262"}),ga("send","pageview")</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script><title data-react-helmet="true">Functions in TI-BASIC: Challenge accepted | vkuhlmann.com</title><meta data-react-helmet="true" property="og:title" content="Functions in TI-BASIC: Challenge accepted | vkuhlmann.com"><meta data-react-helmet="true" name="description" content="At high school, I loved to toy around with my TI-84 Plus calculator. It was the"><meta data-react-helmet="true" property="og:description" content="At high school, I loved to toy around with my TI-84 Plus calculator. It was the"><meta data-react-helmet="true" property="og:url" content="https://vkuhlmann.com/blog/functions-in-ti-basic"><meta data-react-helmet="true" name="docusaurus_locale" content="en"><meta data-react-helmet="true" name="docusaurus_tag" content="default"><link data-react-helmet="true" rel="shortcut icon" href="/img/favico.ico"><link data-react-helmet="true" rel="canonical" href="https://vkuhlmann.com/blog/functions-in-ti-basic"><link data-react-helmet="true" rel="alternate" href="https://vkuhlmann.com/blog/functions-in-ti-basic" hreflang="en"><link data-react-helmet="true" rel="alternate" href="https://vkuhlmann.com/blog/functions-in-ti-basic" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.63c9df41.css">
+<link rel="preload" href="/assets/js/runtime~main.f1658844.js" as="script">
+<link rel="preload" href="/assets/js/main.1878dd30.js" as="script">
+</head>
+<body>
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
+<div><a href="#" class="skipToContent_1oUP">Skip to main content</a></div><nav class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Navigation bar toggle" class="navbar__toggle clean-btn" type="button" tabindex="0"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><img src="/img/VK.png" alt="VK" class="themedImage_1VuW themedImage--light_3UqQ navbar__logo"><img src="/img/VK.png" alt="VK" class="themedImage_1VuW themedImage--dark_hz6m navbar__logo"><b class="navbar__title">vkuhlmann.com</b></a><a class="navbar__item navbar__link" href="/latex">LaTeX</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/blog">Blog</a><a class="navbar__item navbar__link" href="/projects">Projects</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/vkuhlmann" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link"><span>GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_3J9K"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></span></a><div class="react-toggle toggle_3Zt9 react-toggle--disabled"><div class="react-toggle-track" role="button" tabindex="-1"><div class="react-toggle-track-check"><span class="toggle_71bT">🌜</span></div><div class="react-toggle-track-x"><span class="toggle_71bT">🌞</span></div><div class="react-toggle-thumb"></div></div><input type="checkbox" class="react-toggle-screenreader-only" aria-label="Switch between dark and light mode"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div class="main-wrapper blog-wrapper blog-post-page"><div class="container margin-vert--lg"><div class="row"><aside class="col col--3"><nav class="sidebar_2ahu thin-scrollbar" aria-label="Blog recent posts navigation"><div class="sidebarItemTitle_2hhb margin-bottom--md">Recent posts</div><ul class="sidebarItemList_2xAf"><li class="sidebarItem_2UVv"><a aria-current="page" class="sidebarItemLink_1RT6 sidebarItemLinkActive_12pM" href="/blog/functions-in-ti-basic">Functions in TI-BASIC: Challenge accepted</a></li><li class="sidebarItem_2UVv"><a class="sidebarItemLink_1RT6" href="/blog/showing-latex">Showing LaTeX in LaTeX: The good, the bad and the ugly</a></li></ul></nav></aside><main class="col col--7"><article><header><h1 class="blogPostTitle_GeHD">Functions in TI-BASIC: Challenge accepted</h1><div class="blogPostData_291c margin-vert--md"><time datetime="2021-04-17T00:00:00.000Z">April 17, 2021</time> · 15 min read</div><div class="avatar margin-vert--md"><a href="https://github.com/vkuhlmann" target="_blank" rel="noopener noreferrer" class="avatar__photo-link avatar__photo"><img src="/img/VK.png" alt="Vincent Kuhlmann"></a><div class="avatar__intro"><div class="avatar__name"><a href="https://github.com/vkuhlmann" target="_blank" rel="noopener noreferrer">Vincent Kuhlmann</a></div><small class="avatar__subtitle"></small></div></div></header><div class="markdown"><main><p>At high school, I loved to toy around with my TI-84 Plus calculator. It was the
+most techy thing you were allowed to use during school hours. It featured a very
+stupid (read: challenging) programming language: TI-BASIC. I made a wild host of
+programs on it, like a program to count down to the end of class, and a
+text-to-morse converter.</p><p>In this article, I want to focus on one hurdle, and how I solved it: functions.</p><div><div style="border-left:2px solid hsl(0, 100%, 30%);padding:6px 0px 6px 6px;margin-bottom:5px"><div class="codeBlockContainer_FUmw" style="color:#393A34;background-color:#f6f8fa"><div class="codeBlockTitle_1wbM">A try-it of the &quot;program&quot; in Solution 1</div><div class="codeBlockContent_1XSv TIBasic"><pre class="prism-code language-TIBasic" style="color:#393A34;background-color:#f6f8fa;height:200px;overflow-y:scroll" spellcheck="false"><code><span class="token function" style="color:#d73a49">ClrHome</span><span class="token plain"></span>
+
+<span class="token plain">0-&gt;K</span>
+<span class="token plain">1-&gt;S</span>
+<span class="token plain">1-&gt;N</span>
+<span class="token plain">1-&gt;J</span>
+<span class="token plain">{0,0,0,0,0,0}-&gt;lCOUNT</span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">While</span><span class="token plain"> K!=22 and K!=45</span>
+
+<span class="token plain">0-&gt;C</span>
+<span class="token plain">For(I,1,N)</span>
+<span class="token plain">C+lCOUNT(I)-&gt;C</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> I=J and S=0</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,1,&quot;&gt;&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Else</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,1,&quot; &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,2,&quot;COUNT:&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,9,&quot;    &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,9,lCOUNT(I))</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(7,1,&quot;AVG:&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(7,9,&quot;        &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(7,9,round(C/N,2))</span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> S=1</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(8,1,&quot;COUNTERS:&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(8,11,N)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Else</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(8,1,&quot;           &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">While</span><span class="token plain"> K=0</span>
+<span class="token plain">getKey-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> S=1</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=95</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">min(N+1,dim(lCOUNT))-&gt;N</span>
+<span class="token plain">0-&gt;lCOUNT(N)</span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=85</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">max(1,N-1)-&gt;N</span>
+<span class="token plain">min(N,J)-&gt;J</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">ClrHome</span><span class="token plain"></span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=21</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">0-&gt;S</span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=21</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">1-&gt;S</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=102</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">0-&gt;lCOUNT(J)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=95 or K=85</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">lCOUNT(J)-1+2*(K=95)-&gt;lCOUNT(J)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=34</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">remainder(J,N)+1-&gt;J</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=25</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">remainder(J+N-2,N)+1-&gt;J</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">ClrHome</span>
+</code></pre><button type="button" aria-label="Copy code to clipboard" class="copyButton_3a42 clean-btn" style="margin-right:20px">Copy</button></div></div><div class="LAmVJup4QjuCH3bJ29dw" style="padding:8px"><div class="_giRfk4S9SuOpHmncW6Y"><div style="display:flex;flex-flow:column nowrap"><div class="QAfvgFSWdo3MgYT6cL7G" style="flex:0 0 auto"><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span></div><div dataid="status" style="white-space:pre;max-width:200px;overflow:auto">No status</div></div><div class="_th_13NK6aNOMvKsSrrC"><button class="m60aWAb_UH0ALXt3WvJZ" action="run">Run</button><button class="m60aWAb_UH0ALXt3WvJZ" action="stop" disabled="">Stop</button><button class="m60aWAb_UH0ALXt3WvJZ">2nd</button><button class="m60aWAb_UH0ALXt3WvJZ">Mode (Quit)</button><button class="m60aWAb_UH0ALXt3WvJZ">Enter</button><button class="m60aWAb_UH0ALXt3WvJZ">+</button><button class="m60aWAb_UH0ALXt3WvJZ">-</button><button class="m60aWAb_UH0ALXt3WvJZ">0</button><button class="m60aWAb_UH0ALXt3WvJZ">Up</button><button class="m60aWAb_UH0ALXt3WvJZ">Down</button></div></div></div></div></div><p>In this post:</p><ol><li><a href="#functions-the-need">Functions: The need</a></li><li><a href="#solution-0-everything-in-a-separate-program">Solution 0: Everything in a separate program?</a></li><li><a href="#solution-1-a-state-machine">Solution 1: A state machine</a></li><li><a href="#solution-2-a-redirection-center">Solution 2: A redirection center</a></li><li><a href="#solution-3-abusing-the-call-stack">Solution 3: Abusing the call stack</a></li></ol><div style="display:flex;flex-flow:column nowrap;gap:10px;border-top:3px solid black;border-bottom:3px solid black;padding-top:10px;padding-bottom:10px"><div style="display:flex;width:100%;flex-flow:row wrap;gap:30px"><div style="flex:1 1 200px"><img src="/img/calculator/calculator_countdown_minutes.jpg" alt="CNTDWN &lt;3" style="width:100%"></div><div style="flex:1 1 200px"><img src="/img/calculator/calculator_countdown_seconds.jpg" alt="CNTDWN &lt;3" style="width:100%"></div></div><div style="font-size:120%">Figure 1: Photo of &#x27;count-down-to-end-of-class&#x27;-program running.</div></div><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="functions-the-need"></a>Functions: The need<a class="hash-link" href="#functions-the-need" title="Direct link to heading">#</a></h2><p>Functions are pieces of code that can be called from anywhere in the program.
+For example, to redraw the screen after having processed a keystroke. They are
+the bread and butter of all popular programming languages, but in TI-BASIC, they
+don&#x27;t exist. Sure, there are of course the primitive functions to instruct the
+calculator to do things like clear the screen, but no ability to define a
+function yourself. From worst to best, what are the solutions?</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="solution-0-everything-in-a-separate-program"></a>Solution 0: Everything in a separate program?<a class="hash-link" href="#solution-0-everything-in-a-separate-program" title="Direct link to heading">#</a></h2><p>From within a program, you can call other programs. Even before getting to know
+any caviats, for me there&#x27;s a giant dealbreaker: a huge amount of programs. Even
+with my self-contained programs, I have a long list of programs, and if each
+would be split up in say four parts, that would be very unmanagable. Also, if
+you need to distribute your program, that isn&#x27;t very user friendly either. A
+self-contained program is definitely my go-to.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="solution-1-a-state-machine"></a>Solution 1: A state machine<a class="hash-link" href="#solution-1-a-state-machine" title="Direct link to heading">#</a></h2><p>In this method, you create a while-loop spanning the whole program. Suppose you
+want to enter a &#x27;setup&#x27; menu, then we change a variable &#x27;S&#x27; from &#x27;0&#x27; to &#x27;1&#x27;.
+When a key is pressed, you subsequently check if the mode is &#x27;0&#x27; (normal) or &#x27;1&#x27;
+(setup), and handle the press accordingly. Do we want to leave &#x27;setup&#x27; mode?
+Then set <code>S=0</code> and the next iteration of the while-loop takes care of it.</p><p>I&#x27;ve added a simple demonstration program below.</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk YCiG3fK0RO9hZUvak2kt i0yvUrKc1eNuNQ65FWrT">Show code</button><div class="_oMDQpj9_qLCkZKPHhUS"><span style="font-style:italic">Code collapsed</span></div></div></div><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">[Pseudocode]<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(54, 90%, 50%)">Setup <br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(189, 90%, 50%)">BeginLoop <br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(90, 90%, 50%)">&nbsp; DrawCounts <br></span><span datadisplayline="5" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(122, 90%, 20%)">&nbsp; DrawAvg <br></span><span datadisplayline="6" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(122, 90%, 20%)">&nbsp; DrawSetupUI<br></span><span datadisplayline="7" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(31, 90%, 50%)">&nbsp; AwaitKey <br></span><span datadisplayline="8" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(207, 90%, 50%)">&nbsp; HandleKey_Setup <br></span><span datadisplayline="9" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid darkblue">&nbsp; HandleKey_Normal <br></span><span datadisplayline="10" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(189, 90%, 50%)">EndLoop <br></span></div></div></div></div><p>This demonstrates a simple program where we have a number of counters. Each
+counter can be incremented by pressing the &#x27;+&#x27;-button (key 95, line 90). We
+can also reset a counter by pressing &#x27;0&#x27; (key 102, line 85). There are
+multiple counters, and we can navigate between them using the arrows (line
+97).</p><p>Additionally, there is a &#x27;setup&#x27; mode, in which we can increase and decrease
+the amount of counters. This mode is entered and leaved by pressing &#x27;2nd&#x27; (key
+21).</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="solution-2-a-redirection-center"></a>Solution 2: A redirection center<a class="hash-link" href="#solution-2-a-redirection-center" title="Direct link to heading">#</a></h2><p>We don&#x27;t need to do one big while-loop. TI-BASIC features a <code>Goto</code> and <code>Lbl</code>
+statement. A <code>Lbl</code> is succeeded with one or two characters, e.g. <code>Lbl A9</code>. Then,
+from anywhere in your program (before or after), use a <code>Goto</code> statement with
+the same pair, e.g. <code>Goto A9</code>. The program jumps to the <code>Goto</code> line and runs
+the lines following it.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="the-code"></a>The code<a class="hash-link" href="#the-code" title="Direct link to heading">#</a></h3><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk YCiG3fK0RO9hZUvak2kt i0yvUrKc1eNuNQ65FWrT">Show code</button><div class="_oMDQpj9_qLCkZKPHhUS"><span style="font-style:italic">Code collapsed</span></div></div></div><p>Sure, this program is longer and a bit slower than its Solution 1 equivalent,
+but the investment has a return: we have a clear separation of the different
+parts in our code, and can call between them however we like. I&#x27;ve gone to the
+extremes by even giving each segment a name by ways of a loose string. <strong>[1]</strong></p><p>The segmentation fulfills an extra role when programming on your calculator:
+moving code around is very difficult. If instead, you only need to reorder the
+function calls, in my opinion, this is a win. The extra colons are also
+discarded, they are just for code clarity.</p><hr><p><strong>[1]</strong>: Simply evaluating an expression without using its value is valid. It&#x27;s
+value is stored in <code>Ans</code>. If it&#x27;s the last statement of your program, the value
+will be printed as a sort of &#x27;result&#x27; of your program.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="function-call"></a>Function call<a class="hash-link" href="#function-call" title="Direct link to heading">#</a></h3><p>Take a look at the <code>&quot;NORMAL&quot;</code> segment. It&#x27;s code is basically</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">"NORMAL"<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 10<br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">0→S<br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="5" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">11→R<br></span><span datadisplayline="6" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">15→T<br></span><span datadisplayline="7" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto RE<br></span><span datadisplayline="8" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 11<br></span><span datadisplayline="9" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="10" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">12→R<br></span><span datadisplayline="11" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">01→T<br></span><span datadisplayline="12" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto RE<br></span><span datadisplayline="13" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 12<br></span><span datadisplayline="14" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="15" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">(Key handling)<br></span><span datadisplayline="16" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 10<br></span></div></div></div></div><p>Note the <code>Lbl 10</code> and <code>Goto 10</code> themselves generate a while-loop. The <code>S=0</code> is
+necessary for the <code>&quot;DRAW&quot;</code>-segment, which will now be called. The following
+four non-empty lines are the &#x27;function call&#x27; of this solution. I set &#x27;T&#x27; to the
+label where we want to go, and set &#x27;R&#x27; to where we need to come back after.
+Setting <code>T=15</code>, means we will call the <code>&quot;DRAW&quot;</code>-segment. When the draw is done,
+we need to return to our calling code. For this we place a label <code>Lbl 11</code> at the
+end of our function call, and with <code>R=11</code> we need to indicate this. Next, we
+jump to <code>RE</code>. This is what I call &#x27;the redirection center&#x27;. And that&#x27;s our
+function call complete! We repeat the same again to call <code>&quot;AWAITKEY&quot;</code>.</p><p>Yes, I agree, this is bulky. But hey, when coding in TI-BASIC, bulkiness is the
+name of the game. In return, we are now able to clearly split up our code, and
+call it from multiple places, like the <code>&quot;AWAITKEY&quot;</code>-segment. After the call is
+completed, we just resume where we left of.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="dynamic-gotos"></a>Dynamic Goto&#x27;s<a class="hash-link" href="#dynamic-gotos" title="Direct link to heading">#</a></h3><p>Ok, so what&#x27;s the idea of a redirection center? The unfortunate thing of
+<code>Goto</code>&#x27;s is its destination has to be hardcoded. Hence for each possible return
+destination we have a <code>Goto</code>, and with <code>If</code>-statements, we select the right one.
+Lines 178 through 195 do this. We do this in one place, which I&#x27;ve been calling
+the &#x27;redirection center&#x27;. In the previous example, we had set <code>R=11</code>, and upon
+returning from the call, we use <code>Goto RE</code> to jump to the redirection center, and
+it will execute the <code>Goto 11</code> line.</p><p>With this, the essence is</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "A"<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">11→R<br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 15<br></span><span datadisplayline="5" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 11<br></span><span datadisplayline="6" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="7" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "B"<br></span><span datadisplayline="8" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Stop<br></span><span datadisplayline="9" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="10" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">:::<br></span><span datadisplayline="11" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="12" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 15<br></span><span datadisplayline="13" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "C"<br></span><span datadisplayline="14" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="15" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto RE<br></span><span datadisplayline="16" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="17" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">:::<br></span><span datadisplayline="18" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="19" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl RE<br></span><span datadisplayline="20" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="21" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">If R=11<br></span><span datadisplayline="22" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 11<br></span><span datadisplayline="23" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">If R=12<br></span><span datadisplayline="24" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 12<br></span><span datadisplayline="25" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="26" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "E"<br></span></div></div></div></div><p>This outputs <code>ACDB</code>. Note we aren&#x27;t using any <code>Lbl 12</code> yet, so <code>Goto 12</code> isn&#x27;t
+valid. But as long as we don&#x27;t set <code>R=12</code>, the program won&#x27;t notice it.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="nesting"></a>Nesting<a class="hash-link" href="#nesting" title="Direct link to heading">#</a></h3><p>The code fragment from <em>Dynamic Goto&#x27;s</em> doesn&#x27;t allow function nesting. In the
+section <em>Function call</em> we showed a slightly different function call code which
+does allow for nesting, and that also requires some extra code in the
+redirection center.</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">"REDIRECT"<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl RE<br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">If R=-­1<br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Then<br></span><span datadisplayline="5" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">⌊RED(dim(⌊RED))→T<br></span><span datadisplayline="6" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">dim(⌊RED)-1→dim(⌊RED)<br></span><span datadisplayline="7" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="8" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Else<br></span><span datadisplayline="9" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="10" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">R→⌊RED(dim(⌊RED)+1)<br></span><span datadisplayline="11" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">­-1→R<br></span><span datadisplayline="12" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">End<br></span><span datadisplayline="13" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="14" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">(Goto statements)<br></span></div></div></div></div><p>We use a new list <code>RED</code> to keep track of the places we will to return to. At
+the start of your program set <code>{­-1}→⌊RED</code> to create the list.</p><p>If we get <code>R</code> and <code>T</code> specified, we add <code>R</code> to the list. We then set <code>R=-1</code> so
+if we consequently jump to <code>RE</code> for the end of the function, still <code>R=-1</code>, and
+we know we are leaving a function instead of entering one. The goto statements
+will then select the segment <code>T</code> refers to.</p><p>If we haven&#x27;t set <code>R</code> and <code>T</code> before jumping to <code>RE</code>, then <code>R=-1</code>. In that case,
+we need to return to the last caller return. For this, we set the target <code>T</code> to
+the last element of the list, and shrink the list so the last element is
+removed. The goto statements then jump to that old caller.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="solution-3-abusing-the-call-stack"></a>Solution 3: Abusing the call stack<a class="hash-link" href="#solution-3-abusing-the-call-stack" title="Direct link to heading">#</a></h2><h3><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="the-trick"></a>The trick<a class="hash-link" href="#the-trick" title="Direct link to heading">#</a></h3><p>Let me tell you something: when you don&#x27;t close a scope with <code>End</code>, you won&#x27;t
+get any complaints: it&#x27;s as if those are added at the very end of your program
+implicitly. Ok, something for when you&#x27;re very lazy, right? Well, not quite.
+Without it, our program in Solution 2 would have gotten those errors when trying
+to quit.</p><p>And there is even an obscure way that could let our program crash. An example
+which could do the crash more easily:</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">ClrHome<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 1A<br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">startTmr→T<br></span><span datadisplayline="5" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">If remainder(T,2)=0<br></span><span datadisplayline="6" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Then<br></span><span datadisplayline="7" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 1B<br></span><span datadisplayline="8" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Else<br></span><span datadisplayline="9" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 1A<br></span><span datadisplayline="10" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">End<br></span><span datadisplayline="11" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="12" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 1B<br></span><span datadisplayline="13" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Output(1,1,T)<br></span><span datadisplayline="14" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Goto 1A<br></span></div></div></div></div><p>A little program which displays even times on screen. The output is done in the
+<code>1B</code> segment. But this unsuspecting program crashes with error ERR:MEMORY. In
+fact, it&#x27;s a stackoverflow. It might be more instructive to imagine a
+<code>While</code>-loop instead of an <code>If</code>-block. If I write</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">ClrHome<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">While 1<br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Output(1,1,startTmr)<br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">End<br></span></div></div></div></div><p>then at each encounter of <code>End</code>, it needs to jump back to the start of the
+<code>While</code>-loop. Hence, the calculator remembers what block we are in. However,
+when we use <code>Goto</code>, this stack is preserved! In the main fragment, it is to the
+calculator as if we are opening an infinite amount of <code>If</code> blocks, without ever
+having closed one!</p><p>This finding is our superhero in the quest for functions in TI-BASIC. Because,
+if a <code>While</code>-, <code>For</code>- or <code>Repeat</code>-loop is open, encountering an <code>End</code> can return
+execution to the start of the loop. This is done if the loops condition allows
+a next iteration.</p><p>The strategy: we use <code>Goto</code> while a loop is open, the called segment finishes
+with an extra <code>End</code>, which is matched against the open loop. Then, the loop
+needs to be run another time, but of course without the <code>Goto</code> being called
+a second time. This translates to the following scheme:</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk i0yvUrKc1eNuNQ65FWrT">Hide code</button><div class="_oMDQpj9_qLCkZKPHhUS"><div><span datadisplayline="1" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "A"<br></span><span datadisplayline="2" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="3" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(207, 90%, 50%)">For(H,-­1,0<br></span><span datadisplayline="4" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(207, 90%, 50%)">If H:Goto 15<br></span><span datadisplayline="5" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsl(207, 90%, 50%)">End:-­1→H<br></span><span datadisplayline="6" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="7" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "B"<br></span><span datadisplayline="8" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Stop<br></span><span datadisplayline="9" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)"><br></span><span datadisplayline="10" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Lbl 15<br></span><span datadisplayline="11" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">Disp "C"<br></span><span datadisplayline="12" class="N91MmnAGaWzXCkrRYUNf" style="border-left:4px solid hsla(0, 100%, 50%, 0%)">:End<br></span></div></div></div></div><div><div style="border-left:2px solid hsl(0, 100%, 30%);padding:6px 0px 6px 6px;margin-bottom:5px"><div class="codeBlockContainer_FUmw" style="color:#393A34;background-color:#f6f8fa"><div class="codeBlockTitle_1wbM"></div><div class="codeBlockContent_1XSv TIBasic"><pre class="prism-code language-TIBasic" style="color:#393A34;background-color:#f6f8fa;height:200px;overflow-y:scroll" spellcheck="false"><code><span class="token function" style="color:#d73a49">ClrHome</span><span class="token plain"></span>
+<span class="token plain">Disp &quot;A&quot;</span>
+
+<span class="token plain">For(H,-1,0</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> H:Goto 15</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain">:-1-&gt;H</span>
+
+<span class="token plain">Disp &quot;B&quot;</span>
+<span class="token plain">Stop</span>
+
+<span class="token plain">Lbl 15</span>
+<span class="token plain">Disp &quot;C&quot;</span>
+<span class="token plain">:</span><span class="token function" style="color:#d73a49">End</span>
+</code></pre><button type="button" aria-label="Copy code to clipboard" class="copyButton_3a42 clean-btn" style="margin-right:20px">Copy</button></div></div><div class="LAmVJup4QjuCH3bJ29dw" style="padding:8px"><div class="_giRfk4S9SuOpHmncW6Y"><div style="display:flex;flex-flow:column nowrap"><div class="QAfvgFSWdo3MgYT6cL7G" style="flex:0 0 auto"><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span></div><div dataid="status" style="white-space:pre;max-width:200px;overflow:auto">No status</div></div><div class="_th_13NK6aNOMvKsSrrC"><button class="m60aWAb_UH0ALXt3WvJZ" action="run">Run</button><button class="m60aWAb_UH0ALXt3WvJZ" action="stop" disabled="">Stop</button><button class="m60aWAb_UH0ALXt3WvJZ">2nd</button><button class="m60aWAb_UH0ALXt3WvJZ">Mode (Quit)</button><button class="m60aWAb_UH0ALXt3WvJZ">Enter</button><button class="m60aWAb_UH0ALXt3WvJZ">+</button><button class="m60aWAb_UH0ALXt3WvJZ">-</button><button class="m60aWAb_UH0ALXt3WvJZ">0</button><button class="m60aWAb_UH0ALXt3WvJZ">Up</button><button class="m60aWAb_UH0ALXt3WvJZ">Down</button></div></div></div></div></div><p>This outputs <code>ACB</code>. The variable <code>H</code> is chosen as it is a &#x27;hook&#x27; in some way.
+At the first iteration, <code>H=-1</code>, and <code>If</code> evaluates for any non-zero value. At
+the second iteration, <code>H=0</code>, and the <code>Goto</code> won&#x27;t be evaluated. Next <code>H=1</code>, and
+this breaks the <code>For</code>-loop. Finally, we need to set <code>H=-1</code> again, because of
+nesting: if we now encounter the <code>End</code> to return to a call from higher up,
+the <code>H=1</code> will be incremented to <code>H=2</code>, but that is higher than the <code>0</code> the
+<code>For</code>-loop requires. Hence it will not iterate that one, and our whole scheme
+is broken. Therefore, you should always set <code>H=-1</code> again after a function call
+has been performed.</p><p>Colons mean a separation of statements, that&#x27;s also why the calculator renders
+each new line with a preceding colon. You can add extra colons, doing so adds an
+empty statement (like an empty line), so in most places this can be done purely
+aesthetically. This is what I do to indicate the &#x27;special&#x27; <code>End</code>&#x27;s; the <code>:End</code>
+doesn&#x27;t have a matching block begin above, it is there to return to our call
+hook.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2LWZ" id="the-code-1"></a>The code<a class="hash-link" href="#the-code-1" title="Direct link to heading">#</a></h3><p>Now our program can be written as</p><div><div class="HPe5fd_sL5b7uMJJryNR" style="color:#393A34;background-color:#f6f8fa"><button type="button" class="O0mrM2qA1_Pbz556ZBnk YCiG3fK0RO9hZUvak2kt i0yvUrKc1eNuNQ65FWrT">Show code</button><div class="_oMDQpj9_qLCkZKPHhUS"><span style="font-style:italic">Code collapsed</span></div></div></div><div><div style="border-left:2px solid hsl(0, 100%, 30%);padding:6px 0px 6px 6px;margin-bottom:5px"><div class="codeBlockContainer_FUmw" style="color:#393A34;background-color:#f6f8fa"><div class="codeBlockTitle_1wbM">A try-it of the program in Solution 3:</div><div class="codeBlockContent_1XSv TIBasic"><pre class="prism-code language-TIBasic" style="color:#393A34;background-color:#f6f8fa;height:200px;overflow-y:scroll" spellcheck="false"><code><span class="token function" style="color:#d73a49">ClrHome</span><span class="token plain"></span>
+
+<span class="token plain">&quot;MIT 2021 VINCENT KUHLMANN&quot;</span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain">1-&gt;N</span>
+<span class="token plain">1-&gt;J</span>
+<span class="token plain">{0,0,0,0,0,0}-&gt;lCOUNT</span>
+<span class="token plain">Goto 20</span>
+
+<span class="token plain">:::::::::</span>
+
+
+<span class="token plain">&quot;AWAITKEY&quot;</span>
+<span class="token plain">Lbl 01</span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">While</span><span class="token plain"> K=0</span>
+<span class="token plain">getKey-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=22 or K=45</span>
+<span class="token plain">Goto 99</span>
+<span class="token plain">:</span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain">:::::::::</span>
+
+
+
+<span class="token plain">&quot;NORMAL&quot;</span>
+<span class="token plain">Lbl 10</span>
+<span class="token plain">0-&gt;S</span>
+
+<span class="token plain">For(H,-1,0</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> H:Goto 15</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain">:-1-&gt;H</span>
+
+<span class="token plain">For(H,-1,0</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> H:Goto 01</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain">:-1-&gt;H</span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=21</span>
+<span class="token plain">Goto 20</span>
+
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=102</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">0-&gt;lCOUNT(J)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=95 or K=85</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">lCOUNT(J)-1+2*(K=95)-&gt;lCOUNT(J)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=34</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">remainder(J,N)+1-&gt;J</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=25</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">remainder(J+N-2,N)+1-&gt;J</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain">Goto 10</span>
+<span class="token plain">:::::::::</span>
+<span class="token plain">&quot;DRAW&quot;</span>
+<span class="token plain">Lbl 15</span>
+
+<span class="token plain">0-&gt;C</span>
+<span class="token plain">For(I,1,N)</span>
+<span class="token plain">C+lCOUNT(I)-&gt;C</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> I=J and S=0</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,1,&quot;&gt;&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Else</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,1,&quot; &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,2,&quot;COUNT:&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,9,&quot;    &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(I,9,lCOUNT(I))</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(7,1,&quot;AVG:&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(7,9,&quot;        &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(7,9,round(C/N,2))</span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> S=1</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(8,1,&quot;COUNTERS:&quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(8,11,N)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Else</span><span class="token plain"></span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Output</span><span class="token plain">(8,1,&quot;           &quot;)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain">:</span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+<span class="token plain">:::::::::</span>
+
+
+
+<span class="token plain">&quot;SETUP&quot;</span>
+<span class="token plain">Lbl 20</span>
+<span class="token plain">1-&gt;S</span>
+
+<span class="token plain">For(H,-1,0</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> H:Goto 15</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain">:-1-&gt;H</span>
+
+<span class="token plain">For(H,-1,0)</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> H:Goto 01</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain">:-1-&gt;H</span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=95</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">min(N+1,dim(lCOUNT))-&gt;N</span>
+<span class="token plain">0-&gt;lCOUNT(N)</span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=85</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">Then</span><span class="token plain"></span>
+<span class="token plain">max(1,N-1)-&gt;N</span>
+<span class="token plain">min(N,J)-&gt;J</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">ClrHome</span><span class="token plain"></span>
+<span class="token plain">0-&gt;K</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">End</span><span class="token plain"></span>
+
+<span class="token plain"></span><span class="token function" style="color:#d73a49">If</span><span class="token plain"> K=21</span>
+<span class="token plain">Goto 10</span>
+
+<span class="token plain">Goto 20</span>
+<span class="token plain">:::::::::</span>
+<span class="token plain">Lbl 99</span>
+<span class="token plain"></span><span class="token function" style="color:#d73a49">ClrHome</span>
+</code></pre><button type="button" aria-label="Copy code to clipboard" class="copyButton_3a42 clean-btn" style="margin-right:20px">Copy</button></div></div><div class="LAmVJup4QjuCH3bJ29dw" style="padding:8px"><div class="_giRfk4S9SuOpHmncW6Y"><div style="display:flex;flex-flow:column nowrap"><div class="QAfvgFSWdo3MgYT6cL7G" style="flex:0 0 auto"><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span></div><div dataid="status" style="white-space:pre;max-width:200px;overflow:auto">No status</div></div><div class="_th_13NK6aNOMvKsSrrC"><button class="m60aWAb_UH0ALXt3WvJZ" action="run">Run</button><button class="m60aWAb_UH0ALXt3WvJZ" action="stop" disabled="">Stop</button><button class="m60aWAb_UH0ALXt3WvJZ">2nd</button><button class="m60aWAb_UH0ALXt3WvJZ">Mode (Quit)</button><button class="m60aWAb_UH0ALXt3WvJZ">Enter</button><button class="m60aWAb_UH0ALXt3WvJZ">+</button><button class="m60aWAb_UH0ALXt3WvJZ">-</button><button class="m60aWAb_UH0ALXt3WvJZ">0</button><button class="m60aWAb_UH0ALXt3WvJZ">Up</button><button class="m60aWAb_UH0ALXt3WvJZ">Down</button></div></div></div></div></div></main></div><footer class="row docusaurus-mt-lg blogPostDetailsFull_3kfx"><div class="col"><b>Tags:</b><a class="margin-horiz--sm" href="/blog/tags/ti">ti</a><a class="margin-horiz--sm" href="/blog/tags/ti-basic">ti-basic</a><a class="margin-horiz--sm" href="/blog/tags/functions">functions</a><a class="margin-horiz--sm" href="/blog/tags/calculator">calculator</a><a class="margin-horiz--sm" href="/blog/tags/programming">programming</a></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Blog post page navigation"><div class="pagination-nav__item"></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/blog/showing-latex"><div class="pagination-nav__sublabel">Older Post</div><div class="pagination-nav__label">Showing LaTeX in LaTeX: The good, the bad and the ugly »</div></a></div></nav></main><div class="col col--2"><div class="tableOfContents_35-E thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#functions-the-need" class="table-of-contents__link">Functions: The need</a></li><li><a href="#solution-0-everything-in-a-separate-program" class="table-of-contents__link">Solution 0: Everything in a separate program?</a></li><li><a href="#solution-1-a-state-machine" class="table-of-contents__link">Solution 1: A state machine</a></li><li><a href="#solution-2-a-redirection-center" class="table-of-contents__link">Solution 2: A redirection center</a><ul><li><a href="#the-code" class="table-of-contents__link">The code</a></li><li><a href="#function-call" class="table-of-contents__link">Function call</a></li><li><a href="#dynamic-gotos" class="table-of-contents__link">Dynamic Goto&#39;s</a></li><li><a href="#nesting" class="table-of-contents__link">Nesting</a></li></ul></li><li><a href="#solution-3-abusing-the-call-stack" class="table-of-contents__link">Solution 3: Abusing the call stack</a><ul><li><a href="#the-trick" class="table-of-contents__link">The trick</a></li><li><a href="#the-code-1" class="table-of-contents__link">The code</a></li></ul></li></ul></div></div></div></div></div><footer class="footer footer--dark"><div class="container"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright (c) 2022 Vincent Kuhlmann</div></div></div></footer></div>
+<script src="/assets/js/runtime~main.f1658844.js"></script>
+<script src="/assets/js/main.1878dd30.js"></script>
+</body>
+</html>
