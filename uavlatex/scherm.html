@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2021 Vincent Kuhlmann
+-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scherm | U.A.V. LaTeX-cursus</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/uavlatex/css/styleBootstrapCompiled.css">
+
+    <!-- <script src="/uavlatex/lib/popper.min.js"></script> -->
+    <script src="/uavlatex/layout.js"></script>
+
+    <script>
+        let beforeHighlight = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (beforeHighlight != null) {
+                beforeHighlight();
+            }
+        });
+
+        beforeHighlight = () => {
+            let a = document.querySelectorAll("code");
+            for (let b of a) {
+                if (b.className.includes("language-"))
+                    continue;
+                if (b.classList.contains("verb"))
+                    continue;
+                b.classList.add("language-latex");
+                let trimmedText = b.innerText.trim();
+
+                if (!trimmedText.includes("\n")
+                && trimmedText.startsWith("\\usepackage")) {
+                    b.classList.add("usepackage");
+                }
+            }
+
+            window.setTokenHighlights = (list) => {
+                let reList = "";
+                for (let it of list) {
+                    if (reList.length > 0)
+                        reList += "|";
+                    reList += `(?:${it})`;
+                }
+
+                let e = new RegExp(`(?!(?:${reList}))\\\\(?:[^a-zA-Z()[\\]]|[a-zA-Z*]+)`);
+                let matcher = new RegExp(`${reList}`);
+                if (reList.length == 0)
+                    matcher = new RegExp("(?!)");
+
+                Prism.languages.latex.function.pattern = e;
+                console.log(`Test: ${JSON.stringify(Prism.languages.latex.equation[0].inside["equation-command"])}`);
+                Prism.languages.latex.equation[0].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[0].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+                Prism.languages.latex.equation[1].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[1].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+
+                Prism.languages.latex.tokenhighlight = {
+                    pattern: matcher,
+                    alias: "sometest"
+                };
+
+                console.log(`e: ${e.toString()}`);
+                console.log(`matcher: ${matcher.toString()}`);
+
+                console.log(`LaTeX: ${JSON.stringify(Prism.languages.latex)}`);
+            }
+            setTokenHighlights(["\\\\aaaaa"]);
+        };
+    </script>
+
+    <script>
+
+    </script>
+
+    
+    <script src="screenLayout.js"></script>
+    
+
+    <script id="mathjax" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="/uavlatex/lib/prism/prism.js"></script>
+
+    <link href="/uavlatex/lib/prism/prism.css" rel="stylesheet" />
+    <!-- <script src="layout.js"></script> -->
+    <!-- <script src="/lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./">U.A.V. LaTeX-cursus <span style="font-size:70%;font-style: italic;">&ensp;d.d. 17 mei 2021</span></a>
+
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
+                    <li class="nav-item">
+                        
+                            <a class="nav-link" href="/uavlatex">Home</a>
+                        
+                    </li>
+                    <li class="nav-item">
+                        
+                            <a class="nav-link" href="/uavlatex/materiaal">Materiaal</a>
+                        
+                    </li>
+                    <li class="nav-item" style="display:none;">
+                        
+                            <a class="nav-link active disabled" href="#">Scherm <span class="non-visual-context">(huidig)</span></a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="padding:20px 15px;display:flex;flex-flow:column nowrap;align-items:flex-start;">
+
+    <!--<h3>Screen &ensp;-->
+    <div style="display:flex;flex-flow:row wrap;gap:30px;margin-bottom:5px;">
+        <div style="display:flex;flex-flow:column nowrap;justify-content: center;">
+            <span id="socketStatus" style="font-size:100%;"></span>
+        </div>
+        <div>
+            <input type="text" class="form-control" id="feedIp" value="127.0.0.1:6501"></input>
+        </div>
+        <div style="display:inline-block;">
+            <button type="button" class="button-action" id="toggleFullscreen"
+                style="display:flex;flex-flow:row nowrap;align-items:center;font-size:100%;">
+                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-fullscreen"
+                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z" />
+                </svg>
+                <svg style="display:none;" width="1em" height="1em" viewBox="0 0 16 16"
+                    class="bi bi-fullscreen-exit" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z" />
+                </svg>
+                <span style="margin-left:5px;">Fullscreen (F)</span>
+            </button>
+        </div>
+    </div>
+<!--</h3>-->
+
+    <img id="screenDest" style="width:100%;height:80vh;object-fit:contain;" />
+
+    <!-- <textarea id="log">
+
+    </textarea> -->
+</div>
+
+
+</body>
+
+</html>

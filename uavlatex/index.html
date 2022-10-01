@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2021 Vincent Kuhlmann
+-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home | U.A.V. LaTeX-cursus</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/uavlatex/css/styleBootstrapCompiled.css">
+
+    <!-- <script src="/uavlatex/lib/popper.min.js"></script> -->
+    <script src="/uavlatex/layout.js"></script>
+
+    <script>
+        let beforeHighlight = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (beforeHighlight != null) {
+                beforeHighlight();
+            }
+        });
+
+        beforeHighlight = () => {
+            let a = document.querySelectorAll("code");
+            for (let b of a) {
+                if (b.className.includes("language-"))
+                    continue;
+                if (b.classList.contains("verb"))
+                    continue;
+                b.classList.add("language-latex");
+                let trimmedText = b.innerText.trim();
+
+                if (!trimmedText.includes("\n")
+                && trimmedText.startsWith("\\usepackage")) {
+                    b.classList.add("usepackage");
+                }
+            }
+
+            window.setTokenHighlights = (list) => {
+                let reList = "";
+                for (let it of list) {
+                    if (reList.length > 0)
+                        reList += "|";
+                    reList += `(?:${it})`;
+                }
+
+                let e = new RegExp(`(?!(?:${reList}))\\\\(?:[^a-zA-Z()[\\]]|[a-zA-Z*]+)`);
+                let matcher = new RegExp(`${reList}`);
+                if (reList.length == 0)
+                    matcher = new RegExp("(?!)");
+
+                Prism.languages.latex.function.pattern = e;
+                console.log(`Test: ${JSON.stringify(Prism.languages.latex.equation[0].inside["equation-command"])}`);
+                Prism.languages.latex.equation[0].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[0].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+                Prism.languages.latex.equation[1].inside["equation-command"].pattern = e;
+                Prism.languages.latex.equation[1].inside["tokenhighlight"] = {
+                    pattern: matcher
+                };
+
+                Prism.languages.latex.tokenhighlight = {
+                    pattern: matcher,
+                    alias: "sometest"
+                };
+
+                console.log(`e: ${e.toString()}`);
+                console.log(`matcher: ${matcher.toString()}`);
+
+                console.log(`LaTeX: ${JSON.stringify(Prism.languages.latex)}`);
+            }
+            setTokenHighlights(["\\\\aaaaa"]);
+        };
+    </script>
+
+    <script>
+
+    </script>
+
+    
+
+    <script id="mathjax" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="/uavlatex/lib/prism/prism.js"></script>
+
+    <link href="/uavlatex/lib/prism/prism.css" rel="stylesheet" />
+    <!-- <script src="layout.js"></script> -->
+    <!-- <script src="/lib/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./">U.A.V. LaTeX-cursus <span style="font-size:70%;font-style: italic;">&ensp;d.d. 17 mei 2021</span></a>
+
+            <div class="navbar-nav" style="flex:1 1 auto;">
+                <ul class="navbar-content">
+                    <li class="nav-item">
+                            <a class="nav-link active disabled" href="#">Home <span class="non-visual-context">(huidig)</span></a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href="/uavlatex/materiaal">Materiaal</a>
+                    </li>
+                    <li class="nav-item" style="display:none;">
+                            <a class="nav-link preview" href="/uavlatex/scherm">Scherm</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="padding:20px 15px;display:flex;flex-flow:column nowrap;align-items:flex-start;">
+    <!-- <h1>U.A.V. LaTeX-cursus</h1> -->
+
+    <div style="display:flex;flex-flow:row wrap;gap:10px;justify-content: center;
+    margin-bottom:20px;width:100%;">
+        <div class="card" style="flex: 20rem 1 1;">
+            <!-- <div class="card-title"><h5>Praktische details</h5></div> -->
+            <div class="card-body">
+                <h5>Praktische details</h5>
+                <strong>Locatie:</strong> BBG 209<br/>
+                <strong>Datum:</strong> Maandag 17 mei 2021<br/>
+                <strong>Tijd:</strong> 17:00 - 19:00<br/>
+                <strong>Inschrijving:</strong> Vereist, via Onderwijscommissie<br/>
+            </div>
+        </div>
+
+        <div class="card" style="flex: 20rem 1 1;">
+            <!-- <div class="card-title"><h5>Praktische details</h5></div> -->
+            <div class="card-body">
+                <h5>Bestanden</h5>
+                <strong>Slides:</strong> <a href="/assets/uavlatex/uavlatex-slides.pdf" target="_blank">uavlatex-slides.pdf</a>.<br/>
+                <strong>Zie ook: <a href="/uavlatex/materiaal">Materiaal</a></strong>
+            </div>
+        </div>
+
+        <div class="card" style="flex: 20rem 1 1;">
+            <!-- <div class="card-title"><h5>Praktische details</h5></div> -->
+            <div class="card-body">
+                <h5>Planning</h5>
+                <ol>
+                    <li>Inleiding</li>
+                    <li>Tekstopmaak</li>
+                    <li>Documentstructuur</li>
+                    <li>Afbeeldingen</li>
+                    <li>Formules</li>
+                    <li>Bibliografie</li>
+                    <li>Goed om te weten</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- <h2>Inhoud</h2>
+
+    Planning:
+    <ol>
+        <li>Inleiding</li>
+        <li>Tekstopmaak</li>
+        <li>Documentstructuur</li>
+        <li>Afbeeldingen</li>
+        <li>Formules</li>
+        <li>Bibliografie</li>
+        <li>Goed om te weten</li>
+    </ol> -->
+
+    <h3>Mededelingen</h3>
+
+    <!--  width:30rem;width:calc(min(calc(100vw - 50px),30rem)); -->
+    <div class="card" style="flex: 20rem 1 1;max-width:30rem;">
+        <!-- <div class="card-title"><h5>Praktische details</h5></div> -->
+        <div class="card-body">
+            <strong>14 mei 2021, 12:29</strong>
+            
+            <p style="text-align: justify;">
+                Hoi!<br/>
+                Leuk dat je maandag komt deelnemen aan de LaTeX-cursus! Om
+                snel van start te kunnen gaan, vraag ik dat iedereen
+                alvast een account aanmaakt op <a href="http://www.overleaf.com" target="blank">
+                Overleaf.com</a>. Dit is de website waarop we LaTeX schrijven.
+            </p>
+            <p style="text-align: justify;">
+                Verder is het belangrijk om je laptop helemaal
+                opgeladen mee te nemen. Soms willen niet alle stopcontacten
+                werken. De centrale plaats voor informatie rondom de cursus
+                is <a href="http://vkuhlmann.github.io/uavlatex">vkuhlmann.github.io/uavlatex</a>.
+            </p>
+            <p style="text-align: left;">
+                Referenties, slides en dergelijke zal ik daar uploaden.
+                Mocht je nog vragen hebben, stuur me dan een mail op
+                <span style="display:inline-block;"><span style="font-family: 'Courier New', Courier, monospace;">vincent.</span><!--
+                --><span class="visually-hidden" style="user-select: none;">incent.</span><!--
+                --><span style="font-family: 'Courier New', Courier, monospace;">kuhlmann</span><!--
+                --><span style="font-family: 'Courier New', Courier, monospace;">@</span><!--
+                --><span class="visually-hidden" style="user-select: none;">@</span><!--
+                --><span style="font-family: 'Courier New', Courier, monospace;">hotmail.com</span><!--
+                --><span style="user-select:none">.</span></span>
+            </p>
+            <p>
+                Tot maandag!
+            </p>
+            <p>
+                - Vincent
+            </p>
+        </div>
+    </div>
+
+    <!-- <div style="text-align:justify;">
+        <p>
+        </p>
+    </div>             -->
+</div>
+
+
+</body>
+
+</html>

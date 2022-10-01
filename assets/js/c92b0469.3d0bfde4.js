@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvkuhlmann_www=self.webpackChunkvkuhlmann_www||[]).push([[1614],{48152:function(a){a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"ti-basic","name":"ti-basic","count":1,"permalink":"/blog/tags/ti-basic"}')}}]);

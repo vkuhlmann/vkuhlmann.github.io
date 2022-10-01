@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvkuhlmann_www=self.webpackChunkvkuhlmann_www||[]).push([[509],{49666:function(a){a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"verbatim","name":"verbatim","count":1,"permalink":"/blog/tags/verbatim"}')}}]);
