@@ -45,3 +45,12 @@ ze uit over meerdere pagina's:
 Hint: https://tex.stackexchange.com/a/528245/242407
 
 Opmerking: de pagina grootte van A6-papier is 105mm:148mm
+
+#### Commando <CodeInline code="\FloatBarrier" />
+
+Zoek op wat het commando <CodeInline code="\FloatBarrier" /> van het package
+placeins doet.
+
+#### Wrapfigure
+
+Zoek op wat het environment wrapfigure van het package wrapfig doet.
