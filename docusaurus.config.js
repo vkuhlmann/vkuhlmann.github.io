@@ -292,6 +292,7 @@ module.exports = {
           { to: '/latex/configuration/installation', from: '/latex/install' },
           { to: '/latex/configuration/installation', from: '/latex/installation' },
           { to: "/latex/vakidioot/code1", from: "/go/cea539" },
+          { to: "/latex/exercises/2022-09-cursus/Week2_Vincent/uitbreiding", from: "/go/d98d48" },
           { to: '/latex/exercises/2022-02-GSNS/part1', from: '/latex/exercises' },
         ]
         // createRedirects: function (existingPath) {
