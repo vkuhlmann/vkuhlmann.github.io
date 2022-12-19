@@ -1,0 +1,41 @@
+.sequence {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10pt;
+    align-items: center;
+    padding-left: 0pt;
+}
+
+.sequence li {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    background-color: hsl(0, 0%, 90%);
+    /* padding: 10pt; */
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    padding-bottom: 3pt;
+}
+
+.sequence .sortable-ghost {
+    height: 2.5em;
+    width: 2.5em;
+}
+
+.sequence .sortable-drag {
+    height: 2.5em;
+    width: 2.5em;
+}
+
+.sequence .insertMarker {
+    height: 2.5em;
+    width: 5pt;
+    padding-bottom: 0pt;
+    background-color: hsl(0, 0%, 50%);
+}
+
+.sequence .insertMarker.sortable-ghost {
+    width: 8pt;
+    background-color: black;
+}
