@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>QR Widgets</title>
+
+		<link rel="stylesheet" href="./stylesheets/style.css">
+
+		<!-- Latest compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+
+		<!-- jQuery library -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+		<!-- Latest compiled JavaScript -->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+
+		<!-- <script src="lib/qr-scanner/qr-scanner.umd.min.js"></script>
+		<script>
+			QrScanner.WORKER_PATH = 'lib/qr-scanner/qr-scanner-worker.min.js';
+		</script> -->
+
+		<script src="lib/html5-qrcode/html5-qrcode.min.js"></script>
+		
+		<!-- <script src="websocket.js"></script> -->
+		<script src="layout.js"></script>
+	</head>
+	<body>
+		<div class="container-fluid;" style="padding:20px 15px;display:flex;flex-flow:column nowrap;align-items:flex-start;">
+
+			<div id="reader" style="width:600px;width:min(600px,90vw);"></div>
+
+            <div style="margin-top:20px;">Current sequence:</div>
+            <div style="font-size:150%;margin-bottom:20pt;">&nbsp;<span id="sequenceViewer"></span></div>
+
+            <div style="font-size:200%;margin-bottom:50pt;">&nbsp;<span id="distanceViewer"></span></div>
+
+            <button class="btn btn-danger" id="clearSequence">Clear</button>
+
+			<!-- <h1 id="listTitle">Backups</h1>
+			<div class="instructionsList" id="backupsList">
+				<div class="header">ID</div>
+				<div class="header">Name</div>
+				<div class="header">Availability</div>
+			
+				<div>SimData_266438_Time0_00_0_0.bin</div>
+				<div>2020-11-21T19:57</div>
+				<div>0 KB</div>
+				
+				<div>SimData_266438_Time0_00_20_0</div>
+				<div>2020-11-21T19:57 iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii wwwwwwwwwwww wwwwwwwww</div>
+				<div>0 KB</div>
+				
+				<div>SimData_266438_Time0_00_20_0</div>
+				<div>2020-11-21T19:57</div>
+				<div>0 KB</div>
+				
+				<div>SimData_266438_Time0_00_20_0</div>
+				<div>2020-11-21T19:57</div>
+				<div>0 KB</div>
+			</div> -->
+			
+			<!-- <button class="btn btn-link" id="reportNavPrev">New run</button> -->
+		</div>
+	</body>
+</html>
+
