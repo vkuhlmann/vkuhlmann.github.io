@@ -68,14 +68,14 @@ computer. On Windows, Perl is not installed by default, and only TeX Live comes
 bundled with it.
 
 The script `latexmk` improves the user experience for compiling multiple times
-or with a bibliography. You can install Perl from https://strawberryperl.com.
+or with a bibliography. You can install Perl from https://strawberryperl.com
 
 Alternatively, you can instruct the `LaTeX Worskhop`-extension to use `pdflatex`
 for compiling instead. Instructions for this are at [VS Code problems troubleshooting](/latex/configuration/fixingVSCode).
 
 For more on `latexmk`: https://mg.readthedocs.io/latexmk.html
 
-** Download and install Strawberry Perl if you are on Windows: https://strawberryperl.com. **
+** Download and install Strawberry Perl if you are on Windows: https://strawberryperl.com **
 
 <!-- ::: -->
 <!-- 
