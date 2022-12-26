@@ -30,12 +30,12 @@
 
 .sequence .insertMarker {
     height: 2.5em;
-    width: 5pt;
+    width: 10pt;
     padding-bottom: 0pt;
     background-color: hsl(0, 0%, 50%);
 }
 
 .sequence .insertMarker.sortable-ghost {
-    width: 8pt;
+    width: 15pt;
     background-color: black;
 }

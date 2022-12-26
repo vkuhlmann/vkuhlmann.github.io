@@ -76,6 +76,8 @@ function onLoad() {
     //dataInit();
     statusEl = document.querySelector("#status");
 
+    try{
+
     let clearEl = document.querySelector("#clearSequence");
     clearEl.addEventListener("click", e => {
         clearList();
@@ -97,8 +99,7 @@ function onLoad() {
         onSort: () => {
             scheduleDistanceUpdate();
             lastScanned = null;
-        },
-
+        }
     });
 
     // for (let a of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") {
@@ -108,6 +109,10 @@ function onLoad() {
     for (let a of "ABCDEFGHIJKLMNOPQRS") {
         addItem(a);
     }
+}catch(e){
+    statusEl.innerHTML = escapeHtml(e);
+    console.error(e);
+}
 
     // sortable.
 
@@ -175,6 +180,9 @@ async function updateDistance() {
         return;
     }
     el.innerHTML = escapeHtml(distance.toString());
+
+    if (distance == 0)
+        document.body.style.backgroundColor = "green";
 }
 
 function scheduleDistanceUpdate() {
